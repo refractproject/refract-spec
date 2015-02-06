@@ -34,29 +34,30 @@ The Refract Element contains three properties, `element`, `attributes`, and `con
 
     The `element` property defines the type of element. It MAY be a string that references an element type, or it MAY be an `element` itself that provides additional data about the element type.
 
-    - Properties
-        - string
-        - Element
+    - Members
+        - (string)
+        - (Element)
 
 - `attributes` (enum)
 
     The `attributes` property defines attributes about the given instance of the element, as specified by the `element` property. It MAY be an array of elements, or it MAY be an object. The keys of the object SHOULD be defined element types with valid values for the corresponding element types.
 
-    - Properties
-        - object
+    - Members
+        - (object)
         - array[Element]
 
 - `content` (enum)
 
     The `content` property defines the content of the instance of the specified element type. The value MAY be any of the JSON primitive types, an element, or an array of elements.
 
-    - Properties
-        - null
-        - string
-        - number
-        - boolean
-        - object
-        - Element
+    - Members
+        - (null)
+        - (string)
+        - (number)
+        - (boolean)
+        - (array)
+        - (object)
+        - (Element)
         - array[Element]
 
 #### Example
@@ -99,19 +100,19 @@ In addition to expressing Refract Elements as objects with `element`, `attribute
 
 #### Compact Element (array)
 - (enum, required) - Name of the element
-    - string
+    - (string)
     - Compact Element
 - (enum, optional) - Attributes of the element
-    - object
+    - (object)
     - array[Compact Element]
 - (enum) - Element content with any of the following types
-  - null
-  - string
-  - number
-  - boolean
-  - array
-  - object
-  - Compact Element
+  - (null)
+  - (string)
+  - (number)
+  - (boolean)
+  - (array)
+  - (object)
+  - (Compact Element)
   - array[Compact Element]
 
 #### Example
