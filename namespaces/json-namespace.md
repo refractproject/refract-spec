@@ -1,10 +1,3 @@
----
-
-Author: Stephen Mizell
-Version: 0.1.0
-
----
-
 # JSON Namespace
 
 This spec defines JSON primitive types to be used in a Refract document structure. Each type defined here extends the Refract Element as defined in the Refract specification.
