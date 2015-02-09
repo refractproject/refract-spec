@@ -1,11 +1,3 @@
----
-
-Author: Stephen Mizell
-Version: 0.1.0
-
----
-
-
 # Refract Document Format Specification
 
 ## Introduction
