@@ -53,8 +53,6 @@ Abstract element representing an element that can be referenced or is a referenc
 ### Properties
 
 - `element` (Identifier, required) - identifier of this element's base element
-
-
 - `attributes`
     - `id` (Identifier) - identifier of this element
     - `ref` (Identifier) - reference to expanded element
@@ -107,9 +105,129 @@ which _expands_ to:
 }
 ```
 
-## Data Structure (Element)
+## MSON Element (Distinct Element)
+
+- `attributes`
+    - `typeAttributes` (array[enum])
+        - required (string)
+        - fixed (string)
+        - variable (string)
+    - `sample`
+    - `default`
+    - `validation`
+    - `description`
 
 
+### Example
+
+#### MSON
+
+```
+- id: 1
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "id"
+            },
+            "content": {
+                "element": "string",
+                "content": "1"
+            }
+        }
+    ]
+}
+```
+
+
+#### MSON
+
+```
+- id: 42 (required, fixed)
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "id",
+                "typeAttributes": ["required", "fixed"]
+            },
+            "content": {
+                "element": "string",
+                "content": "42"
+            }
+        }
+    ]
+}
+```
+
+#### MSON
+
+```
+- id (number)
+    - default: 0
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "id",
+                "default": {
+                    "element": "number",
+                    "content": 0
+                }
+            },
+            "content": {
+                "element": "number",
+                "content": null
+            }
+        }
+    ]
+}
+```
+
+## Enum Type (MSON Element)
+
+- `element`: enum (string, required, fixed)
+- `content` (array[MSON Element])
+
+### Example
+
+#### MSON
+
+```
+TODO:
+```
+
+#### MSON DOM
+
+```json
+TODO:
+```
+
+TODO:
+- one of
+- mixin
+- named type example
 
 
 
