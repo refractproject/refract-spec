@@ -215,13 +215,38 @@ which _expands_ to:
 #### MSON
 
 ```
-TODO:
+- tag (enum[string])
+    - red
+    - green
 ```
 
 #### MSON DOM
 
 ```json
-TODO:
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "tag"
+            },
+            "content": {
+                "element": "enum",
+                "content": [
+                    {
+                        "element": "string",
+                        "content": "red"
+                    },
+                    {
+                        "element": "string",
+                        "content": "green"
+                    }
+                ]
+            }
+        }
+    ]
+}
 ```
 
 TODO:
