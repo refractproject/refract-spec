@@ -3,7 +3,29 @@
 This document extends [Refract][]'s [JSON Namespace][] with elements necessary to
 build [MSON][] DOM.
 
+# Content
+
+This namespace defines following elements:
+
+1. General-use elements
+    1. [Id Element](#id-element-distinct-element)
+    1. [Distinct Element](#distinct-element-element)
+    1. [Select](#select-distinct-element)
+    1. [Option](#option-distinct-element)
+
+1. MSON DOM-specific elements
+    1. [MSON Element](#mson-element-distinct-element)
+    1. [Boolean Type](#boolean-type-jsonboolean-type)
+    1. [String Type](#string-type-jsonstring-type)
+    1. [Number Type](#number-type-jsonnumber-type)
+    1. [Array Type](#array-type-jsonarray-type)
+    1. [Object Type](#object-type-jsonobject-type)
+    1. [Property Type](#property-type-jsonproperty-type)
+    1. [Enum Type](#enum-type-mson-element)
+
 # Terminology
+
+This specification uses terminology from [MSON Specification][], in addition, bellow you can find the explanation of terms defined in this namespace.
 
 ## Expanded Element
 
@@ -125,6 +147,8 @@ Element representing selection of options. Every item of content array represent
 - `content` (array[Option])
 
 ## Option (Distinct Element)
+
+One choice in the selection.
 
 ### Properties
 
@@ -475,3 +499,5 @@ Description is here! Properties to follow.
 [Refract]: https://github.com/refractproject/refract-spec/blob/master/refract-spec.md
 [JSON Namespace]: https://github.com/refractproject/refract-spec/blob/master/namespaces/json-namespace.md
 [MSON]: https://github.com/apiaryio/mson
+
+[MSON Specification]: https://github.com/apiaryio/mson/blob/master/MSON%20Specification.md
