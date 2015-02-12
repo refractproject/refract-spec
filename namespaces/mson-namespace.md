@@ -7,7 +7,7 @@ build [MSON][] DOM.
 
 ## Expanded Element
 
-MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves these structures can be named and reused. In MSON, the reusable data structures are called _Named Types_.
+MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves these structures can be named (using an _identifier_) and reused. In MSON, the reusable data structures are called _Named Types_.
 
 Often, before an MSON DOM can be processed referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such parser can resolve references and produce a complete MSON DOM, that is a DOM that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
 
@@ -23,28 +23,39 @@ Note not every MSON _Base Type_ is presented in JSON namespace primitive types a
 
 ### JSON Namespace vs. MSON built-in types
 
-| JSON Namespace |   MSON  |
-|:--------------:|:-------:|
-|     boolean    | boolean |
-|     string     |  string |
-|     number     |  number |
-|      array     |  array  |
-|     &nbsp;     |   enum  |
-|     object     |  object |
-|      null      |  &nbsp; |
+| JSON primitive |   JSON Namespace   | MSON Base Type |   MSON Namespace   |
+|:--------------:|:------------------:|:--------------:|:------------------:|
+|     boolean    |  JSON:Boolean Type |     boolean    |  MSON:Boolean Type |
+|     string     |  JSON:String Type  |     string     |  MSON:String Type  |
+|     number     |  JSON:Number Type  |     number     |  MSON:Number Type  |
+|      array     |   JSON:Array Type  |      array     |   MSON:Array Type  |
+|        -       |          -         |      enum      |   MSON:Enum Type   |
+|     object     |  JSON:Object Type  |     object     |  MSON:Object Type  |
+|      null      |   JSON:Null Type   |        -       |          -         |
+|        -       | JSON:Property Type |        -       | MSON:Property Type |
 
-# MSON DOM Elements Definition
+
+# General Elements Definition
+
+General elements defined inside MSON namespaces but possibly reusable in another domain.
 
 ## Identifier (Enum)
 
-Identifier of an element in MSON DOM.
+Identifier of an element in the MSON namespace. The identifier MUST be either directly a `string` value or an `Id Element` element.
 
 ### Members
 
 - (string)
-- (Distinct Element)
-    - `element`: id
-    - `content`: (string)
+- (Id Element)
+
+## Id Element (Distinct Element)
+
+Element representing an identifier in the MSON namespace.
+
+### Properties
+
+- `element`: id (string, required, fixed)
+- `content` (string, required)
 
 ## Distinct Element (Element)
 
@@ -56,7 +67,6 @@ Abstract element representing an element that can be referenced or is a referenc
 - `attributes`
     - `id` (Identifier) - identifier of this element
     - `ref` (Identifier) - reference to expanded element
-
 
 ### Example
 
@@ -105,107 +115,112 @@ which _expands_ to:
 }
 ```
 
+## Select (Distinct Element)
+
+Element representing selection of options. Every item of content array represents one possible option.
+
+### Properties
+
+- `element`: select (string, required, fixed)
+- `content` (array[Option])
+
+## Option (Distinct Element)
+
+### Properties
+
+- `element`: option (string, required, fixed)
+- `content` (enum)
+    - (Distinct Element)
+    - (array[Distinct Element])
+
+#### Example
+
+```html
+<select>
+  <option>Volvo</option>
+  <option>Saab</option>
+</select>
+```
+
+```json
+{
+    "element": "select",
+    "content": [
+        {
+            "element": "option",
+            "content": [
+                {
+                    "element": "string",
+                    "content": "volvo"
+                }
+            ]
+        }
+        {
+            "element": "option",
+            "content": [
+                {
+                    "element": "string",
+                    "content": "Saab"
+                }
+            ]
+        }
+    ]
+}
+```
+
+# MSON DOM Elements Definition
+
 ## MSON Element (Distinct Element)
 
+Base element for all MSON elements.
+
+The MSON Element adds attributes representing MSON _Type Definition_ and _Type Sections_. Note in MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the element.
+
+### Properties
+
 - `attributes`
-    - `typeAttributes` (array[enum])
-        - required (string)
-        - fixed (string)
-        - variable (string)
-    - `sample`
-    - `default`
-    - `validation`
-    - `description`
+    - `typeAttributes` (array) - _Type Definition_ attributes list, see _Type Attribute_  
+        - (enum[string])
+            - required
+            - optional
+            - fixed
+            - sample
+            - default
+    - `variable` (boolean) - Element content is _Variable Value_
+    - `sample` (MSON Element) - Alternative sample _Member Types_ value
+    - `default` (MSON Element) - Default value for _Member Types_
+    - `validation` - Not used, reserved for a future use
+    - `description` - Combined description of an MSON Element
 
+## Boolean Type (JSON:Boolean Type)
 
-### Example
+- Include MSON Element
 
-#### MSON
+## String Type (JSON:String Type)
 
-```
-- id: 1
-```
+- Include MSON Element
 
-#### MSON DOM
+## Number Type (JSON:Number Type)
 
-```json
-{
-    "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "id"
-            },
-            "content": {
-                "element": "string",
-                "content": "1"
-            }
-        }
-    ]
-}
-```
+- Include MSON Element
 
+## Array Type (JSON:Array Type)
 
-#### MSON
+- Include MSON Element
 
-```
-- id: 42 (required, fixed)
-```
+## Object Type (JSON:Object Type)
 
-#### MSON DOM
+- Include MSON Element
 
-```json
-{
-    "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "id",
-                "typeAttributes": ["required", "fixed"]
-            },
-            "content": {
-                "element": "string",
-                "content": "42"
-            }
-        }
-    ]
-}
-```
+## Property Type (JSON:Property Type)
 
-#### MSON
-
-```
-- id (number)
-    - default: 0
-```
-
-#### MSON DOM
-
-```json
-{
-    "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "id",
-                "default": {
-                    "element": "number",
-                    "content": 0
-                }
-            },
-            "content": {
-                "element": "number",
-                "content": null
-            }
-        }
-    ]
-}
-```
+- Include MSON Element
 
 ## Enum Type (MSON Element)
+
+Enumeration type. Exclusive list of possible elements. The elements in content's array MUST be interpreted as mutually exclusive.
+
+### Properties
 
 - `element`: enum (string, required, fixed)
 - `content` (array[MSON Element])
@@ -249,13 +264,211 @@ which _expands_ to:
 }
 ```
 
-TODO:
-- one of
-- mixin
-- named type example
 
 
+## Examples
 
+### Anonymous Object Type
+
+#### MSON
+
+```
+- id: 1
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "id"
+            },
+            "content": {
+                "element": "string",
+                "content": "1"
+            }
+        }
+    ]
+}
+```
+
+### Type Attributes
+
+#### MSON
+
+```
+- id: 42 (required, fixed)
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "id",
+                "typeAttributes": ["required", "fixed"]
+            },
+            "content": {
+                "element": "string",
+                "content": "42"
+            }
+        }
+    ]
+}
+```
+
+### Default Value
+
+#### MSON
+
+```
+- id (number)
+    - default: 0
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "id",
+                "default": {
+                    "element": "number",
+                    "content": 0
+                }
+            },
+            "content": {
+                "element": "number",
+                "content": null
+            }
+        }
+    ]
+}
+```
+
+### One Of
+
+#### MSON
+
+```
+- city
+- One Of
+    - state
+    - province
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "city"
+            },
+            "element": "select",
+            "content": [
+                {
+                    "element": "option",
+                    "content": [
+                        {
+                            "element": "property",
+                            "attributes": {
+                                "name": "state"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "element": "option",
+                    "content": [
+                        {
+                            "element": "property",
+                            "attributes": {
+                                "name": "province"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
+
+### Mixin
+
+#### MSON
+
+```
+- id
+- Include User
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "id"
+            }
+        }
+        {
+            "element": "User"
+        }
+    ]
+}
+```
+
+### Named Type
+
+#### MSON
+
+```
+# Address (object)
+Description is here! Properties to follow.
+
+## Properties
+- street
+```
+
+#### MSON DOM
+
+```json
+{
+    "element": "object",
+    "attributes": {
+        "id": "Address",
+        "description": "Description is here! Properties to follow."
+    },
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "street"
+            }
+        }
+    ]
+}
+```
 
 [Refract]: https://github.com/refractproject/refract-spec/blob/master/refract-spec.md
 [JSON Namespace]: https://github.com/refractproject/refract-spec/blob/master/namespaces/json-namespace.md
