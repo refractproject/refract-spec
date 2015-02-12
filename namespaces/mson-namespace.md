@@ -379,7 +379,9 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
             "element": "property",
             "attributes": {
                 "name": "city"
-            },
+            }
+        },
+        {
             "element": "select",
             "content": [
                 {
