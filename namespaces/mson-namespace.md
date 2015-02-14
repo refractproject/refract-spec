@@ -25,23 +25,23 @@ This namespace defines following elements:
 
 # Terminology
 
-This specification uses terminology from [MSON Specification][], in addition, bellow you can find the explanation of terms defined in this namespace.
+This specification uses terminology from [MSON Specification][]. In addition, the terms defined in this namespace are described below.
 
 ## Expanded Element
 
-MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves these structures can be named (using an _identifier_) and reused. In MSON, the reusable data structures are called _Named Types_.
+MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
 
 Often, before an MSON DOM can be processed referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such parser can resolve references and produce a complete MSON DOM, that is a DOM that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
 
-In other words, an expanded element is such an element that does not contain _Identifier_ (defined bellow) to any other elements but those defined in JSON or MSON namespaces.
+In other words, an expanded element  is one that does not contain any _Identifier_ (defined bellow) referencing any other elements than those defined in JSON or MSON namespaces.
 
-The expanded DOM MUST, however, keeps the track of what data structure was expanded and what from where.
+The expanded DOM MUST, however, keep the track of what data structure was expanded and what from where.
 
 ## Base Element
 
-In MSON, every data structure is a sub-type of another data structure, and, in transition, it is directly or indirectly derived from one of the MSON _Base Types_. This is expressed as an inheritance of elements in MSON DOM. Where the predecessor of an element is referred to as element's _Base Element_.
+In MSON, every data structure is a sub-type of another data structure, and, therefore, it is directly or indirectly derived from one of the MSON _Base Types_. This is expressed as an inheritance of elements in MSON DOM. Where the predecessor of an element is referred to as element's _Base Element_.
 
-Note not every MSON _Base Type_ is presented in JSON namespace primitive types and vice versa, see the table bellow:
+Note: Not every MSON _Base Type_ is presented in JSON namespace primitive types and vice versa, see the table bellow:
 
 ### JSON Namespace vs. MSON built-in types
 
