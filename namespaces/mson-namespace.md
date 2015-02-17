@@ -235,6 +235,9 @@ The MSON Element adds attributes representing MSON _Type Definition_ and _Type S
 ## Object Type (JSON:Object Type)
 
 - Include MSON Element
+- `content` (array, required)
+    - (JSON:Property Type)
+    - (Select)
 
 ## Property Type (JSON:Property Type)
 
