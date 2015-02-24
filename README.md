@@ -5,7 +5,6 @@ Refract is a a recursive data structure for expressing complex structures, relat
 ## Documents
 
 - [Full Specification](refract-spec.md)
-- [JSON Namespace](namespaces/json-namespace.md)
 
 ## Version
 
@@ -72,28 +71,43 @@ Instead of merging documents, Refract takes a different approach that creates a 
   "element": "object",
   "content": [
     {
-      "element": "property",
-      "attributes": {
-        "name": "name",
-        "type": "http://schema.org/name"
+      "key": {
+        "element": "string",
+        "content": "name"
       },
-      "content": "The Empire State Building"
+      "value": {
+        "element": "string",
+        "meta": {
+          "ref": "http://schema.org/name"
+        },
+        "content": "The Empire State Building"
+      }
     },
     {
-      "element": "property",
-      "attributes": {
-        "name": "description",
-        "type": "http://schema.org/description"
+      "key": {
+        "element": "string",
+        "content": "description"
       },
-      "content": "The Empire State Building is a 102-story landmark in New York City.",
+      "value": {
+        "element": "string",
+        "meta": {
+          "ref": "http://schema.org/description"
+        },
+        "content": "The Empire State Building is a 102-story landmark in New York City."
+      }
     },
     {
-      "element": "property",
-      "attributes": {
-        "name": "image",
-        "type": "http://schema.org/image"
+      "key": {
+        "element": "string",
+        "content": "image"
       },
-      "content": "http://www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg",
+      "value": {
+        "element": "string",
+        "meta": {
+          "ref": "http://schema.org/image"
+        },
+        "content": "http://www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg"
+      }
     }
   ]
 }
