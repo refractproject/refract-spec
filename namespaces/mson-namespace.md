@@ -11,13 +11,13 @@ This namespace defines following elements:
     1. [Option](#option-distinct-element)
 
 1. MSON DOM-specific elements
-    1. [MSON Element](#mson-element-distinct-element)
-    1. [Boolean Type](#boolean-type-jsonboolean-type)
-    1. [String Type](#string-type-jsonstring-type)
-    1. [Number Type](#number-type-jsonnumber-type)
-    1. [Array Type](#array-type-jsonarray-type)
-    1. [Object Type](#object-type-jsonobject-type)
-    1. [Property Type](#property-type-jsonproperty-type)
+    1. [MSON Element](#mson-element-element)
+    1. [Boolean Type](#boolean-type-boolean-type)
+    1. [String Type](#string-type-string-type)
+    1. [Number Type](#number-type-number-type)
+    1. [Array Type](#array-type-array-type)
+    1. [Object Type](#object-type-object-type)
+    1. [Property Type](#property-type-property-type)
     1. [Enum Type](#enum-type-mson-element)
 
 # About this Document
@@ -42,7 +42,7 @@ The expanded DOM MUST, however, keep the track of what data structure was expand
 
 In MSON, every data structure is a sub-type of another data structure, and, therefore, it is directly or indirectly derived from one of the MSON _Base Types_. This is expressed as an inheritance of elements in MSON DOM. Where the predecessor of an element is referred to as element's _Base Element_.
 
-Note: Not every MSON _Base Type_ is presented in JSON namespace primitive types and vice versa, see the table bellow:
+Note: Not every MSON _Base Type_ is presented in Refract primitive types and vice versa – see the table bellow.
 
 ### Type comparison
 
@@ -63,23 +63,14 @@ General purpose elements defined inside MSON namespaces but possibly reusable in
 
 ## Select (Element)
 
-Element representing selection of options. Every item of content array represents one possible option.
+Element representing selection of options. Every Element of content array represents one possible option.
+
+The `select` element provides a way to inherit one or more mutually exclusive elements to form a new element. The `select` element MUST NOT affect the original elements being selected, and MUST define a new instance of an element.
 
 ### Properties
 
 - `element`: select (string, fixed)
-- `content` (array[Option])
-
-## Option (Element)
-
-One choice in the selection.
-
-### Properties
-
-- `element`: option (string fixed)
-- `content` (enum)
-    - (Element)
-    - (array[Element])
+- `content` (array[Element])
 
 ### Examples
 
@@ -95,22 +86,12 @@ One choice in the selection.
     "element": "select",
     "content": [
         {
-            "element": "option",
-            "content": [
-                {
-                    "element": "string",
-                    "content": "volvo"
-                }
-            ]
-        }
+            "element": "string",
+            "content": "Volvo"
+        },
         {
-            "element": "option",
-            "content": [
-                {
-                    "element": "string",
-                    "content": "Saab"
-                }
-            ]
+            "element": "string",
+            "content": "Saab"
         }
     ]
 }
@@ -161,9 +142,6 @@ Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the e
 ## Object Type (Object Element)
 
 - Include [MSON Element][]
-- `content` (array, required)
-    - (Property Element)
-    - (Select)
 
 ## Property Type (Property Element)
 
@@ -176,7 +154,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 ### Properties
 
 - `element`: enum (string, fixed)
-- `content` (array[MSON Element])
+- `content` (array[[MSON Element][]])
 
 ### Examples
 
@@ -231,19 +209,22 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ```json
 {
-    "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "id"
-            },
-            "content": {
-                "element": "string",
-                "content": "42"
+    "element": "type",
+    "content": {
+        "element": "object",
+        "content": [
+            {
+                "element": "property",
+                "attributes": {
+                    "name": "id"
+                },
+                "content": {
+                    "element": "string",
+                    "content": "42"
+                }
             }
-        }
-    ]
+        ]
+    }
 }
 ```
 
@@ -259,20 +240,23 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ```json
 {
-    "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "id",
-                "typeAttributes": ["required", "fixed"]
-            },
-            "content": {
-                "element": "string",
-                "content": "42"
+    "element": "type",
+    "content": {
+        "element": "object",
+        "content": [
+            {
+                "element": "property",
+                "attributes": {
+                    "name": "id",
+                    "typeAttributes": ["required", "fixed"]
+                },
+                "content": {
+                    "element": "string",
+                    "content": "42"
+                }
             }
-        }
-    ]
+        ]
+    }
 }
 ```
 
@@ -289,23 +273,26 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ```json
 {
+    "element": "type",
+    "content": {
     "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "id",
-                "default": {
+        "content": [
+            {
+                "element": "property",
+                "attributes": {
+                    "name": "id",
+                    "default": {
+                        "element": "number",
+                        "content": 0
+                    }
+                },
+                "content": {
                     "element": "number",
-                    "content": 0
+                    "content": null
                 }
-            },
-            "content": {
-                "element": "number",
-                "content": null
             }
-        }
-    ]
+        ]
+    }
 }
 ```
 
@@ -322,44 +309,39 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 #### MSON DOM
 
+TODO:
+
 ```json
 {
-    "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "city"
-            }
-        },
-        {
-            "element": "select",
-            "content": [
-                {
-                    "element": "option",
-                    "content": [
-                        {
-                            "element": "property",
-                            "attributes": {
-                                "name": "state"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "element": "option",
-                    "content": [
-                        {
-                            "element": "property",
-                            "attributes": {
-                                "name": "province"
-                            }
-                        }
-                    ]
+    "element": "type",
+    "content": {
+        "element": "object",
+        "content": [
+            {
+                "element": "property",
+                "attributes": {
+                    "name": "city"
                 }
-            ]
-        }
-    ]
+            },
+            {
+                "element": "select",
+                "content": [
+                    {
+                        "element": "property",
+                        "attributes": {
+                            "name": "state"
+                        }
+                    },
+                    {
+                        "element": "property",
+                        "attributes": {
+                            "name": "province"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 }
 ```
 
@@ -376,42 +358,27 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ```json
 {
-    "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "id"
+    "element": "type",
+    "content": {
+        "element": "extend",
+        "content": [
+            {
+                "element": "object",
+                "content": [
+                    {
+                        "element": "property",
+                        "attributes": {
+                            "name": "id"
+                        }
+                    }
+                ]
             }
-        }
-        {
-            "element": "ref",
-            "content": "#User"
-        }
-    ]
-}
-```
-
-**versus new refract?**
-
-```json
-{
-    "element": "object",
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "id"
-            }
-        }
-        {
-            "element": "extend",
-            "content": {
+            {
                 "element": "ref",
                 "content": "#User"
             }
-        }
-    ]
+        ]
+    }
 }
 ```
 
@@ -433,34 +400,120 @@ Description is here! Properties to follow.
 
 ```json
 {
-    "element": "object",
-    "attributes": {
-        "id": "Address",
-        "description": "Description is here! Properties to follow."
-    },
-    "content": [
-        {
-            "element": "property",
-            "attributes": {
-                "name": "street"
+    "element": "type",
+    "content": {
+        "element": "object",
+        "attributes": {
+            "id": "Address",
+            "title": "Address",
+            "description": "Description is here! Properties to follow."
+        },
+        "content": [
+            {
+                "element": "property",
+                "attributes": {
+                    "name": "street"
+                }
             }
-        }
-    ]
+        ]
+    }
 }
 ```
 
-**versus new refract?**
+### Referencing & Expansion
+
+```markdown
+# User (object)
+- name
+
+# Customer (User)
+- id
+```
 
 ```json
 {
-    "element": "type"
-    bah how do I inherit from object and yet add properties? 
+    "element": "type",
+    "attributes": {
+        "id": "User"
+    },
+    "content": {
+        "element": "object",
+        "content": [
+            {
+                "element": "property",
+                "attributes": {
+                    "name": "name"
+                }
+            }
+        ]
+    }
 }
 ```
 
+```json
+{
+    "element": "type",
+    "attributes": {
+        "id": "Customer"
+    },
+    "content": {
+        "element": "User",
+        "content": [
+            {
+                "element": "property",
+                "attributes": {
+                    "name": "id"
+                }
+            }
+        ]
+    }
+}
+```
+
+#### Expanded
+
+```json
+{
+    "element": "type",
+    "attributes": {
+        "id": "Customer"
+    },
+    "content": {
+        "element": "extend",
+        "content": [
+            {
+                "element": "object",
+                "attributes": {
+                    "ref": "#User"
+                },
+                "content": [
+                    {
+                        "element": "property",
+                        "attributes": {
+                            "name": "name"
+                        }
+                    }
+                ]
+            },
+            {
+                "element": "object",
+                "content": [
+                    {
+                        "element": "property",
+                        "attributes": {
+                            "name": "id"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
 
 
 [Refract]: https://github.com/refractproject/refract-spec/blob/master/refract-spec.md
 [JSON Namespace]: https://github.com/refractproject/refract-spec/blob/master/namespaces/json-namespace.md
 [MSON]: https://github.com/apiaryio/mson
 [MSON Specification]: https://github.com/apiaryio/mson/blob/master/MSON%20Specification.md
+[MSON Element]: #mson-element-element
