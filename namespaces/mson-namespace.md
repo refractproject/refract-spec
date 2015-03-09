@@ -1,15 +1,12 @@
 # MSON Namespace
 
-This document extends [Refract][]'s [JSON Namespace][] with elements necessary to
-build [MSON][] DOM.
+This document extends [Refract][] Specification with new element types necessary to build [MSON][] DOM.
 
 # Content
 
 This namespace defines following elements:
 
-1. General-use elements
-    1. [Id Element](#id-element-distinct-element)
-    1. [Distinct Element](#distinct-element-element)
+1. General-purpose elements
     1. [Select](#select-distinct-element)
     1. [Option](#option-distinct-element)
 
@@ -23,17 +20,21 @@ This namespace defines following elements:
     1. [Property Type](#property-type-jsonproperty-type)
     1. [Enum Type](#enum-type-mson-element)
 
-# Terminology
+# About this Document
 
-This specification uses terminology from [MSON Specification][]. In addition, the terms defined in this namespace are described below.
+This document conforms to RFC 2119, which says:
+
+> The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.
+
+[MSON][] is used throughout this document.
 
 ## Expanded Element
 
 MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
 
-Often, before an MSON DOM can be processed referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such parser can resolve references and produce a complete MSON DOM, that is a DOM that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
+Often, before an MSON DOM can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON DOM. That is, a DOM that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
 
-In other words, an expanded element  is one that does not contain any _Identifier_ (defined bellow) referencing any other elements than those defined in JSON or MSON namespaces.
+In other words, an expanded element is one that does not contain any _Identifier_ (defined bellow) referencing any other elements than those defined in JSON or MSON namespaces.
 
 The expanded DOM MUST, however, keep the track of what data structure was expanded and what from where.
 
@@ -43,121 +44,44 @@ In MSON, every data structure is a sub-type of another data structure, and, ther
 
 Note: Not every MSON _Base Type_ is presented in JSON namespace primitive types and vice versa, see the table bellow:
 
-### JSON Namespace vs. MSON built-in types
+### Type comparison
 
-| JSON primitive |   JSON Namespace   | MSON Base Type |   MSON Namespace   |
-|:--------------:|:------------------:|:--------------:|:------------------:|
-|     boolean    |  JSON:Boolean Type |     boolean    |  MSON:Boolean Type |
-|     string     |  JSON:String Type  |     string     |  MSON:String Type  |
-|     number     |  JSON:Number Type  |     number     |  MSON:Number Type  |
-|      array     |   JSON:Array Type  |      array     |   MSON:Array Type  |
-|        -       |          -         |      enum      |   MSON:Enum Type   |
-|     object     |  JSON:Object Type  |     object     |  MSON:Object Type  |
-|      null      |   JSON:Null Type   |        -       |          -         |
-|        -       | JSON:Property Type |        -       | MSON:Property Type |
+| JSON primitive |      Refract     | MSON Base Type | MSON Namespace |
+|:--------------:|:----------------:|:--------------:|:--------------:|
+|     boolean    |  Boolean Element |     boolean    |  Boolean Type  |
+|     string     |  String Element  |     string     |   String Type  |
+|     number     |  Number Element  |     number     |   Number Type  |
+|      array     |   Array Element  |      array     |   Array Type   |
+|        -       |         -        |      enum      |    Enum Type   |
+|     object     |  Object Element  |     object     |   Object Type  |
+|      null      |   Null Element   |        -       |        -       |
+|        -       | Property Element |        -       |  Property Type |
 
+# General Purpose Elements
 
-# General Elements Definition
+General purpose elements defined inside MSON namespaces but possibly reusable in another domain.
 
-General elements defined inside MSON namespaces but possibly reusable in another domain.
-
-## Identifier (Enum)
-
-Identifier of an element in the MSON namespace. The identifier MUST be either directly a `string` value or an `Id Element` element.
-
-### Members
-
-- (string)
-- (Id Element)
-
-## Id Element (Distinct Element)
-
-Element representing an identifier in the MSON namespace.
-
-### Properties
-
-- `element`: id (string, required, fixed)
-- `content` (string, required)
-
-## Distinct Element (Element)
-
-Abstract element representing an element that can be referenced or is a reference to another element.
-
-### Properties
-
-- `element` (Identifier, required) - identifier of this element's base element
-- `attributes`
-    - `id` (Identifier) - identifier of this element
-    - `ref` (Identifier) - reference to expanded element
-
-### Example
-
-```json
-{
-    "element": "number",
-    "attributes": {
-        "id": "my-number"
-    },
-    "content": 42
-}
-```
-
-which is identical to:
-
-```json
-{
-    "element": {
-        "element": "id",
-        "content": "number"
-    },
-    "attributes": {
-        "id": "my-number"
-    },
-    "content": 42
-}
-```
-
-and can be referred to as a _base element_:
-
-```json
-{
-    "element": "my-number"
-}
-```
-
-which _expands_ to:
-
-```json
-{
-    "element": "number",
-    "attributes": {
-        "ref": "my-number"
-    },
-    "content": 42
-}
-```
-
-## Select (Distinct Element)
+## Select (Element)
 
 Element representing selection of options. Every item of content array represents one possible option.
 
 ### Properties
 
-- `element`: select (string, required, fixed)
+- `element`: select (string, fixed)
 - `content` (array[Option])
 
-## Option (Distinct Element)
+## Option (Element)
 
 One choice in the selection.
 
 ### Properties
 
-- `element`: option (string, required, fixed)
+- `element`: option (string fixed)
 - `content` (enum)
-    - (Distinct Element)
-    - (array[Distinct Element])
+    - (Element)
+    - (array[Element])
 
-#### Example
+### Examples
 
 ```html
 <select>
@@ -192,13 +116,15 @@ One choice in the selection.
 }
 ```
 
-# MSON DOM Elements Definition
+# MSON DOM Elements
 
-## MSON Element (Distinct Element)
+## MSON Element (Element)
 
-Base element for all MSON elements.
+Base element for every MSON element.
 
-The MSON Element adds attributes representing MSON _Type Definition_ and _Type Sections_. Note in MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the element.
+The MSON Element adds attributes representing MSON _Type Definition_ and _Type Sections_.
+
+Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the element.
 
 ### Properties
 
@@ -211,37 +137,37 @@ The MSON Element adds attributes representing MSON _Type Definition_ and _Type S
             - sample
             - default
     - `variable` (boolean) - Element content is _Variable Value_
-    - `sample` (MSON Element) - Alternative sample _Member Types_ value
+    - `sample` (MSON Element) - Alternative sample value for _Member Types_
     - `default` (MSON Element) - Default value for _Member Types_
     - `validation` - Not used, reserved for a future use
     - `description` - Combined description of an MSON Element
 
-## Boolean Type (JSON:Boolean Type)
+## Boolean Type (Boolean Element)
 
-- Include MSON Element
+- Include [MSON Element][]
 
-## String Type (JSON:String Type)
+## String Type (String Element)
 
-- Include MSON Element
+- Include [MSON Element][]
 
-## Number Type (JSON:Number Type)
+## Number Type (Number Element)
 
-- Include MSON Element
+- Include [MSON Element][]
 
-## Array Type (JSON:Array Type)
+## Array Type (Array Element)
 
-- Include MSON Element
+- Include [MSON Element][]
 
-## Object Type (JSON:Object Type)
+## Object Type (Object Element)
 
-- Include MSON Element
+- Include [MSON Element][]
 - `content` (array, required)
-    - (JSON:Property Type)
+    - (Property Element)
     - (Select)
 
-## Property Type (JSON:Property Type)
+## Property Type (Property Element)
 
-- Include MSON Element
+- Include [MSON Element][]
 
 ## Enum Type (MSON Element)
 
@@ -249,10 +175,10 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ### Properties
 
-- `element`: enum (string, required, fixed)
+- `element`: enum (string, fixed)
 - `content` (array[MSON Element])
 
-### Example
+### Examples
 
 #### MSON
 
@@ -291,8 +217,6 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 }
 ```
 
-
-
 ## Examples
 
 ### Anonymous Object Type
@@ -300,7 +224,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 #### MSON
 
 ```
-- id: 1
+- id: 42
 ```
 
 #### MSON DOM
@@ -316,7 +240,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
             },
             "content": {
                 "element": "string",
-                "content": "1"
+                "content": "42"
             }
         }
     ]
@@ -461,7 +385,31 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
             }
         }
         {
-            "element": "User"
+            "element": "ref",
+            "content": "#User"
+        }
+    ]
+}
+```
+
+**versus new refract?**
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "property",
+            "attributes": {
+                "name": "id"
+            }
+        }
+        {
+            "element": "extend",
+            "content": {
+                "element": "ref",
+                "content": "#User"
+            }
         }
     ]
 }
@@ -473,9 +421,11 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ```
 # Address (object)
+
 Description is here! Properties to follow.
 
 ## Properties
+
 - street
 ```
 
@@ -499,8 +449,18 @@ Description is here! Properties to follow.
 }
 ```
 
+**versus new refract?**
+
+```json
+{
+    "element": "type"
+    bah how do I inherit from object and yet add properties? 
+}
+```
+
+
+
 [Refract]: https://github.com/refractproject/refract-spec/blob/master/refract-spec.md
 [JSON Namespace]: https://github.com/refractproject/refract-spec/blob/master/namespaces/json-namespace.md
 [MSON]: https://github.com/apiaryio/mson
-
 [MSON Specification]: https://github.com/apiaryio/mson/blob/master/MSON%20Specification.md
