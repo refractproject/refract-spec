@@ -33,7 +33,7 @@ The aim of Refract is to provide a standard structure to prevent clients from br
 
 Because of this separation, Refract provides the ability to annotate existing JSON without breaking the structure of the JSON document. XML provides the ability to add attributes about elements, but unfortunately idiomatic JSON does not. Refract can be used to add these attributes.
 
-Many other formats try to annotate JSON by adding properties into the structure of the JSON document. While the aim of this was to provide simplicity, it does not clarity, as it is mainly two documents merged together.
+Many other formats try to annotate JSON by adding properties into the structure of the JSON document. While the aim of this was to provide simplicity, it does not add clarity, as it is mainly two documents merged together.
 
 #### Example
 
