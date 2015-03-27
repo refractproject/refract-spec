@@ -29,7 +29,7 @@ MSON is built around the idea of defining recursive data structures. To provide 
 
 Often, before an MSON DOM can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON DOM. That is, a DOM that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
 
-In other words, an expanded element is one that does not contain any _Identifier_ (defined bellow) referencing any other elements than those defined in JSON or MSON namespaces.
+In other words, an expanded element is one that does not contain any _Identifier_ (defined below) referencing any other elements than those defined in MSON namespaces.
 
 The expanded DOM MUST, however, keep the track of what data structure was expanded and what from where.
 
@@ -37,7 +37,7 @@ The expanded DOM MUST, however, keep the track of what data structure was expand
 
 In MSON, every data structure is a sub-type of another data structure, and, therefore, it is directly or indirectly derived from one of the MSON _Base Types_. This is expressed as an inheritance of elements in MSON DOM. Where the predecessor of an element is referred to as element's _Base Element_.
 
-Note: Not every MSON _Base Type_ is presented in Refract primitive types and vice versa – see the table bellow.
+Note: Not every MSON _Base Type_ is presented in Refract primitive types and vice versa – see the table below.
 
 ### Type comparison
 
@@ -50,7 +50,7 @@ Note: Not every MSON _Base Type_ is presented in Refract primitive types and vic
 |        -       |         -        |      enum      |    Enum Type   |
 |     object     |  Object Element  |     object     |   Object Type  |
 |      null      |   Null Element   |        -       |        -       |
-|        -       | Property Element |        -       |  Property Type |
+|        -       |  Member Element  |        -       |  Property Type |
 
 # MSON DOM Elements
 
@@ -491,7 +491,6 @@ Description is here! Properties to follow.
 
 
 [Refract]: https://github.com/refractproject/refract-spec/blob/master/refract-spec.md
-[JSON Namespace]: https://github.com/refractproject/refract-spec/blob/master/namespaces/json-namespace.md
 [MSON]: https://github.com/apiaryio/mson
 [MSON Specification]: https://github.com/apiaryio/mson/blob/master/MSON%20Specification.md
 [MSON Element]: #mson-element-element
