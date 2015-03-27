@@ -6,19 +6,14 @@ This document extends [Refract][] Specification with new element types necessary
 
 This namespace defines following elements:
 
-1. General-purpose elements
-    1. [Select](#select-distinct-element)
-    1. [Option](#option-distinct-element)
-
-1. MSON DOM-specific elements
-    1. [MSON Element](#mson-element-element)
-    1. [Boolean Type](#boolean-type-boolean-type)
-    1. [String Type](#string-type-string-type)
-    1. [Number Type](#number-type-number-type)
-    1. [Array Type](#array-type-array-type)
-    1. [Object Type](#object-type-object-type)
-    1. [Property Type](#property-type-property-type)
-    1. [Enum Type](#enum-type-mson-element)
+1. [MSON Element](#mson-element-element)
+1. [Boolean Type](#boolean-type-boolean-element)
+1. [String Type](#string-type-string-element)
+1. [Number Type](#number-type-number-element)
+1. [Array Type](#array-type-array-element)
+1. [Object Type](#object-type-object-element)
+1. [Property Type](#property-type-property-element)
+1. [Enum Type](#enum-type-mson-element)
 
 # About this Document
 
@@ -57,46 +52,6 @@ Note: Not every MSON _Base Type_ is presented in Refract primitive types and vic
 |      null      |   Null Element   |        -       |        -       |
 |        -       | Property Element |        -       |  Property Type |
 
-# General Purpose Elements
-
-General purpose elements defined inside MSON namespaces but possibly reusable in another domain.
-
-## Select (Element)
-
-Element representing selection of options. Every Element of content array represents one possible option.
-
-The `select` element provides a way to inherit one or more mutually exclusive elements to form a new element. The `select` element MUST NOT affect the original elements being selected, and MUST define a new instance of an element.
-
-### Properties
-
-- `element`: select (string, fixed)
-- `content` (array[Element])
-
-### Examples
-
-```html
-<select>
-  <option>Volvo</option>
-  <option>Saab</option>
-</select>
-```
-
-```json
-{
-    "element": "select",
-    "content": [
-        {
-            "element": "string",
-            "content": "Volvo"
-        },
-        {
-            "element": "string",
-            "content": "Saab"
-        }
-    ]
-}
-```
-
 # MSON DOM Elements
 
 ## MSON Element (Element)
@@ -118,8 +73,8 @@ Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the e
             - sample
             - default
     - `variable` (boolean) - Element content is _Variable Value_
-    - `sample` (MSON Element) - Alternative sample value for _Member Types_
-    - `default` (MSON Element) - Default value for _Member Types_
+    - `sample` (*T*) - Alternative sample value for _Member Types_
+    - `default` (*T*) - Default value for _Member Types_
     - `validation` - Not used, reserved for a future use
     - `description` - Combined description of an MSON Element
 
@@ -173,22 +128,25 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "property",
-            "attributes": {
-                "name": "tag"
-            },
+            "element": "member",
             "content": {
-                "element": "enum",
-                "content": [
-                    {
-                        "element": "string",
-                        "content": "red"
-                    },
-                    {
-                        "element": "string",
-                        "content": "green"
-                    }
-                ]
+                "key": {
+                  "element": "string",
+                  "content": "tag"
+                },
+                "value": {
+                    "element": "enum",
+                    "content": [
+                        {
+                            "element": "string",
+                            "content": "red"
+                        },
+                        {
+                            "element": "string",
+                            "content": "green"
+                        }
+                    ]
+                }
             }
         }
     ]
@@ -209,22 +167,22 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ```json
 {
-    "element": "type",
-    "content": {
-        "element": "object",
-        "content": [
-            {
-                "element": "property",
-                "attributes": {
-                    "name": "id"
+    "element": "object",
+    "content": [
+        {
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
                 },
-                "content": {
+                "value": {
                     "element": "string",
                     "content": "42"
                 }
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 
@@ -240,23 +198,25 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ```json
 {
-    "element": "type",
-    "content": {
-        "element": "object",
-        "content": [
-            {
-                "element": "property",
-                "attributes": {
-                    "name": "id",
-                    "typeAttributes": ["required", "fixed"]
+    "element": "object",
+    "content": [
+        {
+            "element": "member",
+            "attributes": {
+                "typeAttributes": ["required", "fixed"]
+            },
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
                 },
-                "content": {
+                "value": {
                     "element": "string",
                     "content": "42"
                 }
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 
@@ -273,26 +233,25 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 ```json
 {
-    "element": "type",
-    "content": {
     "element": "object",
-        "content": [
-            {
-                "element": "property",
-                "attributes": {
-                    "name": "id",
-                    "default": {
-                        "element": "number",
-                        "content": 0
-                    }
+    "content": [
+        {
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
                 },
-                "content": {
+                "value": {
                     "element": "number",
+                    "attributes": {
+                        "default": 0
+                    },
                     "content": null
                 }
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 
@@ -313,35 +272,51 @@ TODO:
 
 ```json
 {
-    "element": "type",
-    "content": {
-        "element": "object",
-        "content": [
-            {
-                "element": "property",
-                "attributes": {
-                    "name": "city"
+    "element": "object",
+    "content": [
+        {
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "city"
                 }
-            },
-            {
-                "element": "select",
-                "content": [
-                    {
-                        "element": "property",
-                        "attributes": {
-                            "name": "state"
-                        }
-                    },
-                    {
-                        "element": "property",
-                        "attributes": {
-                            "name": "province"
-                        }
-                    }
-                ]
             }
-        ]
-    }
+        },
+        {
+            "element": "select",
+            "content": [
+                {
+                    "element": "option",
+                    "content": [
+                        {
+                            "element": "member",
+                            "content": {
+                                "key": {
+                                    "element": "string",
+                                    "content": "state"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "element": "option",
+                    "content": [
+                        {
+                            "element": "member",
+                            "content": {
+                                "key": {
+                                    "element": "string",
+                                    "content": "province"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
 ```
 
@@ -358,27 +333,27 @@ TODO:
 
 ```json
 {
-    "element": "type",
-    "content": {
-        "element": "extend",
-        "content": [
-            {
-                "element": "object",
-                "content": [
-                    {
-                        "element": "property",
-                        "attributes": {
-                            "name": "id"
+    "element": "extend",
+    "content": [
+        {
+            "element": "object",
+            "content": [
+                {
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "string",
+                            "content": "id"
                         }
                     }
-                ]
-            }
-            {
-                "element": "ref",
-                "content": "#User"
-            }
-        ]
-    }
+                }
+            ]
+        }
+        {
+            "element": "ref",
+            "content": "User"
+        }
+    ]
 }
 ```
 
@@ -400,23 +375,23 @@ Description is here! Properties to follow.
 
 ```json
 {
-    "element": "type",
-    "content": {
-        "element": "object",
-        "attributes": {
-            "id": "Address",
-            "title": "Address",
-            "description": "Description is here! Properties to follow."
-        },
-        "content": [
-            {
-                "element": "property",
-                "attributes": {
-                    "name": "street"
+    "element": "object",
+    "meta": {
+        "id": "Address",
+        "title": "Address",
+        "description": "Description is here! Properties to follow."
+    },
+    "content": [
+        {
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "street"
                 }
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 
@@ -432,41 +407,41 @@ Description is here! Properties to follow.
 
 ```json
 {
-    "element": "type",
-    "attributes": {
+    "element": "object",
+    "meta": {
         "id": "User"
     },
-    "content": {
-        "element": "object",
-        "content": [
-            {
-                "element": "property",
-                "attributes": {
-                    "name": "name"
+    "content": [
+        {
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "name"
                 }
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 
 ```json
 {
-    "element": "type",
-    "attributes": {
+    "element": "User",
+    "meta": {
         "id": "Customer"
     },
-    "content": {
-        "element": "User",
-        "content": [
-            {
-                "element": "property",
-                "attributes": {
-                    "name": "id"
+    "content": [
+        {
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
                 }
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 
@@ -474,40 +449,43 @@ Description is here! Properties to follow.
 
 ```json
 {
-    "element": "type",
-    "attributes": {
+    "element": "extend",
+    "meta": {
         "id": "Customer"
     },
-    "content": {
-        "element": "extend",
-        "content": [
-            {
-                "element": "object",
-                "attributes": {
-                    "ref": "#User"
-                },
-                "content": [
-                    {
-                        "element": "property",
-                        "attributes": {
-                            "name": "name"
-                        }
-                    }
-                ]
+    "content": [
+        {
+            "element": "object",
+            "meta": {
+                "ref": "User"
             },
-            {
-                "element": "object",
-                "content": [
-                    {
-                        "element": "property",
-                        "attributes": {
-                            "name": "id"
+            "content": [
+                {
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "string",
+                            "content": "name"
                         }
                     }
-                ]
-            }
-        ]
-    }
+                }
+            ]
+        },
+        {
+            "element": "object",
+            "content": [
+                {
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "string",
+                            "content": "id"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
 }
 ```
 
