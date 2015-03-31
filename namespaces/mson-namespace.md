@@ -76,7 +76,6 @@ Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the e
     - `sample` (*T*) - Alternative sample value for _Member Types_
     - `default` (*T*) - Default value for _Member Types_
     - `validation` - Not used, reserved for a future use
-    - `description` - Combined description of an MSON Element
 
 ## Boolean Type (Boolean Element)
 
@@ -268,8 +267,6 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 #### MSON DOM
 
-TODO:
-
 ```json
 {
     "element": "object",
@@ -330,6 +327,34 @@ TODO:
 ```
 
 #### MSON DOM
+
+Using the `ref` element to reference an the content of an element.
+
+```json
+{
+    "element": "object",
+    "content": [
+        {
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
+                }
+            }
+        },
+        {
+            "element": "ref",
+            "content": {
+                "href": "User",
+                "path": "content"
+            }
+        }
+    ]
+}
+```
+
+Using `extend` to merge objects together.
 
 ```json
 {
