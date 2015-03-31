@@ -268,7 +268,7 @@ In Refract, this boolean is expanded to a Array Element.
 
 ### Object Element (Element)
 
-A Object Element provides an element for Refract Object Types.
+A Object Element provides an element for Refract Object Types. When the content of an `object` element includes an `extend`, `select`, or `ref` element, the referenced or resulting elements MUST be a `member` element.
 
 #### Properties
 
@@ -276,6 +276,9 @@ A Object Element provides an element for Refract Object Types.
 - `content` (enum)
     - (object)
     - (array[Member Element])
+    - (Extend Element)
+    - (Select Element)
+    - (Ref Element)
 
 #### Examples
 
@@ -370,16 +373,94 @@ This references the element with the ID of `foo` in the prefixed namespace of `n
 }
 ```
 
+##### Reference Parts of Elements
+
+Given an element instance of:
+
+```json
+{
+  "element": "array",
+  "meta": {
+    "id": "colors"
+  },
+  "content": [
+    {
+      "element": "string",
+      "content": "red"
+    },
+    {
+      "element": "string",
+      "content": "green"
+    }
+  ]
+}
+```
+
+And given an array where a reference is used as:
+
+```json
+{
+  "element": "array",
+  "content": [
+    {
+      "element": "string",
+      "content": "blue"
+    },
+    {
+      "element": "ref",
+      "content": {
+        "href": "colors",
+        "path": "content"
+      }
+    }
+  ]
+}
+```
+
+The resulting dereferenced array is:
+
+```json
+{
+  "element": "array",
+  "content": [
+    {
+      "element": "string",
+      "content": "blue"
+    },
+    {
+      "element": "string",
+      "content": "red"
+    },
+    {
+      "element": "string",
+      "content": "green"
+    }
+  ]
+}
+```
+
 ### Link (enum)
 
-A link is an object for providing URLs to local elements, prefixed elements, and remote elements or documents.
+A link is an object for providing URLs to local elements, prefixed elements, and remote elements or documents. The following rules apply.
+
+1. When referencing an element in the local namespace, the `id` of the element MAY be used
+1. When referencing remote elements, an absolute URL or relative URL MAY be used
+1. When a URL fragment exists in the URL given, it references the element with the matching `id` in the given namespace. The URL fragment MAY need to be URL decoded before making a match.
+1. When a URL fragment does not exist, the URL references the root element
+1. When the `prefix` is used, it references an element in a defined prefixed namespace
+1. When `path` is used, it references the given property of the referenced element
+1. When `path` is used in an element that includes the data of the link (such as with `ref`), the referenced path MAY need to be converted to a refract structure in order to be valid
 
 #### Members
 
 - (string) - A URL to a namespace or an ID of an element in the current namespace
 - (object)  - A prefixed link
     - `prefix` (string) - Prefix of namespace
-    - `href` (string) - URL or ID of element in prefixed namespace
+    - `href` (string, required) - URL or ID of element in prefixed namespace
+    - `path` (enum) - Path of referenced element to transclude instead of element itself
+        - meta - The meta data of the referenced element
+        - attributes - The attributes of the referenced element
+        - content - The content of the referenced element
 
 ## Namespacing
 
