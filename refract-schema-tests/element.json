@@ -1,0 +1,439 @@
+[
+    {
+        "description": "null type matches null content",
+        "tests": [
+            {
+                "description": "null content is a null element",
+                "data": {
+                    "element": "null",
+                    "content": null
+                },
+                "valid": true
+            },
+            {
+                "description": "boolean content is not a null element",
+                "data": {
+                    "element": "null",
+                    "content": true
+                },
+                "valid": false
+            },
+            {
+                "description": "integer content is not a null element",
+                "data": {
+                    "element": "null",
+                    "content": 1
+                },
+                "valid": false
+            },
+            {
+                "description": "float content is not a null element",
+                "data": {
+                    "element": "null",
+                    "content": 1.1
+                },
+                "valid": false
+            },
+            {
+                "description": "object content is not a null element",
+                "data": {
+                    "element": "null",
+                    "content": {}
+                },
+                "valid": false
+            },
+            {
+                "description": "array content is not a null element",
+                "data": {
+                    "element": "null",
+                    "content": []
+                },
+                "valid": false
+            },
+            {
+                "description": "string content is not a null element",
+                "data": {
+                    "element": "null",
+                    "content": ""
+                },
+                "valid": false
+            }
+        ]
+    },
+    {
+        "description": "string type matches string content",
+        "tests": [
+            {
+                "description": "null content is not a string element",
+                "data": {
+                    "element": "string",
+                    "content": null
+                },
+                "valid": false
+            },
+            {
+                "description": "boolean content is not a string element",
+                "data": {
+                    "element": "string",
+                    "content": true
+                },
+                "valid": false
+            },
+            {
+                "description": "integer content is not a string element",
+                "data": {
+                    "element": "string",
+                    "content": 1
+                },
+                "valid": false
+            },
+            {
+                "description": "float content is not a string element",
+                "data": {
+                    "element": "string",
+                    "content": 1.1
+                },
+                "valid": false
+            },
+            {
+                "description": "object content is not a string element",
+                "data": {
+                    "element": "string",
+                    "content": {}
+                },
+                "valid": false
+            },
+            {
+                "description": "array content is not a string element",
+                "data": {
+                    "element": "string",
+                    "content": []
+                },
+                "valid": false
+            },
+            {
+                "description": "string content is a string element",
+                "data": {
+                    "element": "string",
+                    "content": ""
+                },
+                "valid": true
+            }
+        ]
+    },
+    {
+        "description": "number types matche number content",
+        "tests": [
+            {
+                "description": "null content is not a number element",
+                "data": {
+                    "element": "number",
+                    "content": null
+                },
+                "valid": false
+            },
+            {
+                "description": "boolean content is not a number element",
+                "data": {
+                    "element": "number",
+                    "content": true
+                },
+                "valid": false
+            },
+            {
+                "description": "integer content is a number element",
+                "data": {
+                    "element": "number",
+                    "content": 1
+                },
+                "valid": true
+            },
+            {
+                "description": "float content is a number element",
+                "data": {
+                    "element": "number",
+                    "content": 1.1
+                },
+                "valid": true
+            },
+            {
+                "description": "object content is not a number element",
+                "data": {
+                    "element": "number",
+                    "content": {}
+                },
+                "valid": false
+            },
+            {
+                "description": "array content is not a number element",
+                "data": {
+                    "element": "number",
+                    "content": []
+                },
+                "valid": false
+            },
+            {
+                "description": "string content is not a number element",
+                "data": {
+                    "element": "number",
+                    "content": ""
+                },
+                "valid": false
+            }
+        ]
+    },
+    {
+        "description": "boolean type matches boolean content",
+        "tests": [
+            {
+                "description": "null content is not a boolean element",
+                "data": {
+                    "element": "boolean",
+                    "content": null
+                },
+                "valid": false
+            },
+            {
+                "description": "boolean content is a boolean element",
+                "data": {
+                    "element": "boolean",
+                    "content": true
+                },
+                "valid": true
+            },
+            {
+                "description": "integer content is not a boolean element",
+                "data": {
+                    "element": "boolean",
+                    "content": 1
+                },
+                "valid": false
+            },
+            {
+                "description": "float content is not a boolean element",
+                "data": {
+                    "element": "boolean",
+                    "content": 1.1
+                },
+                "valid": false
+            },
+            {
+                "description": "object content is not a boolean element",
+                "data": {
+                    "element": "boolean",
+                    "content": {}
+                },
+                "valid": false
+            },
+            {
+                "description": "array content is not a boolean element",
+                "data": {
+                    "element": "boolean",
+                    "content": []
+                },
+                "valid": false
+            },
+            {
+                "description": "string content is not a boolean element",
+                "data": {
+                    "element": "boolean",
+                    "content": ""
+                },
+                "valid": false
+            }
+        ]
+    },
+    {
+        "description": "array type matches array content",
+        "tests": [
+            {
+                "description": "null content is not a array element",
+                "data": {
+                    "element": "array",
+                    "content": null
+                },
+                "valid": false
+            },
+            {
+                "description": "boolean content is not a array element",
+                "data": {
+                    "element": "array",
+                    "content": true
+                },
+                "valid": false
+            },
+            {
+                "description": "integer content is not a array element",
+                "data": {
+                    "element": "array",
+                    "content": 1
+                },
+                "valid": false
+            },
+            {
+                "description": "float content is not a array element",
+                "data": {
+                    "element": "array",
+                    "content": 1.1
+                },
+                "valid": false
+            },
+            {
+                "description": "object content is not a array element",
+                "data": {
+                    "element": "array",
+                    "content": {}
+                },
+                "valid": false
+            },
+            {
+                "description": "array content is an array element",
+                "data": {
+                    "element": "array",
+                    "content": []
+                },
+                "valid": true
+            },
+            {
+                "description": "string content is not a array element",
+                "data": {
+                    "element": "array",
+                    "content": ""
+                },
+                "valid": false
+            }
+        ]
+    },
+    {
+        "description": "object type matches object content",
+        "tests": [
+            {
+                "description": "null content is not a object element",
+                "data": {
+                    "element": "object",
+                    "content": null
+                },
+                "valid": false
+            },
+            {
+                "description": "boolean content is not a object element",
+                "data": {
+                    "element": "object",
+                    "content": true
+                },
+                "valid": false
+            },
+            {
+                "description": "integer content is not a object element",
+                "data": {
+                    "element": "object",
+                    "content": 1
+                },
+                "valid": false
+            },
+            {
+                "description": "float content is not a object element",
+                "data": {
+                    "element": "object",
+                    "content": 1.1
+                },
+                "valid": false
+            },
+            {
+                "description": "object content is an object element",
+                "data": {
+                    "element": "object",
+                    "content": {}
+                },
+                "valid": true
+            },
+            {
+                "description": "array content is an object element",
+                "data": {
+                    "element": "object",
+                    "content": []
+                },
+                "valid": true
+            },
+            {
+                "description": "string content is not a object element",
+                "data": {
+                    "element": "object",
+                    "content": ""
+                },
+                "valid": false
+            }
+        ]
+    },
+    {
+        "description": "member type matches object content",
+        "tests": [
+            {
+                "description": "null content is not a member element",
+                "data": {
+                    "element": "member",
+                    "content": null
+                },
+                "valid": false
+            },
+            {
+                "description": "boolean content is not a member element",
+                "data": {
+                    "element": "member",
+                    "content": true
+                },
+                "valid": false
+            },
+            {
+                "description": "integer content is not a member element",
+                "data": {
+                    "element": "member",
+                    "content": 1
+                },
+                "valid": false
+            },
+            {
+                "description": "float content is not a member element",
+                "data": {
+                    "element": "member",
+                    "content": 1.1
+                },
+                "valid": false
+            },
+            {
+                "description": "object content is a member element",
+                "data": {
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "null",
+                            "content": null
+                        },
+                        "value": {
+                            "element": "null",
+                            "content": null
+                        }
+                    }
+                },
+                "valid": true
+            },
+            {
+                "description": "array content is not a member element",
+                "data": {
+                    "element": "member",
+                    "content": []
+                },
+                "valid": false
+            },
+            {
+                "description": "string content is not a member element",
+                "data": {
+                    "element": "member",
+                    "content": ""
+                },
+                "valid": false
+            }
+        ]
+    }
+]
+

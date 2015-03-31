@@ -1,0 +1,60 @@
+[
+    {
+        "description": "base element type is an object",
+        "tests": [
+            {
+                "description": "an object is a base element",
+                "data": {
+                    "element": "null",
+                    "content": null
+                },
+                "valid": true
+            },
+            {
+                "description": "an integer is not a base element",
+                "data": 1,
+                "valid": false
+            },
+            {
+                "description": "a float is not a base element",
+                "data": 1.1,
+                "valid": false
+            },
+            {
+                "description": "an array is not aa base element",
+                "data": [],
+                "valid": false
+            },
+            {
+                "description": "a boolean is not a base element",
+                "data": true,
+                "valid": false
+            },
+            {
+                "description": "a null is not a base element",
+                "data": true,
+                "valid": false
+            }
+        ]
+    },
+    {
+        "description": "base element must have an element key",
+        "tests": [
+            {
+                "description": "a base element with an element key",
+                "data": {
+                    "element": "null",
+                    "content": null
+                },
+                "valid": true
+            },
+            {
+                "description": "a base element without an element key",
+                "data": {
+                },
+                "valid": false
+            }
+        ]
+    }
+]
+
