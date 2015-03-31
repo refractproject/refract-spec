@@ -1,0 +1,97 @@
+{
+    "type": "object",
+    "required": [ "element" ],
+    "definitions": {
+        "member": {
+            "type": "object",
+            "properties": {
+                "element": {
+                    "enum": ["member"]
+                },
+                "content": {
+                    "properties": {
+                        "key": {
+                            "$ref": "#"
+                        },
+                        "value": {
+                            "$ref": "#"
+                        }
+                    },
+                    "type": "object",
+                    "required": [ "key", "value" ]
+                }
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "properties": {
+                "element": {
+                    "enum": ["null"]
+                },
+                "content": {
+                    "type": "null"
+                }
+            }
+        },
+        {
+            "properties": {
+                "element": {
+                    "enum": ["boolean"]
+                },
+                "content": {
+                    "type": "boolean"
+                }
+            }
+        },
+        {
+            "properties": {
+                "element": {
+                    "enum": ["string"]
+                },
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
+        {
+            "properties": {
+                "element": {
+                    "enum": ["number"]
+                },
+                "content": {
+                    "type": "number"
+                }
+            }
+        },
+        {
+            "properties": {
+                "element": {
+                    "enum": ["array"]
+                },
+                "content": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#"
+                    }
+                }
+            }
+        },
+        {
+            "properties": {
+                "element": {
+                    "enum": ["object"]
+                },
+                "content": {
+                    "type": ["object", "array"],
+                    "items": {
+                        "$ref": "#/definitions/member"
+                    }
+                }
+            }
+        },
+        {
+            "$ref": "#/definitions/member"
+        }
+    ]
+}

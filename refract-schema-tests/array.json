@@ -1,0 +1,31 @@
+[
+    {
+        "description": "array element",
+        "tests": [
+            {
+                "description": "with an refract element",
+                "data": {
+                    "element": "array",
+                    "content": [
+                        {
+                            "element": "null",
+                            "content": null
+                        }
+                    ]
+                },
+                "valid": true
+            },
+            {
+                "description": "with object which is not a refract element",
+                "data": {
+                    "element": "array",
+                    "content": [
+                        {
+                        }
+                    ]
+                },
+                "valid": false
+            }
+        ]
+    }
+]

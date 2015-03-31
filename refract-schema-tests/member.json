@@ -1,0 +1,80 @@
+[
+    {
+        "description": "member element",
+        "tests": [
+            {
+                "description": "with a key and a value",
+                "data": {
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "null",
+                            "content": null
+                        },
+                        "value": {
+                            "element": "null",
+                            "content": null
+                        }
+                    }
+                },
+                "valid": true
+            },
+            {
+                "description": "without a key",
+                "data": {
+                    "element": "member",
+                    "content": {
+                        "value": {
+                            "element": "null",
+                            "content": null
+                        }
+                    }
+                },
+                "valid": false
+            },
+            {
+                "description": "without a value",
+                "data": {
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "null",
+                            "content": null
+                        }
+                    }
+                },
+                "valid": false
+            },
+            {
+                "description": "key must be a refract element",
+                "data": {
+                    "element": "member",
+                    "content": {
+                        "key": {
+                        },
+                        "value": {
+                            "element": "null",
+                            "content": null
+                        }
+                    }
+                },
+                "valid": false
+            },
+            {
+                "description": "value must be a refract element",
+                "data": {
+                    "element": "member",
+                    "content": {
+                        "value": {
+                        },
+                        "key": {
+                            "element": "null",
+                            "content": null
+                        }
+                    }
+                },
+                "valid": false
+            }
+        ]
+    }
+]

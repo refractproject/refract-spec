@@ -1,0 +1,54 @@
+[
+    {
+        "description": "object element",
+        "tests": [
+            {
+                "description": "with an object",
+                "data": {
+                    "element": "object",
+                    "content": {}
+                },
+                "valid": true
+            },
+            {
+                "description": "with an array of members",
+                "data": {
+                    "element": "object",
+                    "content": [
+                        {
+                            "key": {
+                                "element": "null",
+                                "content": null
+                            },
+                            "value": {
+                                "element": "null",
+                                "content": null
+                            }
+                        },
+                        {
+                            "key": {
+                                "element": "null",
+                                "content": null
+                            },
+                            "value": {
+                                "element": "null",
+                                "content": null
+                            }
+                        }
+                    ]
+                },
+                "valid": true
+            },
+            {
+                "description": "with an array of non-members",
+                "data": {
+                    "element": "object",
+                    "content": [
+                        true
+                    ]
+                },
+                "valid": false
+            }
+        ]
+    }
+]
