@@ -14,6 +14,7 @@ The Resource represents a Hypermedia Resource, with it's available relations, tr
     - `transitions` - (array[Transition]) - The available transitions from this resource.
     - `resources` - (array[Resource]) - The embedded relations (resources) from this resource.
     - `attributes` - (object) - Any properties of the resource.
+    - `relation` - (string) - An optional relation to this resource.
 
 ## Relation (Object Element)
 
