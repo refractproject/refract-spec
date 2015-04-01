@@ -21,7 +21,7 @@ A relation element representing a relation to another resource.
 
 ### Properties
 
-- `element`: object (string, fixed)
+- `element`: relation (string, fixed)
 - `content`: (object)
     - `relation` - (string, required) - The relation from the Resource to this resource.
     - `uri` - (string, required) - The URI for this relation.
@@ -30,7 +30,7 @@ A relation element representing a relation to another resource.
 
 ```json
 {
-    "element": "object",
+    "element": "relation",
     "content": [
         {
             "key": {
@@ -61,7 +61,7 @@ A transition is an available progression from one state to another state.
 
 ### Properties
 
-- `element`: object (string, fixed)
+- `element`: transition (string, fixed)
 - `content`: (object)
     - `relation` - (string, required) - The relation of this transition from the current resource.
     - `uri` - (string, required) - The URI for this transition.
@@ -72,7 +72,7 @@ A transition is an available progression from one state to another state.
 
 ```json
 {
-    "element": "object",
+    "element": "transition",
     "content": [
         {
             "key": {
@@ -103,7 +103,7 @@ An Input Property is used to describe a potential property or attribute used to 
 
 ### Properties
 
-- `element`: object (string, fixed)
+- `element`: property (string, fixed)
 - `content`: (object)
     - `name` (string, required) - The name for this property.
     - `type` (string) - The type of element used to represent the properties value.
@@ -113,7 +113,7 @@ An Input Property is used to describe a potential property or attribute used to 
 
 ```json
 {
-    "element": "object",
+    "element": "property",
     "content": [
         {
             "key": {
