@@ -4,17 +4,17 @@ This document extends [Refract](../refract-spec.md) Specification to describe th
 
 ## Resource (Object Element)
 
-The Resource represents a Hypermedia Resource, with it's available relations, transitions and attributes.
+The Resource represents a Hypermedia Resource, with its available relations, transitions and attributes.
 
 ### Properties
 
 - `element`: resource (string, fixed)
-- `content`: (object)
+- `attributes` (object)
     - `relations` - (array[Relation]) - The relations from this resource.
     - `transitions` - (array[Transition]) - The available transitions from this resource.
     - `resources` - (array[Resource]) - The embedded relations (resources) from this resource.
-    - `attributes` - (object) - Any properties of the resource.
-    - `relation` - (string) - An optional relation to this resource.
+    - `relation` - (string) - An optional relation to this resource, when embedded in another resource.
+- `content` (object) - Any properties of the resource.
 
 ## Relation (Object Element)
 
@@ -23,36 +23,19 @@ A relation element representing a relation to another resource.
 ### Properties
 
 - `element`: relation (string, fixed)
-- `content`: (object)
+- `attributes` (object, required)
     - `relation` - (string, required) - The relation from the Resource to this resource.
-    - `uri` - (string, required) - The URI for this relation.
+- `content` (string, required) - The URI for this relation.
 
 ### Example
 
 ```json
 {
     "element": "relation",
-    "content": [
-        {
-            "key": {
-                "element": "string",
-                "content": "relation"
-            },
-            "value": {
-                "element": "string",
-                "content": "self"
-            }
-        }, {
-            "key": {
-                "element": "string",
-                "content": "uri"
-            },
-            "value": {
-                "element": "string",
-                "content": "https://polls.apiblueprint.org/questions/1"
-            }
-        }
-    ]
+    "attributes": {
+      "relation": "self"
+    },
+    "content": "https://polls.apiblueprint.org/questions/1"
 }
 ```
 
@@ -63,38 +46,21 @@ A transition is an available progression from one state to another state.
 ### Properties
 
 - `element`: transition (string, fixed)
-- `content`: (object)
+- `attributes` (object, required)
     - `relation` - (string, required) - The relation of this transition from the current resource.
-    - `uri` - (string, required) - The URI for this transition.
-    - `parameters` (array[Input Property])
-    - `attributes` (array[Input Property])
+    - `parameters` (array[Input Property]) - A collection of parameters for this transition.
+    - `attributes` (array[Input Property]) - A collection of possible attributes for this transition.
+- `content` (string, required) - The URI for this transition.
 
 ### Example
 
 ```json
 {
     "element": "transition",
-    "content": [
-        {
-            "key": {
-                "element": "string",
-                "content": "relation"
-            },
-            "value": {
-                "element": "string",
-                "content": "update"
-            }
-        }, {
-            "key": {
-                "element": "string",
-                "content": "uri"
-            },
-            "value": {
-                "element": "string",
-                "content": "https://polls.apiblueprint.org/questions/1"
-            }
-        }
-    ]
+    "attributes": {
+      "relation": "update"
+    },
+    "content": "https://polls.apiblueprint.org/questions/1"
 }
 ```
 
