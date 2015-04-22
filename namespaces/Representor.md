@@ -24,8 +24,8 @@ A transition is an available progression from one state to another state.
 - `element`: transition (string, fixed)
 - `attributes` (object, required)
     - `relation` - (string, required) - The relation of this transition from the current resource.
-    - `parameters` (array[Input Property]) - A collection of parameters for this transition.
-    - `attributes` (array[Input Property]) - A collection of possible attributes for this transition.
+    - `parameters` ([Object Type][]) - A collection of parameters for this transition.
+    - `attributes` ([Object Type][]) - A collection of possible attributes for this transition.
 - `content` (string, required) - The URI for this transition.
 
 ### Example
@@ -40,44 +40,5 @@ A transition is an available progression from one state to another state.
 }
 ```
 
-## Input Property
-
-An Input Property is used to describe a potential property or attribute used to perform a transition.
-
-### Properties
-
-- `element`: property (string, fixed)
-- `content`: (object)
-    - `name` (string, required) - The name for this property.
-    - `type` (string) - The type of element used to represent the properties value.
-    - `defaultValue` (Any Type) - An optional default value for this property.
-
-### Example
-
-```json
-{
-    "element": "property",
-    "content": [
-        {
-            "key": {
-                "element": "string",
-                "content": "name"
-            },
-            "value": {
-                "element": "string",
-                "content": "username"
-            }
-        }, {
-            "key": {
-                "element": "string",
-                "content": "type"
-            },
-            "value": {
-                "element": "string",
-                "content": "string"
-            }
-        }
-    ]
-}
-```
+[Object Type]: https://github.com/refractproject/refract-spec/blob/master/namespaces/mson-namespace.md#object-type-object-element
 
