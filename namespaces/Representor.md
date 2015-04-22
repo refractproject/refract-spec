@@ -2,42 +2,18 @@
 
 This document extends [Refract](../refract-spec.md) Specification to describe the [Representor](https://github.com/the-hypermedia-project/charter) DOM.
 
-## Resource (Object Element)
+## Resource (Element)
 
-The Resource represents a Hypermedia Resource, with its available relations, transitions and attributes.
+The Resource represents a Hypermedia Resource, with its available transitions and attributes.
 
 ### Properties
 
 - `element`: resource (string, fixed)
 - `attributes` (object)
-    - `relations` - (array[Relation]) - The relations from this resource.
     - `transitions` - (array[Transition]) - The available transitions from this resource.
-    - `resources` - (array[Resource]) - The embedded relations (resources) from this resource.
-    - `relation` - (string) - An optional relation to this resource, when embedded in another resource.
+    - `resources` - (array[Resource]) - Any embedded (resources) from this resource.
+    - `relation` - (string) - An optional relation to this resource, applicable when embedded in another resource.
 - `content` (object) - Any properties of the resource.
-
-## Relation (Object Element)
-
-A relation element representing a relation to another resource.
-
-### Properties
-
-- `element`: relation (string, fixed)
-- `attributes` (object, required)
-    - `relation` - (string, required) - The relation from the Resource to this resource.
-- `content` (string, required) - The URI for this relation.
-
-### Example
-
-```json
-{
-    "element": "relation",
-    "attributes": {
-      "relation": "self"
-    },
-    "content": "https://polls.apiblueprint.org/questions/1"
-}
-```
 
 ## Transition (Object Element)
 
