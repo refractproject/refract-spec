@@ -26,6 +26,7 @@ A transition is an available progression from one state to another state.
     - `relation` - (string, required) - The relation of this transition from the current resource.
     - `parameters` ([Object Type][]) - A collection of parameters for this transition.
     - `attributes` ([Object Type][]) - A collection of possible attributes for this transition.
+    - `suggestedContentTypes` (array[string]) - A collection of suggested content types to encode the attributes, ordered by preference.
 - `content` (string, required) - The URI for this transition.
 
 ### Example
