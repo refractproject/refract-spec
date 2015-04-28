@@ -6,6 +6,7 @@ Refract is a a recursive data structure for expressing complex structures, relat
 
 - [Full Specification](refract-spec.md)
 - [MSON Namespace](namespaces/mson-namespace.md)
+- [Representor Namespace](namespaces/Representor.md)
 
 ## Version
 
