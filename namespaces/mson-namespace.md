@@ -2,26 +2,37 @@
 
 This document extends [Refract][] Specification with new element types necessary to build [MSON][] DOM.
 
-# Content
+## Content
 
-<!-- TOC depth:2 withLinks:1 updateOnSave:0 -->
+<!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
 - [MSON Namespace](#mson-namespace)
-- [Content](#content)
-- [About this Document](#about-this-document)
+	- [Content](#content)
+	- [About this Document](#about-this-document)
 	- [Expanded Element](#expanded-element)
 	- [Base Element](#base-element)
+		- [Type comparison](#type-comparison)
 - [MSON DOM Elements](#mson-dom-elements)
 	- [MSON Element (Element)](#mson-element-element)
+		- [Properties](#properties)
 	- [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
 	- [String Type (String Element)](#string-type-string-element)
 	- [Number Type (Number Element)](#number-type-number-element)
 	- [Array Type (Array Element)](#array-type-array-element)
 	- [Object Type (Object Element)](#object-type-object-element)
 	- [Enum Type (MSON Element)](#enum-type-mson-element)
+		- [Properties](#properties)
+		- [Examples](#examples)
 	- [Examples](#examples)
+		- [Anonymous Object Type](#anonymous-object-type)
+		- [Type Attributes](#type-attributes)
+		- [Default Value](#default-value)
+		- [One Of](#one-of)
+		- [Mixin](#mixin)
+		- [Named Type](#named-type)
+
 <!-- /TOC -->
 
-# About this Document
+## About this Document
 
 This document conforms to RFC 2119, which says:
 
