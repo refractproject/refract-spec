@@ -18,7 +18,7 @@ Refract provides a single structure for data, which will be referred to througho
 
 ### Element (object)
 
-The Refract Element contains four properties: `element`, `meta`, `attributes`, and `content`, as defined below. This Element MAY be used recursively throughout the document, even as a value for each of its own properties.
+The Refract Element contains four properties: `element`, `meta`, `attributes`, and `content`, as defined below. This Element MAY be used recursively throughout the document, even as a value for each of its own meta or attributes.
 
 #### Properties
 
@@ -28,7 +28,7 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
 
 - `meta` (enum)
 
-  The `meta` property is a reserved object for Refract-specific values.
+    The `meta` property is a reserved object for Refract-specific values. When `meta` is an object, it MAY contain elements itself. The element definition SHOULD be used when interacting with `meta` and its properites and values.
 
   - Members
       - (object)
@@ -36,18 +36,21 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
           - `ref` (Link) - Link to referenced element or type
           - `class` (array[string]) - Array of classifications for given element
           - `prefix` (string) - Prefix in which element MAY be found
+          - `name` (enum) - For use when an element is used as a property (or key/value pair)
+              - (string)
+              - (Element)
           - `namespaces` (array[Link]) - Include elements from given namespaces or prefix elements from given namespace
           - `title` (string) - Human-readable title of element
           - `description` (string) - Human-readable description of element
-      - (array[Member Element])
+      - (array[Property Element])
 
 - `attributes` (enum)
 
-    The `attributes` property defines attributes about the given instance of the element, as specified by the `element` property.
+    The `attributes` property defines attributes about the given instance of the element, as specified by the `element` property. When `attributes` is an object, it MAY contain elements itself. The element definition SHOULD be used when interacting with `attributes` and its properites and values.
 
     - Members
         - (object)
-        - (array[Member Element])
+        - (array[Property Element])
 
 - `content` (enum)
 
@@ -268,14 +271,14 @@ In Refract, this boolean is expanded to a Array Element.
 
 ### Object Element (Element)
 
-A Object Element provides an element for Refract Object Types. When the content of an `object` element includes an `extend`, `select`, or `ref` element, the referenced or resulting elements MUST be a `member` element.
+A Object Element provides an element for Refract Object Types. When the content of an `object` element includes an `extend`, `select`, or `ref` element, the referenced or resulting elements MUST be a `property` element. The properties of the object SHOULD be unique to the object in which they are found.
 
 #### Properties
 
 - `element`: object (string, fixed)
 - `content` (enum)
     - (object)
-    - (array[Member Element])
+    - (array[Property Element])
     - (Extend Element)
     - (Select Element)
     - (Ref Element)
@@ -290,39 +293,37 @@ In JSON, an example of an object is:
 }
 ```
 
-In Refract, this object MAY Be expanded to include Member Elements as its content.
+In Refract, this object MAY Be expanded to include an array of elements as its content.
 
 ```json
 {
   "element": "object",
   "content": [
     {
-      "element": "member",
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "foo"
-        },
-        "value": {
-          "element": "string",
-          "content": "bar"
-        }
-      }
+      "element": "string",
+      "meta": {
+        "name": "foo"
+      },
+      "content": "bar"
     }
   ]
 }
 ```
 
-### Member Element (Element)
+### Property Element (Element)
 
-The Member Element provides an element structure for the key/value pair type Member Type.
+A property element is any element with a `name` meta attribute value. Properties are to provide a key-value pair. See [Object Element](#object-element-element) for examples of how this is used.
+
+While the name of a property MAY be a string, it MAY also be an element for use in element and type information about the property name.
 
 #### Properites
 
-- `element` member (string, fixed)
-- `content` (object)
-    - `key` (Element)
-    - `value` (Element)
+- `meta`
+    - `name` (enum, required) - Name of property given
+        - (string)
+        - (Element)
+
+#### Example
 
 ## Referencing and Linking
 
@@ -599,17 +600,11 @@ This example uses a Select Element to provide multiple options for the properite
           "element": "option",
           "content": [
             {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "firstName"
-                },
-                "value": {
-                  "element": "string",
-                  "content": "John"
-                }
-              }
+              "element": "string",
+              "meta": {
+                "name": "firstName"
+              },
+              "content": "John"
             }
           ]
         },
@@ -617,17 +612,11 @@ This example uses a Select Element to provide multiple options for the properite
           "element": "option",
           "content": [
             {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "givenName"
-                },
-                "value": {
-                  "element": "string",
-                  "content": "John"
-                }
-              }
+              "element": "string",
+              "meta": {
+                "name": "givenName"
+              },
+              "content": "John"
             }
           ]
         }
