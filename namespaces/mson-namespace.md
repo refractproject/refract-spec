@@ -6,14 +6,26 @@ This document extends [Refract][] Specification with new element types necessary
 
 This namespace defines following elements:
 
-1. [MSON Element](#mson-element-element)
-1. [Boolean Type](#boolean-type-boolean-element)
-1. [String Type](#string-type-string-element)
-1. [Number Type](#number-type-number-element)
-1. [Array Type](#array-type-array-element)
-1. [Object Type](#object-type-object-element)
-1. [Property Type](#property-type-property-element)
-1. [Enum Type](#enum-type-mson-element)
+<!-- TOC depth:2 withLinks:1 updateOnSave:0 -->
+- [MSON Namespace](#mson-namespace)
+- [Content](#content)
+- [About this Document](#about-this-document)
+	- [Expanded Element](#expanded-element)
+	- [Base Element](#base-element)
+- [MSON DOM Elements](#mson-dom-elements)
+	- [MSON Element (Element)](#mson-element-element)
+	- [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
+	- [String Type (String Element)](#string-type-string-element)
+	- [Number Type (Number Element)](#number-type-number-element)
+	- [Array Type (Array Element)](#array-type-array-element)
+	- [Object Type (Object Element)](#object-type-object-element)
+	- [Enum Type (MSON Element)](#enum-type-mson-element)
+	- [Examples](#examples)
+- [Address (object)](#address-object)
+	- [Properties](#properties)
+- [User (object)](#user-object)
+- [Customer (User)](#customer-user)
+<!-- /TOC -->
 
 # About this Document
 
@@ -27,7 +39,7 @@ This document conforms to RFC 2119, which says:
 
 MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
 
-By default, Refract does not inforce inheritance of data, though element defintions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the MSON namespace, however, when the data is defined, it inherits data from the element definition. MSON itself uses inheritance this way, and the MSON Refract namespace mimics the behavior to provide simplicity and concistency across MSON representations.
+By default, Refract does not enforce inheritance of data, though element defintions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the MSON namespace, however, when the data is defined, it inherits data from the element definition. MSON itself uses inheritance this way, and the MSON Refract namespace mimics the behavior to provide simplicity and consistency across MSON representations.
 
 Often, before an MSON DOM can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON DOM. That is, a DOM that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
 
@@ -52,7 +64,6 @@ Note: Not every MSON _Base Type_ is presented in Refract primitive types and vic
 |        -       |         -        |      enum      |    Enum Type   |
 |     object     |  Object Element  |     object     |   Object Type  |
 |      null      |   Null Element   |        -       |        -       |
-|        -       |  Member Element  |        -       |  Property Type |
 
 # MSON DOM Elements
 
@@ -75,8 +86,8 @@ Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the e
             - sample
             - default
     - `variable` (boolean) - Element content is _Variable Value_
-    - `sample` (*T*) - Alternative sample value for _Member Types_
-    - `default` (*T*) - Default value for _Member Types_
+    - `sample` (Element) - Alternative sample value for _Member Types_
+    - `default` (Element) - Default value for _Member Types_
     - `validation` - Not used, reserved for a future use
 
 ## Boolean Type (Boolean Element)
@@ -96,10 +107,6 @@ Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the e
 - Include [MSON Element][]
 
 ## Object Type (Object Element)
-
-- Include [MSON Element][]
-
-## Property Type (Property Element)
 
 - Include [MSON Element][]
 
@@ -129,26 +136,20 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "member",
-            "content": {
-                "key": {
-                  "element": "string",
-                  "content": "tag"
+            "element": "enum",
+            "meta": {
+                "name": "tag"
+            },
+            "content": [
+                {
+                    "element": "string",
+                    "content": "red"
                 },
-                "value": {
-                    "element": "enum",
-                    "content": [
-                        {
-                            "element": "string",
-                            "content": "red"
-                        },
-                        {
-                            "element": "string",
-                            "content": "green"
-                        }
-                    ]
+                {
+                    "element": "string",
+                    "content": "green"
                 }
-            }
+            ]
         }
     ]
 }
@@ -171,17 +172,11 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "member",
-            "content": {
-                "key": {
-                    "element": "string",
-                    "content": "id"
-                },
-                "value": {
-                    "element": "string",
-                    "content": "42"
-                }
-            }
+            "element": "string",
+            "meta": {
+                "name": "id"
+            },
+            "content": "42"
         }
     ]
 }
@@ -202,20 +197,17 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "member",
-            "attributes": {
-                "typeAttributes": ["required", "fixed"]
+            "element": "string",
+            "meta": {
+                "name": "id"
             },
-            "content": {
-                "key": {
-                    "element": "string",
-                    "content": "id"
-                },
-                "value": {
-                    "element": "string",
-                    "content": "42"
-                }
-            }
+            "attributes": {
+                "typeAttributes": [
+                    "required",
+                    "fixed"
+                ]
+            },
+            "content": "42"
         }
     ]
 }
@@ -237,20 +229,14 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "member",
-            "content": {
-                "key": {
-                    "element": "string",
-                    "content": "id"
-                },
-                "value": {
-                    "element": "number",
-                    "attributes": {
-                        "default": 0
-                    },
-                    "content": null
-                }
-            }
+            "element": "number",
+            "meta": {
+                "name": "id"
+            },
+            "attributes": {
+                "default": 0
+            },
+            "content": null
         }
     ]
 }
@@ -273,15 +259,12 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 {
     "element": "object",
     "content": [
-        {
-            "element": "member",
-            "content": {
-                "key": {
-                    "element": "string",
-                    "content": "city"
-                }
-            }
-        },
+		{
+			"element": "string",
+			"meta": {
+				"name": "city"
+			}
+		},
         {
             "element": "select",
             "content": [
@@ -289,13 +272,10 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
                     "element": "option",
                     "content": [
                         {
-                            "element": "member",
-                            "content": {
-                                "key": {
-                                    "element": "string",
-                                    "content": "state"
-                                }
-                            }
+                            "element": "string",
+							"meta": {
+								"name": "state"
+							}
                         }
                     ]
                 },
@@ -303,13 +283,10 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
                     "element": "option",
                     "content": [
                         {
-                            "element": "member",
-                            "content": {
-                                "key": {
-                                    "element": "string",
-                                    "content": "province"
-                                }
-                            }
+                            "element": "string",
+							"meta": {
+								"name": "province"
+							}
                         }
                     ]
                 }
@@ -337,13 +314,10 @@ Using the `ref` element to reference an the content of an element.
     "element": "object",
     "content": [
         {
-            "element": "member",
-            "content": {
-                "key": {
-                    "element": "string",
-                    "content": "id"
-                }
-            }
+            "element": "string",
+			"meta": {
+				"name": "id"
+			}
         },
         {
             "element": "ref",
@@ -366,16 +340,13 @@ Using `extend` to merge objects together.
             "element": "object",
             "content": [
                 {
-                    "element": "member",
-                    "content": {
-                        "key": {
-                            "element": "string",
-                            "content": "id"
-                        }
+                    "element": "string",
+                    "meta": {
+                        "name": "id"
                     }
                 }
             ]
-        }
+        },
         {
             "element": "ref",
             "content": "User"
@@ -410,12 +381,9 @@ Description is here! Properties to follow.
     },
     "content": [
         {
-            "element": "member",
-            "content": {
-                "key": {
-                    "element": "string",
-                    "content": "street"
-                }
+            "element": "string",
+            "meta": {
+                "name": "street"
             }
         }
     ]
@@ -440,12 +408,9 @@ Description is here! Properties to follow.
     },
     "content": [
         {
-            "element": "member",
-            "content": {
-                "key": {
-                    "element": "string",
-                    "content": "name"
-                }
+            "element": "string",
+            "meta": {
+                "name": "name"
             }
         }
     ]
@@ -460,12 +425,9 @@ Description is here! Properties to follow.
     },
     "content": [
         {
-            "element": "member",
-            "content": {
-                "key": {
-                    "element": "string",
-                    "content": "id"
-                }
+            "element": "string",
+            "meta": {
+                "name": "id"
             }
         }
     ]
@@ -488,12 +450,9 @@ Description is here! Properties to follow.
             },
             "content": [
                 {
-                    "element": "member",
-                    "content": {
-                        "key": {
-                            "element": "string",
-                            "content": "name"
-                        }
+                    "element": "string",
+                    "meta": {
+                        "name": "id"
                     }
                 }
             ]
@@ -502,12 +461,9 @@ Description is here! Properties to follow.
             "element": "object",
             "content": [
                 {
-                    "element": "member",
-                    "content": {
-                        "key": {
-                            "element": "string",
-                            "content": "id"
-                        }
+                    "element": "string",
+                    "meta": {
+                        "name": "id"
                     }
                 }
             ]
@@ -516,6 +472,7 @@ Description is here! Properties to follow.
 }
 ```
 
+---
 
 [Refract]: https://github.com/refractproject/refract-spec/blob/master/refract-spec.md
 [MSON]: https://github.com/apiaryio/mson
