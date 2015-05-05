@@ -4,8 +4,6 @@ This document extends [Refract][] Specification with new element types necessary
 
 # Content
 
-This namespace defines following elements:
-
 <!-- TOC depth:2 withLinks:1 updateOnSave:0 -->
 - [MSON Namespace](#mson-namespace)
 - [Content](#content)
@@ -21,10 +19,6 @@ This namespace defines following elements:
 	- [Object Type (Object Element)](#object-type-object-element)
 	- [Enum Type (MSON Element)](#enum-type-mson-element)
 	- [Examples](#examples)
-- [Address (object)](#address-object)
-	- [Properties](#properties)
-- [User (object)](#user-object)
-- [Customer (User)](#customer-user)
 <!-- /TOC -->
 
 # About this Document
