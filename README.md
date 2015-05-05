@@ -72,43 +72,28 @@ Instead of merging documents, Refract takes a different approach that creates a 
   "element": "object",
   "content": [
     {
-      "key": {
-        "element": "string",
-        "content": "name"
+      "element": "string",
+      "meta": {
+        "name": "name",
+        "ref": "http://schema.org/name"
       },
-      "value": {
-        "element": "string",
-        "meta": {
-          "ref": "http://schema.org/name"
-        },
-        "content": "The Empire State Building"
-      }
+      "content": "The Empire State Building"
     },
     {
-      "key": {
-        "element": "string",
-        "content": "description"
+      "element": "string",
+      "meta": {
+        "name": "name",
+        "ref": "http://schema.org/description"
       },
-      "value": {
-        "element": "string",
-        "meta": {
-          "ref": "http://schema.org/description"
-        },
-        "content": "The Empire State Building is a 102-story landmark in New York City."
-      }
-    },
+      "content": "The Empire State Building is a 102-story landmark in New York City."
+    }
     {
-      "key": {
-        "element": "string",
-        "content": "image"
+      "element": "string",
+      "meta": {
+        "name": "name",
+        "ref": "http://schema.org/image"
       },
-      "value": {
-        "element": "string",
-        "meta": {
-          "ref": "http://schema.org/image"
-        },
-        "content": "http://www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg"
-      }
+      "content": "http://www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg"
     }
   ]
 }
