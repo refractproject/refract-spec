@@ -6,29 +6,29 @@ This document extends [Refract][] Specification with new element types necessary
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
 - [MSON Namespace](#mson-namespace)
-	- [Content](#content)
-	- [About this Document](#about-this-document)
-	- [Expanded Element](#expanded-element)
-	- [Base Element](#base-element)
-		- [Type comparison](#type-comparison)
+    - [Content](#content)
+    - [About this Document](#about-this-document)
+    - [Expanded Element](#expanded-element)
+    - [Base Element](#base-element)
+        - [Type comparison](#type-comparison)
 - [MSON DOM Elements](#mson-dom-elements)
-	- [MSON Element (Element)](#mson-element-element)
-		- [Properties](#properties)
-	- [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
-	- [String Type (String Element)](#string-type-string-element)
-	- [Number Type (Number Element)](#number-type-number-element)
-	- [Array Type (Array Element)](#array-type-array-element)
-	- [Object Type (Object Element)](#object-type-object-element)
-	- [Enum Type (MSON Element)](#enum-type-mson-element)
-		- [Properties](#properties)
-		- [Examples](#examples)
-	- [Examples](#examples)
-		- [Anonymous Object Type](#anonymous-object-type)
-		- [Type Attributes](#type-attributes)
-		- [Default Value](#default-value)
-		- [One Of](#one-of)
-		- [Mixin](#mixin)
-		- [Named Type](#named-type)
+    - [MSON Element (Element)](#mson-element-element)
+        - [Properties](#properties)
+    - [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
+    - [String Type (String Element)](#string-type-string-element)
+    - [Number Type (Number Element)](#number-type-number-element)
+    - [Array Type (Array Element)](#array-type-array-element)
+    - [Object Type (Object Element)](#object-type-object-element)
+    - [Enum Type (MSON Element)](#enum-type-mson-element)
+        - [Properties](#properties)
+        - [Examples](#examples)
+    - [Examples](#examples)
+        - [Anonymous Object Type](#anonymous-object-type)
+        - [Type Attributes](#type-attributes)
+        - [Default Value](#default-value)
+        - [One Of](#one-of)
+        - [Mixin](#mixin)
+        - [Named Type](#named-type)
 
 <!-- /TOC -->
 
@@ -91,8 +91,14 @@ Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the e
             - sample
             - default
     - `variable` (boolean) - Element content is _Variable Value_
-    - `sample` (Element) - Alternative sample value for _Member Types_
-    - `default` (Element) - Default value for _Member Types_
+    - `sample` - Alternative sample value for _Member Types_
+
+		The type of of `sample` attribute MUST match the type of element's `content`.
+
+    - `default` - Default value for _Member Types_
+
+		The type of of `default` attribute MUST match the type of element's `content`.
+
     - `validation` - Not used, reserved for a future use
 
 ## Boolean Type (Boolean Element)
@@ -264,12 +270,12 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 {
     "element": "object",
     "content": [
-		{
-			"element": "string",
-			"meta": {
-				"name": "city"
-			}
-		},
+        {
+            "element": "string",
+            "meta": {
+                "name": "city"
+            }
+        },
         {
             "element": "select",
             "content": [
@@ -278,9 +284,9 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
                     "content": [
                         {
                             "element": "string",
-							"meta": {
-								"name": "state"
-							}
+                            "meta": {
+                                "name": "state"
+                            }
                         }
                     ]
                 },
@@ -289,9 +295,9 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
                     "content": [
                         {
                             "element": "string",
-							"meta": {
-								"name": "province"
-							}
+                            "meta": {
+                                "name": "province"
+                            }
                         }
                     ]
                 }
@@ -320,9 +326,9 @@ Using the `ref` element to reference an the content of an element.
     "content": [
         {
             "element": "string",
-			"meta": {
-				"name": "id"
-			}
+            "meta": {
+                "name": "id"
+            }
         },
         {
             "element": "ref",
