@@ -73,7 +73,7 @@ Copy element represents a copy text. A textual information in API description.
 Its content is a string and it MAY include information about the media type
 of the copy's content.
 
-If a Copy element the parent's element `description` metadata SHOULD include its
+If a Copy element the parent's element `description` metadata MAY include its
 content.
 
 The Copy element MAY appear as a content of any element defined in the base
@@ -83,7 +83,7 @@ namespaces.
 
 - `element`: copy (string, fixed)
 - `attributes` (object)
-    - `contentType` (string) - Optional media type of the content E.g. text/html or text/plain
+    - `contentType` (string) - Optional media type of the content E.g. text/html or text/plain.
 - `content` (string)
 
 ### Example
@@ -100,6 +100,9 @@ Given an API description with following layout:
 ```json
 {
     "element": "category",
+    "meta": {
+        "description": "Lorem Ipsum\nDolor Sit Amet"
+    },
     "content": [
         {
             "element": "copy",
