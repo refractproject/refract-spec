@@ -10,7 +10,7 @@ Refract is a a recursive data structure for expressing complex structures, relat
 
 ## Version
 
-**Current Version**: 0.1.0
+**Current Version**: 0.1.0-beta
 
 **Note**: This specification is currently in development and may change before getting to a more stable 1.0 version. Please be mindful of this if using this production environments.
 
@@ -20,53 +20,22 @@ Refract is a a recursive data structure for expressing complex structures, relat
 
 ## About
 
-The purpose of Refract is to provide a structure for data that is not coupled to the data itself. While this is a departure from how JSON is currently used, it is a way of future-proofing clients.
+Refract is a structure for handling all sorts and kinds of data across all sorts and kinds of formats. That's a very general-purpose description for a general-purpose structure. To get an idea of what Refract does, we'll walk through some of its uses with some examples along the way.
 
-### Why Refract?
+### As a way to annotate JSON
 
-Over and over, standards are created to provide additional layers of data on top of existing data. In the web world, we see this with media types, link relations, profiles, etc., where data and its semantics are being defined in different documents and in different structures.
+Refract provides the ability to take a normal JSON structure and add a layer on top of it for the puprose of annotating and adding semantic data. Refract is not the first structure to try and tackle this task, though it does take a different approach. Instead of creating an entirely different structure to describe the data, Refract's approach is to expand the existing structure (we call it "refracting" a structure). Here is an example to show our point.
 
-Additionally, we see JSON formats that couple the representation of data to the structure of the JSON document. Clients are written to utilize this structure, which means if data changes, structure changes, and if structure changes, clients break.
-
-The aim of Refract is to provide a standard structure to prevent clients from breaking in this way. In Refract, the data is decoupled from the structure. It provides a way to focus on semantics at any level rather than worry about the documents structure.
-
-### Annotating JSON
-
-Because of this separation, Refract provides the ability to annotate existing JSON without breaking the structure of the JSON document. XML provides the ability to add attributes about elements, but unfortunately idiomatic JSON does not. Refract can be used to add these attributes.
-
-Many other formats try to annotate JSON by adding properties into the structure of the JSON document. While the aim of this was to provide simplicity, it does not add clarity, as it is mainly two documents merged together.
-
-#### Example
-
-Here is an example of a JSON document of a place.
+Take the following simple JSON object.
 
 ```json
 {
-  "name": "The Empire State Building",
-  "description": "The Empire State Building is a 102-story landmark in New York City.",
-  "image": "http://www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg"
+  "name": "John Doe",
+  "email": "john@example.com"
 }
 ```
 
-JSON-LD is a format used to annotate JSON structures by adding in semantics and linked data. Here is how the JSON above would be modified to include semantic linked data.
-
-```json
-{
-  "@context": {
-    "name": "http://schema.org/name",
-    "description": "http://schema.org/description",
-    "image": {
-      "@id": "http://schema.org/image",
-      "@type": "@id"
-    }
-  },
-  "name": "The Empire State Building",
-  "description": "The Empire State Building is a 102-story landmark in New York City.",
-  "image": "http://www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg"
-}
-```
-
-Instead of merging documents, Refract takes a different approach that creates a layer on top of the existing structure.
+Using Refract, we can expand this out and add some human-readable titles and descriptions.
 
 ```json
 {
@@ -76,58 +45,93 @@ Instead of merging documents, Refract takes a different approach that creates a 
       "element": "string",
       "meta": {
         "name": "name",
-        "ref": "http://schema.org/name"
+        "title": "Name",
+        "description": "Name of a person"
       },
-      "content": "The Empire State Building"
+      "content": "John Doe"
     },
     {
       "element": "string",
       "meta": {
-        "name": "name",
-        "ref": "http://schema.org/description"
+        "name": "email",
+        "title": "Email",
+        "description": "Email address for the person"
       },
-      "content": "The Empire State Building is a 102-story landmark in New York City."
-    }
-    {
-      "element": "string",
-      "meta": {
-        "name": "name",
-        "ref": "http://schema.org/image"
-      },
-      "content": "http://www.civil.usherbrooke.ca/cours/gci215a/empire-state-building.jpg"
+      "content": "john@example.com"
     }
   ]
 }
 ```
 
-Refract is not meant to be a replacement for JSON-LD. The purpose of this example is to show the approach that Refract uses in annotating existing JSON structures by expanding them into a new structure that can be easily annotated.
+We added some semantic data to the existing data, but we did so while retaining the semantic structure of the data with the `object` and `string` elements. **This means there is no semantic difference in the Refract structure and the original JSON structure**. It also means we can add extra semantics on top of these structural ones.
 
+Just some notes on Refract, the `meta` section shown here is reserved for Refract-specific properties for each element. These properties provide ways to address and link to data, add human-readable data as such, and even include namespaces of defined elements.
 
-### Richer Data Structures
+### As a unifying structure
 
-In addition to providing the ability to annotate existing documents, Refract can be used to create more complex data structures. As mentioned above, XML provides the ability to add attributes to element values, while JSON alone does not have this ability. Refract is meant to be a recursive structure that can do what XML does, but in JSON, and in ways that XML does not provide.
+If you have a keen eye, you may have noticed the similarities between the JSON example above and XML. XML has elements, attributes, and content. If you caught this and wanted to ask if we simply turned JSON into XML, you'd be asking a fair question.
 
-For example, XML cannot provide ways to include meta data about attributes. Refract elements may be used in the content of elements, but also in attributes and even the element name itself.
+Refract is actually meant to provide these cross-format similarities. It means that a JSON structure may be refracted and converted to XML. It also means an XML document may be converted into Refract. This also goes for YAML, HTML, CSV, and many other formats. Refract is a way to unify these structures.
 
-Because of this, Refract can also be used for JSON documents as well as annotating XML documents.
+Since we said we'd include examples, let's look at moving XML over into Refract.
 
+```xml
+<person name="John Doe" email="john@example.com">
+```
 
-### Simpler SDKs
+This example in refracted form would look like this. Notice that we're using `attributes` instead of `meta` because `attributes` are free to be used.
 
-Using this data structure allows for writing small, reusable classes that define methods that can be used for each element. Rather than writing an SDK that conforms to a specific data structure, SDKs may be written that provide APIs to elements. Libraries can then be written separate from the structure of data to allow for data to evolve over time.
+```json
+{
+  "element": "person",
+  "attributes": {
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+}
+```
 
-### JSON Document Object Model
+Because we can go back and forth between JSON, XML, and other formats, we are now free to use toolsets across formats. That means we could use XSLT to transform JSON documents.
 
-Since JSON libraries can be found in most platforms and languages, Refract provides a structure for cross-platform and cross-language object models.
+### As an infinitely recursive structure
 
-Additionally, this means that Refract documents could be queried in the same fashion the DOM is queried, providing a more flexible structure.
+Refract can actually go a step further with our previous example and annotate attributes for a given element. Since the `attributes` object is just an object, we can refract it as such.
 
-## Uses
+```json
+{
+  "element": "person",
+  "attributes": [
+    {
+      "element": "string",
+      "meta": {
+        "name": "name",
+        "title": "Name",
+        "description": "Name of a person"
+      },
+      "content": "John Doe"
+    },
+    {
+      "element": "string",
+      "meta": {
+        "name": "email",
+        "title": "Email",
+        "description": "Email address for the person"
+      },
+      "content": "john@example.com"
+    }
+  ]
+}
+```
 
-- Replace brittle and complex JSON structures
-- Recursively annotate existing JSON structures
-- Create markup languages that cross boundaries between formats such as XML and JSON
-- Provide a JSON version of an existing XML document structure
+This is a step XML cannot take inline—it does not allow attributes to have elements as their values. Refract is recursive, so this is no problem.
+
+### As a queryable structure
+
+Refract is meant to free you from the structure of your documents, similar to how XML does with things like XPATH or the DOM. It means we can now query JSON documents as if there was an underlying DOM, which **decouples our clients from our structure and our structure from our data**.
+
+### As a model for client libraries
+
+Lastly, Refract is meant to provide a model for client libraries. As mentioned, it decouples our clients from structure and data. It also means we only have to deal with one thing and that is an element. Elements can be of different types with different definitions, but only having one kind of thing to work great simplifies our client library's needs.
 
 ## Authors
 
