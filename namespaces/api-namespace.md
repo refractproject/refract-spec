@@ -50,14 +50,18 @@ For example a `category` element may be classified both as `resourceGroup` and
 {
     "element": "category",
     "meta": {
-        "class": "api",
+        "class": [
+            "api"
+        ],
         "title": "Polls API"
     },
     "content": [
         {
             "element": "category",
             "meta": {
-                "class": "resourceGroup",
+                "class": [
+                    "resourceGroup"
+                ],
                 "title": "Question",
                 "description": "Resources related to questions in the API."
             },
@@ -73,8 +77,8 @@ Copy element represents a copy text. A textual information in API description.
 Its content is a string and it MAY include information about the media type
 of the copy's content.
 
-If a Copy element the parent's element `description` metadata MAY include its
-content.
+If an element contains a Copy element, the element's `description` metadata
+MAY include the Copy element's content.
 
 The Copy element MAY appear as a content of any element defined in the base
 namespaces.
@@ -83,13 +87,12 @@ namespaces.
 
 - `element`: copy (string, fixed)
 - `attributes` (object)
-    - `contentType` (string) - Optional media type of the content E.g. text/html or text/plain.
+    - `contentType`: *text/plain* (string) - Optional media type of the content.
 - `content` (string)
 
 ### Example
 
 Given an API description with following layout:
-
 
 - Group
     - Copy "Lorem Ipsum"
