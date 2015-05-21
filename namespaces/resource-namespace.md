@@ -223,19 +223,20 @@ message pair. A transaction example MUST contain exactly one HTTP request and on
         {
             "element": "httpResponse",
             "attributes": {
-                "status": 200,
-                "assets": [
-                    {
-                        "element": "asset",
-                        "meta": {
-                            "class": "messageBody"
-                        },
-                        "attributes": {},
-                        "content": "{\"name\": \"John\"}"
-                    }
-                ]
+                "status": 200
             },
-            "content": null
+            "content": [
+                {
+                    "element": "asset",
+                    "meta": {
+                        "class": "messageBody"
+                    },
+                    "attributes": {
+                      "contentType": "application/json"
+                    },
+                    "content": "{\"name\": \"John\"}"
+                }
+            ]
         }
     ]
 }
