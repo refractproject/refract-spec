@@ -114,10 +114,14 @@ The Resource representation with its available transitions and attributes.
         "href": "/questions/{question_id}",
         "hrefVariables": {
             "element": "hrefVariables",
-            "attributes": {
-                "name": "question_id"
-            },
-            "content": null
+            "content": [
+              {
+                "element": "string",
+                "meta": {
+                  "name": "question_id"
+                }
+              }
+            ]
         }
     },
     "content": [
@@ -223,7 +227,7 @@ message pair. A transaction example MUST contain exactly one HTTP request and on
         {
             "element": "httpResponse",
             "attributes": {
-                "status": 200
+                "statusCode": 200
             },
             "content": [
                 {
