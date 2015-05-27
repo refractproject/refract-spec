@@ -409,6 +409,8 @@ Description is here! Properties to follow.
 
 ### Referencing & Expansion
 
+#### MSON
+
 ```markdown
 # User (object)
 - name
@@ -416,6 +418,8 @@ Description is here! Properties to follow.
 # Customer (User)
 - id
 ```
+
+#### MSON Refract
 
 ```json
 {
@@ -451,7 +455,7 @@ Description is here! Properties to follow.
 }
 ```
 
-#### Expanded
+#### Expanded MSON Refract
 
 ```json
 {
@@ -487,6 +491,65 @@ Description is here! Properties to follow.
         }
     ]
 }
+```
+
+### Variable Value
+
+### MSON
+
+```markdown
+- p: *42*
+```
+
+### MSON Refract
+
+```json
+["object", {}, {}, [
+    ["string", {"name": "p"}, {"typeAttributes": ["sample"]}, 42]
+  ]]
+```
+
+## Variable Property Name
+
+### MSON
+
+```markdown
+- *rel (Relation)*
+```
+
+### MSON Refract
+
+```json
+["object", {}, {}, [
+    ["string",
+      {"name": ["Relation", {}, {"variable": true}, "rel" ] },
+      {},
+      null]
+  ]]
+```
+
+## Variable Type Name
+
+**Proposal – not yet implemented**
+
+Note this needs an introduction of a new MSON namespace element for any type - `generic`.
+
+### MSON
+
+```markdown
+- p (array[*T*])
+```
+
+### MSON Refract
+
+```json
+["object", {}, {}, [
+    ["array",  {"name": "p"}, {}, [
+      [
+        ["generic", {}, {}, "T"]
+      ]
+    ]]
+  ]]
 ```
 
 ---
