@@ -6,30 +6,32 @@ This document extends [Refract][] Specification with new element types necessary
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
 - [MSON Namespace](#mson-namespace)
-    - [Content](#content)
-    - [About this Document](#about-this-document)
-    - [Expanded Element](#expanded-element)
-    - [Base Element](#base-element)
-        - [Type comparison](#type-comparison)
+	- [Content](#content)
+	- [About this Document](#about-this-document)
+	- [Expanded Element](#expanded-element)
+	- [Base Element](#base-element)
+		- [Type comparison](#type-comparison)
 - [MSON Refract Elements](#mson-refract-elements)
-    - [MSON Element (Element)](#mson-element-element)
-        - [Properties](#properties)
-    - [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
-    - [String Type (String Element)](#string-type-string-element)
-    - [Number Type (Number Element)](#number-type-number-element)
-    - [Array Type (Array Element)](#array-type-array-element)
-    - [Object Type (Object Element)](#object-type-object-element)
-    - [Enum Type (MSON Element)](#enum-type-mson-element)
-        - [Properties](#properties)
-        - [Examples](#examples)
-    - [Examples](#examples)
-        - [Anonymous Object Type](#anonymous-object-type)
-        - [Type Attributes](#type-attributes)
-        - [Default Value](#default-value)
-        - [One Of](#one-of)
-        - [Mixin](#mixin)
-        - [Named Type](#named-type)
-
+	- [MSON Element (Element)](#mson-element-element)
+		- [Properties](#properties)
+	- [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
+	- [String Type (String Element)](#string-type-string-element)
+	- [Number Type (Number Element)](#number-type-number-element)
+	- [Array Type (Array Element)](#array-type-array-element)
+	- [Object Type (Object Element)](#object-type-object-element)
+	- [Enum Type (MSON Element)](#enum-type-mson-element)
+		- [Properties](#properties)
+		- [Examples](#examples)
+	- [Examples](#examples)
+		- [Anonymous Object Type](#anonymous-object-type)
+		- [Type Attributes](#type-attributes)
+		- [Default Value](#default-value)
+		- [One Of](#one-of)
+		- [Mixin](#mixin)
+		- [Named Type](#named-type)
+		- [Variable Value](#variable-value)
+		- [Variable Property Name](#variable-property-name)
+		- [Variable Type Name](#variable-type-name)
 <!-- /TOC -->
 
 ## About this Document
@@ -72,7 +74,7 @@ Note: Not every MSON _Base Type_ is presented in Refract primitive types and vic
 
 # MSON Refract Elements
 
-## MSON Element (Element[*T*])
+## MSON Element (Element)
 
 Base element for every MSON element.
 
@@ -91,21 +93,23 @@ Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of t
             - sample - The `content` value is a sample value.
             - default - The `content` value is a default value.
 
-    - `variable` (boolean) - The `content` value is a _Variable Value_
+    - `variable` (boolean)
 
-      The `content` value is either a _Variable Type Name_, _Variable Value_ or _Variable Property Name_.
+      The `content` value is either a _Variable Type Name_, or _Variable Property Name_.
 
-    - `sample` (array[T]) - Alternative sample value for _Member Types_
+      Note, if the `content` is a _Variable Value_ the `sample` type attribute
+      should be used instead (see `typeAttributes`).
+
+    - `sample` (array) - Alternative sample value for _Member Types_
 
 		  The type of items in `sample` array attribute MUST match the type of element's `content`.
 
-    - `default` (T) - Default value for _Member Types_
+    - `default` - Default value for _Member Types_
 
 		  The type of of `default` attribute MUST match the type of element's `content`.
 
     - `validation` - Not used, reserved for a future use
 
-- `content` (T)
 
 ## Boolean Type (Boolean Element)
 
@@ -495,61 +499,59 @@ Description is here! Properties to follow.
 
 ### Variable Value
 
-### MSON
+#### MSON
 
 ```markdown
 - p: *42*
 ```
 
-### MSON Refract
+#### MSON Refract
 
 ```json
 ["object", {}, {}, [
-    ["string", {"name": "p"}, {"typeAttributes": ["sample"]}, 42]
-  ]]
+  ["string", {"name": "p"}, {"typeAttributes": ["sample"]}, 42]
+]]
 ```
 
-## Variable Property Name
+### Variable Property Name
 
-### MSON
+#### MSON
 
 ```markdown
 - *rel (Relation)*
 ```
 
-### MSON Refract
+#### MSON Refract
 
 ```json
 ["object", {}, {}, [
-    ["string",
-      {"name": ["Relation", {}, {"variable": true}, "rel" ] },
-      {},
-      null]
-  ]]
+  ["string",
+    {"name": ["Relation", {}, {"variable": true}, "rel" ] },
+    {},
+    null]
+]]
 ```
 
-## Variable Type Name
+### Variable Type Name
 
 **Proposal – not yet implemented**
 
 Note this needs an introduction of a new MSON namespace element for any type - `generic`.
 
-### MSON
+#### MSON
 
 ```markdown
 - p (array[*T*])
 ```
 
-### MSON Refract
+#### MSON Refract
 
 ```json
 ["object", {}, {}, [
-    ["array",  {"name": "p"}, {}, [
-      [
-        ["generic", {}, {}, "T"]
-      ]
-    ]]
+  ["array",  {"name": "p"}, {}, [
+    ["generic", {}, {}, "T"]
   ]]
+]]
 ```
 
 ---
