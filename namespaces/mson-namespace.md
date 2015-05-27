@@ -1,6 +1,6 @@
 # MSON Namespace
 
-This document extends [Refract][] Specification with new element types necessary to build [MSON][] DOM.
+This document extends [Refract][] Specification with new element types necessary to build [MSON][] Refract.
 
 ## Content
 
@@ -11,7 +11,7 @@ This document extends [Refract][] Specification with new element types necessary
     - [Expanded Element](#expanded-element)
     - [Base Element](#base-element)
         - [Type comparison](#type-comparison)
-- [MSON DOM Elements](#mson-dom-elements)
+- [MSON Refract Elements](#mson-refract-elements)
     - [MSON Element (Element)](#mson-element-element)
         - [Properties](#properties)
     - [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
@@ -46,15 +46,15 @@ MSON is built around the idea of defining recursive data structures. To provide 
 
 By default, Refract does not enforce inheritance of data, though element defintions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the MSON namespace, however, when the data is defined, it inherits data from the element definition. MSON itself uses inheritance this way, and the MSON Refract namespace mimics the behavior to provide simplicity and consistency across MSON representations.
 
-Often, before an MSON DOM can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON DOM. That is, a DOM that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
+Often, before an MSON Refract can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON Refract. That is, a Refract that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
 
 In other words, an expanded element is one that does not contain any _Identifier_ (defined below) referencing any other elements than those defined in MSON namespaces.
 
-The expanded DOM MUST, however, keep the track of what data structure was expanded and what from where.
+The expanded Refract MUST, however, keep the track of what data structure was expanded and what from where.
 
 ## Base Element
 
-In MSON, every data structure is a sub-type of another data structure, and, therefore, it is directly or indirectly derived from one of the MSON _Base Types_. This is expressed as an inheritance of elements in MSON DOM. Where the predecessor of an element is referred to as element's _Base Element_.
+In MSON, every data structure is a sub-type of another data structure, and, therefore, it is directly or indirectly derived from one of the MSON _Base Types_. This is expressed as an inheritance of elements in MSON Refract. Where the predecessor of an element is referred to as element's _Base Element_.
 
 Note: Not every MSON _Base Type_ is presented in Refract primitive types and vice versa – see the table below.
 
@@ -70,7 +70,7 @@ Note: Not every MSON _Base Type_ is presented in Refract primitive types and vic
 |     object     |  Object Element  |     object     |   Object Type  |
 |      null      |   Null Element   |        -       |        -       |
 
-# MSON DOM Elements
+# MSON Refract Elements
 
 ## MSON Element (Element[*T*])
 
@@ -78,7 +78,7 @@ Base element for every MSON element.
 
 The MSON Element adds attributes representing MSON _Type Definition_ and _Type Sections_.
 
-Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the element.
+Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of the element.
 
 ### Properties
 
@@ -146,7 +146,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     - green
 ```
 
-#### MSON DOM
+#### MSON Refract
 
 ```json
 {
@@ -182,7 +182,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 - id: 42
 ```
 
-#### MSON DOM
+#### MSON Refract
 
 ```json
 {
@@ -207,7 +207,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 - id: 42 (required, fixed)
 ```
 
-#### MSON DOM
+#### MSON Refract
 
 ```json
 {
@@ -239,7 +239,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     - default: 0
 ```
 
-#### MSON DOM
+#### MSON Refract
 
 ```json
 {
@@ -270,7 +270,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     - province
 ```
 
-#### MSON DOM
+#### MSON Refract
 
 ```json
 {
@@ -322,7 +322,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 - Include User
 ```
 
-#### MSON DOM
+#### MSON Refract
 
 Using the `ref` element to reference an the content of an element.
 
@@ -386,7 +386,7 @@ Description is here! Properties to follow.
 - street
 ```
 
-#### MSON DOM
+#### MSON Refract
 
 ```json
 {
