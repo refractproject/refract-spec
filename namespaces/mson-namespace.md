@@ -72,7 +72,7 @@ Note: Not every MSON _Base Type_ is presented in Refract primitive types and vic
 
 # MSON DOM Elements
 
-## MSON Element (Element)
+## MSON Element (Element[*T*])
 
 Base element for every MSON element.
 
@@ -85,21 +85,27 @@ Note: In MSON DOM _Nested Member Types_ _Type Section_ is the `content` of the e
 - `attributes`
     - `typeAttributes` (array) - _Type Definition_ attributes list, see _Type Attribute_  
         - (enum[string])
-            - required
-            - optional
-            - fixed
-            - sample
-            - default
-    - `variable` (boolean) - Element content is _Variable Value_
-    - `sample` - Alternative sample value for _Member Types_
+            - required - This element is required in parent's content
+            - optional - This element is optional in parent's content
+            - fixed - The `content` value is immutable.
+            - sample - The `content` value is a sample value.
+            - default - The `content` value is a default value.
 
-		The type of of `sample` attribute MUST match the type of element's `content`.
+    - `variable` (boolean) - The `content` value is a _Variable Value_
 
-    - `default` - Default value for _Member Types_
+      The `content` value is either a _Variable Type Name_, _Variable Value_ or _Variable Property Name_.
 
-		The type of of `default` attribute MUST match the type of element's `content`.
+    - `sample` (array[T]) - Alternative sample value for _Member Types_
+
+		  The type of items in `sample` array attribute MUST match the type of element's `content`.
+
+    - `default` (T) - Default value for _Member Types_
+
+		  The type of of `default` attribute MUST match the type of element's `content`.
 
     - `validation` - Not used, reserved for a future use
+
+- `content` (T)
 
 ## Boolean Type (Boolean Element)
 
