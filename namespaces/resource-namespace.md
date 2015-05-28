@@ -115,12 +115,15 @@ The Resource representation with its available transitions and attributes.
         "hrefVariables": {
             "element": "hrefVariables",
             "content": [
-              {
-                "element": "string",
-                "meta": {
-                  "name": "question_id"
+                {
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "string",
+                            "content": "question_id"
+                        }
+                    }
                 }
-              }
             ]
         }
     },
@@ -268,11 +271,17 @@ interpreted as HTTP header field-name as defined in [RFC 7230][].
     "element": "httpHeaders",
     "content": [
         {
-            "element": "string",
-            "meta": {
-                "name": "Content-Type"
-            },
-            "content": "application/json"
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "Content-Type"
+                },
+                "value": {
+                    "element": "string",
+                    "content": "application/json"
+                }
+            }
         }
     ]
 }
