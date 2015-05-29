@@ -6,10 +6,10 @@ This document extends [Refract][] [Resource Namespace][] to define REST API data
 
 <!-- TOC depth:2 withLinks:1 updateOnSave:1 -->
 - [API Namespace](#api-namespace)
-	- [Content](#content)
-	- [About this Document](#about-this-document)
-	- [Category (Element)](#category-element)
-	- [Copy (Element)](#copy-element)
+    - [Content](#content)
+    - [About this Document](#about-this-document)
+    - [Category (Element)](#category-element)
+    - [Copy (Element)](#copy-element)
 <!-- /TOC -->
 
 ## About this Document

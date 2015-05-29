@@ -6,32 +6,32 @@ This document extends [Refract][] Specification with new element types necessary
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
 - [MSON Namespace](#mson-namespace)
-	- [Content](#content)
-	- [About this Document](#about-this-document)
-	- [Expanded Element](#expanded-element)
-	- [Base Element](#base-element)
-		- [Type comparison](#type-comparison)
+    - [Content](#content)
+    - [About this Document](#about-this-document)
+    - [Expanded Element](#expanded-element)
+    - [Base Element](#base-element)
+        - [Type comparison](#type-comparison)
 - [MSON Refract Elements](#mson-refract-elements)
-	- [MSON Element (Element)](#mson-element-element)
-		- [Properties](#properties)
-	- [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
-	- [String Type (String Element)](#string-type-string-element)
-	- [Number Type (Number Element)](#number-type-number-element)
-	- [Array Type (Array Element)](#array-type-array-element)
-	- [Object Type (Object Element)](#object-type-object-element)
-	- [Enum Type (MSON Element)](#enum-type-mson-element)
-		- [Properties](#properties)
-		- [Examples](#examples)
-	- [Examples](#examples)
-		- [Anonymous Object Type](#anonymous-object-type)
-		- [Type Attributes](#type-attributes)
-		- [Default Value](#default-value)
-		- [One Of](#one-of)
-		- [Mixin](#mixin)
-		- [Named Type](#named-type)
-		- [Variable Value](#variable-value)
-		- [Variable Property Name](#variable-property-name)
-		- [Variable Type Name](#variable-type-name)
+    - [MSON Element (Element)](#mson-element-element)
+        - [Properties](#properties)
+    - [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
+    - [String Type (String Element)](#string-type-string-element)
+    - [Number Type (Number Element)](#number-type-number-element)
+    - [Array Type (Array Element)](#array-type-array-element)
+    - [Object Type (Object Element)](#object-type-object-element)
+    - [Enum Type (MSON Element)](#enum-type-mson-element)
+        - [Properties](#properties)
+        - [Examples](#examples)
+    - [Examples](#examples)
+        - [Anonymous Object Type](#anonymous-object-type)
+        - [Type Attributes](#type-attributes)
+        - [Default Value](#default-value)
+        - [One Of](#one-of)
+        - [Mixin](#mixin)
+        - [Named Type](#named-type)
+        - [Variable Value](#variable-value)
+        - [Variable Property Name](#variable-property-name)
+        - [Variable Type Name](#variable-type-name)
 <!-- /TOC -->
 
 ## About this Document
@@ -102,11 +102,11 @@ Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of t
 
     - `sample` (array) - Alternative sample value for _Member Types_
 
-		  The type of items in `sample` array attribute MUST match the type of element's `content`.
+          The type of items in `sample` array attribute MUST match the type of element's `content`.
 
     - `default` - Default value for _Member Types_
 
-		  The type of of `default` attribute MUST match the type of element's `content`.
+          The type of of `default` attribute MUST match the type of element's `content`.
 
     - `validation` - Not used, reserved for a future use
 
@@ -157,20 +157,26 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "enum",
-            "meta": {
-                "name": "tag"
-            },
-            "content": [
-                {
+            "element": "member",
+            "content": {
+                "key": {
                     "element": "string",
-                    "content": "red"
+                    "content": "tag"
                 },
-                {
-                    "element": "string",
-                    "content": "green"
+                "value": {
+                    "element": "enum",
+                    "content": [
+                        {
+                            "element": "string",
+                            "content": "red"
+                        },
+                        {
+                            "element": "string",
+                            "content": "green"
+                        }
+                    ]
                 }
-            ]
+            }
         }
     ]
 }
@@ -193,11 +199,17 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "string",
-            "meta": {
-                "name": "id"
-            },
-            "content": "42"
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
+                },
+                "value": {
+                    "element": "string",
+                    "content": "42"
+                }
+            }
         }
     ]
 }
@@ -218,17 +230,23 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "string",
-            "meta": {
-                "name": "id"
-            },
+            "element": "member",
             "attributes": {
                 "typeAttributes": [
                     "required",
                     "fixed"
                 ]
             },
-            "content": "42"
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
+                },
+                "value": {
+                    "element": "string",
+                    "content": "42"
+                }
+            }
         }
     ]
 }
@@ -250,14 +268,19 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "number",
-            "meta": {
-                "name": "id"
-            },
-            "attributes": {
-                "default": 0
-            },
-            "content": null
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
+                },
+                "value": {
+                    "element": "number",
+                    "attributes": {
+                        "default": 0
+                    }
+                }
+            }
         }
     ]
 }
@@ -281,9 +304,12 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     "element": "object",
     "content": [
         {
-            "element": "string",
-            "meta": {
-                "name": "city"
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "city"
+                }
             }
         },
         {
@@ -293,9 +319,12 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
                     "element": "option",
                     "content": [
                         {
-                            "element": "string",
-                            "meta": {
-                                "name": "state"
+                            "element": "member",
+                            "content": {
+                                "key": {
+                                    "element": "string",
+                                    "content": "state"
+                                }
                             }
                         }
                     ]
@@ -304,9 +333,12 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
                     "element": "option",
                     "content": [
                         {
-                            "element": "string",
-                            "meta": {
-                                "name": "province"
+                            "element": "member",
+                            "content": {
+                                "key": {
+                                    "element": "string",
+                                    "content": "province"
+                                }
                             }
                         }
                     ]
@@ -335,9 +367,12 @@ Using the `ref` element to reference an the content of an element.
     "element": "object",
     "content": [
         {
-            "element": "string",
-            "meta": {
-                "name": "id"
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
+                }
             }
         },
         {
@@ -361,9 +396,12 @@ Using `extend` to merge objects together.
             "element": "object",
             "content": [
                 {
-                    "element": "string",
-                    "meta": {
-                        "name": "id"
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "string",
+                            "content": "id"
+                        }
                     }
                 }
             ]
@@ -402,9 +440,12 @@ Description is here! Properties to follow.
     },
     "content": [
         {
-            "element": "string",
-            "meta": {
-                "name": "street"
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "stree"
+                }
             }
         }
     ]
@@ -433,9 +474,12 @@ Description is here! Properties to follow.
     },
     "content": [
         {
-            "element": "string",
-            "meta": {
-                "name": "name"
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "name"
+                }
             }
         }
     ]
@@ -450,9 +494,12 @@ Description is here! Properties to follow.
     },
     "content": [
         {
-            "element": "string",
-            "meta": {
-                "name": "id"
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
+                }
             }
         }
     ]
@@ -475,9 +522,12 @@ Description is here! Properties to follow.
             },
             "content": [
                 {
-                    "element": "string",
-                    "meta": {
-                        "name": "id"
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "string",
+                            "content": "id"
+                        }
                     }
                 }
             ]
@@ -486,9 +536,12 @@ Description is here! Properties to follow.
             "element": "object",
             "content": [
                 {
-                    "element": "string",
-                    "meta": {
-                        "name": "id"
+                    "element": "member",
+                    "content": {
+                        "key": {
+                            "element": "string",
+                            "content": "id"
+                        }
                     }
                 }
             ]
@@ -509,7 +562,10 @@ Description is here! Properties to follow.
 
 ```json
 ["object", {}, {}, [
-  ["string", {"name": "p"}, {"typeAttributes": ["sample"]}, 42]
+  ["member", {}, {}, {
+    "key": ["string", {}, {}, "p"],
+    "value": ["string", {}, {"typeAttributes": ["sample"]}, 42]
+  }]
 ]]
 ```
 
@@ -525,10 +581,10 @@ Description is here! Properties to follow.
 
 ```json
 ["object", {}, {}, [
-  ["string",
-    {"name": ["Relation", {}, {"variable": true}, "rel" ] },
-    {},
-    null]
+  ["member", {}, {}, {
+    "key": ["Relation", {}, {"variable": true}, "rel"],
+    "value": ["string", {}, {"typeAttributes": ["sample"]}, null]
+  }]
 ]]
 ```
 
@@ -548,9 +604,12 @@ Note this needs an introduction of a new MSON namespace element for any type - `
 
 ```json
 ["object", {}, {}, [
-  ["array",  {"name": "p"}, {}, [
-    ["generic", {}, {}, "T"]
-  ]]
+  ["member", {}, {}, {
+    "key": ["string", {}, {}, "p"],
+    "value": ["array", {}, {}, [
+        ["generic", {}, {}, "T"]
+    ]]
+  }]
 ]]
 ```
 

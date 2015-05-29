@@ -11,7 +11,7 @@ Refract is a a recursive data structure for expressing complex structures, relat
 
 ## Version
 
-**Current Version**: 0.1.0-beta
+**Current Version**: 0.2.0
 
 **Note**: This specification is currently in development and may change before getting to a more stable 1.0 version. Please be mindful of this if using this production environments.
 
@@ -43,22 +43,38 @@ Using Refract, we can expand this out and add some human-readable titles and des
   "element": "object",
   "content": [
     {
-      "element": "string",
+      "element": "member",
       "meta": {
-        "name": "name",
         "title": "Name",
         "description": "Name of a person"
       },
-      "content": "John Doe"
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "name"
+        },
+        "value": {
+          "element": "string",
+          "content": "John Doe"
+        }
+      }
     },
     {
-      "element": "string",
+      "element": "member",
       "meta": {
-        "name": "email",
         "title": "Email",
         "description": "Email address for the person"
       },
-      "content": "john@example.com"
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "email"
+        },
+        "value": {
+          "element": "string",
+          "content": "john@example.com"
+        }
+      }
     }
   ]
 }
@@ -103,22 +119,38 @@ Refract can actually go a step further with our previous example and annotate at
   "element": "person",
   "attributes": [
     {
-      "element": "string",
+      "element": "member",
       "meta": {
-        "name": "name",
         "title": "Name",
         "description": "Name of a person"
       },
-      "content": "John Doe"
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "name"
+        },
+        "value": {
+          "element": "string",
+          "content": "John Doe"
+        }
+      }
     },
     {
-      "element": "string",
+      "element": "member",
       "meta": {
-        "name": "email",
         "title": "Email",
         "description": "Email address for the person"
       },
-      "content": "john@example.com"
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "email"
+        },
+        "value": {
+          "element": "string",
+          "content": "john@example.com"
+        }
+      }
     }
   ]
 }

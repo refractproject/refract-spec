@@ -36,13 +36,10 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
           - `ref` (Link) - Link to referenced element or type
           - `class` (array[string]) - Array of classifications for given element
           - `prefix` (string) - Prefix in which element MAY be found
-          - `name` (enum) - For use when an element is used as a property (or key/value pair)
-              - (string)
-              - (Element)
           - `namespaces` (array[Link]) - Include elements from given namespaces or prefix elements from given namespace
           - `title` (string) - Human-readable title of element
           - `description` (string) - Human-readable description of element
-      - (array[Property Element])
+      - (array[Member Element])
 
 - `attributes` (enum)
 
@@ -50,7 +47,7 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
 
     - Members
         - (object)
-        - (array[Property Element])
+        - (array[Member Element])
 
 - `content` (enum)
 
@@ -271,14 +268,14 @@ In Refract, this boolean is expanded to a Array Element.
 
 ### Object Element (Element)
 
-A Object Element provides an element for Refract Object Types. When the content of an `object` element includes an `extend`, `select`, or `ref` element, the referenced or resulting elements MUST be a `property` element. The properties of the object SHOULD be unique to the object in which they are found.
+A Object Element provides an element for Refract Object Types. When the content of an `object` element includes an `extend`, `select`, or `ref` element, the referenced or resulting elements MUST be a `member` element. The properties of the object SHOULD be unique to the object in which they are found.
 
 #### Properties
 
 - `element`: object (string, fixed)
 - `content` (enum)
     - (object)
-    - (array[Property Element])
+    - (array[Member Element])
     - (Extend Element)
     - (Select Element)
     - (Ref Element)
@@ -300,30 +297,32 @@ In Refract, this object MAY Be expanded to include an array of elements as its c
   "element": "object",
   "content": [
     {
-      "element": "string",
-      "meta": {
-        "name": "foo"
-      },
-      "content": "bar"
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "foo"
+        },
+        "value": {
+          "element": "string",
+          "content": "bar"
+        }
+      }
     }
   ]
 }
 ```
 
-### Property Element (Element)
+### Member Element (Element)
 
-A property element is any element with a `name` meta attribute value. Properties are to provide a key-value pair. See [Object Element](#object-element-element) for examples of how this is used.
-
-While the name of a property MAY be a string, it MAY also be an element for use in element and type information about the property name.
+A Member Element is any element with a key-value pair as the content. See [Object Element](#object-element-element) for examples of how this is used.
 
 #### Properites
 
-- `meta`
-    - `name` (enum, required) - Name of property given
-        - (string)
-        - (Element)
-
-#### Example
+- `element` member (string, fixed)
+- `content` (object)
+    - `key` (Element, required) - Key for the member
+    - `value` (Element, optional) - Value for the member
 
 ## Referencing and Linking
 
@@ -600,11 +599,17 @@ This example uses a Select Element to provide multiple options for the properite
           "element": "option",
           "content": [
             {
-              "element": "string",
-              "meta": {
-                "name": "firstName"
-              },
-              "content": "John"
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "firstName"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "John"
+                }
+              }
             }
           ]
         },
@@ -612,11 +617,17 @@ This example uses a Select Element to provide multiple options for the properite
           "element": "option",
           "content": [
             {
-              "element": "string",
-              "meta": {
-                "name": "givenName"
-              },
-              "content": "John"
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "givenName"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "John"
+                }
+              }
             }
           ]
         }
