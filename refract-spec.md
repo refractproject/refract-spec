@@ -28,7 +28,7 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
 
 - `meta` (enum)
 
-    The `meta` property is a reserved object for Refract-specific values. When `meta` is an object, it MAY contain elements itself. The element definition SHOULD be used when interacting with `meta` and its properites and values.
+    The `meta` property is a reserved object for Refract-specific values. When `meta` is an object, it MAY contain elements itself. The element definition SHOULD be used when interacting with `meta` and its properties and values.
 
   - Members
       - (object)
@@ -498,7 +498,7 @@ Additionally, the `select` element is provided to give multiple possibilities fo
 
 The `extend` element provides a way to a way to multiply inherit one or more elements to form a new element. The `extend` element MUST NOT affect the original elements being extended, and MUST define a new instance of an element.
 
-The `extend` element MUST do a deep merge of the elements found in the `content`, but MUST NOT include any `meta` attributes from the content elements in the final element. Each element found in the `content` MUST derive from the same primitive element. The elements are merged from first to last.
+The `extend` element MUST do a deep merge of the elements found in the `content`, but MUST NOT include the `id`, `namespaces` and `prefix` meta attributes from the content elements in the final element. Each element found in the `content` MUST derive from the same primitive element. The elements are merged from first to last.
 
 #### Properties
 
@@ -586,7 +586,7 @@ The resulting element would be the following. Note that the `id` was not include
 
 #### Examples
 
-This example uses a Select Element to provide multiple options for the properites of an Object Element. One option is the value of the the key `firstName` is "John," and the other option is the value of the key `giveName` is "John."
+This example uses a Select Element to provide multiple options for the properties of an Object Element. One option is the value of the the key `firstName` is "John," and the other option is the value of the key `giveName` is "John."
 
 ```json
 {
