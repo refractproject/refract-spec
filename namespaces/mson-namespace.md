@@ -46,7 +46,7 @@ This document conforms to RFC 2119, which says:
 
 MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
 
-By default, Refract does not enforce inheritance of data, though element defintions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the MSON namespace, however, when the data is defined, it inherits data from the element definition. MSON itself uses inheritance this way, and the MSON Refract namespace mimics the behavior to provide simplicity and consistency across MSON representations.
+By default, Refract does not enforce inheritance of data, though element definitions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the MSON namespace, however, when the data is defined, it inherits data from the element definition. MSON itself uses inheritance this way, and the MSON Refract namespace mimics the behavior to provide simplicity and consistency across MSON representations.
 
 Often, before an MSON Refract can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON Refract. That is, a Refract that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
 
@@ -86,12 +86,16 @@ Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of t
 
 - `attributes`
     - `typeAttributes` (array) - _Type Definition_ attributes list, see _Type Attribute_  
-        - (enum[string])
-            - required - This element is required in parent's content
-            - optional - This element is optional in parent's content
-            - fixed - The `content` value is immutable.
-            - sample - The `content` value is a sample value.
-            - default - The `content` value is a default value.
+
+      Type attributes of a type definition.
+
+      Note, if `sample` (or `default`) attribute is specified the any value SHOULD be stored in the `samples` (or `default`) property instead of the element's `content`.
+
+      - Items
+          - (enum[string])
+              - required - This element is required in parent's content
+              - optional - This element is optional in parent's content
+              - fixed - The `content` value is immutable.
 
     - `variable` (boolean)
 
@@ -564,7 +568,7 @@ Description is here! Properties to follow.
 ["object", {}, {}, [
   ["member", {}, {}, {
     "key": ["string", {}, {}, "p"],
-    "value": ["string", {}, {"typeAttributes": ["sample"]}, 42]
+    "value": ["string", {}, {"samples": [42]}, null]
   }]
 ]]
 ```
@@ -583,7 +587,7 @@ Description is here! Properties to follow.
 ["object", {}, {}, [
   ["member", {}, {}, {
     "key": ["Relation", {}, {"variable": true}, "rel"],
-    "value": ["string", {}, {"typeAttributes": ["sample"]}, null]
+    "value": ["string", {}, {}, null]
   }]
 ]]
 ```
