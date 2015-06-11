@@ -104,9 +104,9 @@ Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of t
       Note, if the `content` is a _Variable Value_ the `sample` type attribute
       should be used instead (see `typeAttributes`).
 
-    - `sample` (array) - Alternative sample value for _Member Types_
+    - `samples` (array) - Array of alternative sample values for _Member Types_
 
-          The type of items in `sample` array attribute MUST match the type of element's `content`.
+          The type of items in `samples` array attribute MUST match the type of element's `content`.
 
     - `default` - Default value for _Member Types_
 
