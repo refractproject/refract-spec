@@ -89,7 +89,7 @@ Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of t
 
       Type attributes of a type definition.
 
-      Note, if `sample` (or `default`) attribute is specified the any value SHOULD be stored in the `samples` (or `default`) property instead of the element's `content`.
+      Note, if `sample` (or `default`) attribute is specified the value SHOULD be stored in the `samples` (or `default`) property instead of the element's `content`.
 
       - Items
           - (enum[string])
