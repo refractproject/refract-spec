@@ -43,9 +43,13 @@ For example a `category` element may be classified both as `resourceGroup` and
             - dataStructures - Category is a set of data structures.
             - scenario - Reserved. Category is set of steps.
 - `attributes`
-    - `meta` (object) - Arbitrary metadata
-        - `user` (array[String Pair]) - User-specific metadata. Metadata written in the source.
-        - `adapter` (array[String Pair]) - Serialization-specific metadata. Metadata provided by adapter.
+    - `meta` (array[Member Element]) - Arbitrary metadata
+
+        Note the "class" of the Member Element can be used to distinguish the
+        source of metadata as follows:
+
+        - Class `user` - User-specific metadata. Metadata written in the source.
+        - Class `adapter` - Serialization-specific metadata. Metadata provided by adapter.
 
 - `content` (array[Element])
 
@@ -61,14 +65,24 @@ For example a `category` element may be classified both as `resourceGroup` and
         "title": "Polls API"
     },
     "attributes": {
-        "meta": {
-            "user": [
-                {
-                    "key":  "HOST",
-                    "value": "http://polls.apiblueprint.org/"
-                }
-            ]
-        }
+        "meta": [
+            {
+              "element": "member",
+              "meta": {
+                  "class": ["user"]
+              },
+              "content": {
+                  "key": {
+                      "element": "string",
+                      "content": "HOST",
+                  },
+                  "value": {
+                      "element": "string",
+                      "content": "http://polls.apiblueprint.org/"
+                  }
+              }
+            }
+        ]
     },
     "content": [
         {
@@ -139,15 +153,6 @@ Given an API description with following layout:
     ]
 }
 ```
-
-## String Pair (object)
-
-Key-value pair where both key and value are of a string type.
-
-### Properties
-
-- `key` (string, required) - Key for the metadata
-- `value` (string, optional) - Value for the metadata
 
 ---
 
