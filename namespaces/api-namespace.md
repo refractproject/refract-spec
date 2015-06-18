@@ -42,6 +42,15 @@ For example a `category` element may be classified both as `resourceGroup` and
             - resourceGroup - Category is a set of resource.
             - dataStructures - Category is a set of data structures.
             - scenario - Reserved. Category is set of steps.
+- `attributes`
+    - `meta` (array[Member Element]) - Arbitrary metadata
+
+        Note the "class" of the Member Element can be used to distinguish the
+        source of metadata as follows:
+
+        - Class `user` - User-specific metadata. Metadata written in the source.
+        - Class `adapter` - Serialization-specific metadata. Metadata provided by adapter.
+
 - `content` (array[Element])
 
 ### Example
@@ -54,6 +63,26 @@ For example a `category` element may be classified both as `resourceGroup` and
             "api"
         ],
         "title": "Polls API"
+    },
+    "attributes": {
+        "meta": [
+            {
+              "element": "member",
+              "meta": {
+                  "class": ["user"]
+              },
+              "content": {
+                  "key": {
+                      "element": "string",
+                      "content": "HOST",
+                  },
+                  "value": {
+                      "element": "string",
+                      "content": "http://polls.apiblueprint.org/"
+                  }
+              }
+            }
+        ]
     },
     "content": [
         {
