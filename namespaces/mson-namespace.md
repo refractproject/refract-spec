@@ -52,7 +52,7 @@ Often, before an MSON Refract can be processed, referenced _Named Types_ have to
 
 In other words, an expanded element is one that does not contain any _Identifier_ (defined below) referencing any other elements than those defined in MSON namespaces.
 
-The expanded Refract MUST, however, keep the track of what data structure was expanded and what from where.
+The expanded Refract MUST, however, keep the track of what data structure was expanded and what from where and it MUST preserve the order of any member elements. 
 
 ### Example
 
@@ -80,7 +80,8 @@ Extending the element "A" to form new element "B":
 }
 ```
 
-In MSON refract, the following is equivalent:
+Because if the implicit inheritance in MSON namespace the example above can be
+written as follows:
 
 ```json
 {
@@ -102,7 +103,8 @@ In MSON refract, the following is equivalent:
 }
 ```
 
-Finally, using the `extend` element to expand the MSON refract for id "B":
+Resolving the MSON namespace implicit inheritance and expanding the references
+from the example above we get:
 
 ```json
 {
