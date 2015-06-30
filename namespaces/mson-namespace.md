@@ -6,32 +6,32 @@ This document extends [Refract][] Specification with new element types necessary
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
 - [MSON Namespace](#mson-namespace)
-    - [Content](#content)
-    - [About this Document](#about-this-document)
-    - [Expanded Element](#expanded-element)
-    - [Base Element](#base-element)
-        - [Type comparison](#type-comparison)
+	- [Content](#content)
+	- [About this Document](#about-this-document)
+	- [Inheritance and Expanded Element](#inheritance-and-expanded-element)
+	- [Base Element](#base-element)
+		- [Type comparison](#type-comparison)
 - [MSON Refract Elements](#mson-refract-elements)
-    - [MSON Element (Element)](#mson-element-element)
-        - [Properties](#properties)
-    - [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
-    - [String Type (String Element)](#string-type-string-element)
-    - [Number Type (Number Element)](#number-type-number-element)
-    - [Array Type (Array Element)](#array-type-array-element)
-    - [Object Type (Object Element)](#object-type-object-element)
-    - [Enum Type (MSON Element)](#enum-type-mson-element)
-        - [Properties](#properties)
-        - [Examples](#examples)
-    - [Examples](#examples)
-        - [Anonymous Object Type](#anonymous-object-type)
-        - [Type Attributes](#type-attributes)
-        - [Default Value](#default-value)
-        - [One Of](#one-of)
-        - [Mixin](#mixin)
-        - [Named Type](#named-type)
-        - [Variable Value](#variable-value)
-        - [Variable Property Name](#variable-property-name)
-        - [Variable Type Name](#variable-type-name)
+	- [MSON Element (Element)](#mson-element-element)
+	- [Type Reference (Ref Element)](#type-reference-ref-element)
+	- [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
+	- [String Type (String Element)](#string-type-string-element)
+	- [Number Type (Number Element)](#number-type-number-element)
+	- [Array Type (Array Element)](#array-type-array-element)
+	- [Object Type (Object Element)](#object-type-object-element)
+	- [Enum Type (MSON Element)](#enum-type-mson-element)
+	- [Examples](#examples)
+		- [Anonymous Object Type](#anonymous-object-type)
+		- [Type Attributes](#type-attributes)
+		- [Default Value](#default-value)
+		- [One Of](#one-of)
+		- [Mixin](#mixin)
+		- [Named Type](#named-type)
+		- [Referencing & Expansion](#referencing-expansion)
+		- [Variable Value](#variable-value)
+		- [Variable Property Name](#variable-property-name)
+		- [Variable Type Name](#variable-type-name)
+
 <!-- /TOC -->
 
 ## About this Document
@@ -186,6 +186,15 @@ Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of t
 
     - `validation` - Not used, reserved for a future use
 
+## Type Reference (Ref Element)
+
+This elements extends refract `Ref Element` to include optional referenced element.
+
+### Properties
+
+- `element` ref (string, fixed)
+- `attributes`
+    -  `resolved` (Element, optional) - Resolved element being referenced.
 
 ## Boolean Type (Boolean Element)
 
@@ -462,29 +471,35 @@ Using the `ref` element to reference an the content of an element.
 }
 ```
 
-Using `extend` to merge objects together.
+Using "Type Reference" (`ref`) element with the `resolved` attribute:
 
 ```json
 {
-    "element": "extend",
+    "element": "object",
     "content": [
         {
-            "element": "object",
-            "content": [
-                {
-                    "element": "member",
-                    "content": {
-                        "key": {
-                            "element": "string",
-                            "content": "id"
-                        }
-                    }
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
                 }
-            ]
+            }
         },
         {
             "element": "ref",
-            "content": "User"
+            "attributes": {
+                "resolved": {
+                    "element": "object",
+                    "meta": {
+                        "ref": "User"
+                    }
+                }
+            },
+            "content": {
+                "href": "User",
+                "path": "content"
+            }
         }
     ]
 }
