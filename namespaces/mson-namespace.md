@@ -438,9 +438,14 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 #### MSON
 
+```apib
+# User (object)
+- name: John
 ```
+
+```apib
 - id
-- Include User
+- Include (User)
 ```
 
 #### MSON Refract
@@ -493,7 +498,22 @@ Using "Type Reference" (`ref`) element with the `resolved` attribute:
                     "element": "object",
                     "meta": {
                         "ref": "User"
-                    }
+                    },
+                    "content": [
+                        {
+                            "element": "member",
+                            "content": {
+                                "key": {
+                                    "element": "string",
+                                    "content": "name"
+                                },
+                                "value": {
+                                    "element": "string",
+                                    "content": "John"
+                                }
+                            }
+                        }
+                    ]
                 }
             },
             "content": {
@@ -535,7 +555,7 @@ Description is here! Properties to follow.
             "content": {
                 "key": {
                     "element": "string",
-                    "content": "stree"
+                    "content": "street"
                 }
             }
         }
