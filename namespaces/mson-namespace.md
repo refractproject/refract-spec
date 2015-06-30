@@ -42,9 +42,19 @@ This document conforms to RFC 2119, which says:
 
 [MSON][] is used throughout this document.
 
-## Inheritance
+## Inheritance and Expanded Element
 
-MSON namespace uses different set of rules to Basic Refract Specification to express inheritance.
+MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
+
+By default, Refract does not enforce inheritance of data, though element definitions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the MSON namespace, however, when the data is defined, it inherits data from the element definition. MSON itself uses inheritance this way, and the MSON Refract namespace mimics the behavior to provide simplicity and consistency across MSON representations.
+
+Often, before an MSON Refract can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON Refract. That is, a Refract that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
+
+In other words, an expanded element is one that does not contain any _Identifier_ (defined below) referencing any other elements than those defined in MSON namespaces.
+
+The expanded Refract MUST, however, keep the track of what data structure was expanded and what from where.
+
+### Example
 
 Extending the element "A" to form new element "B":
 
@@ -92,17 +102,29 @@ In MSON refract, the following is equivalent:
 }
 ```
 
-## Expanded Element
+Finally, using the `extend` element to expand the MSON refract for id "B":
 
-MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
-
-By default, Refract does not enforce inheritance of data, though element definitions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the MSON namespace, however, when the data is defined, it inherits data from the element definition. MSON itself uses inheritance this way, and the MSON Refract namespace mimics the behavior to provide simplicity and consistency across MSON representations.
-
-Often, before an MSON Refract can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON Refract. That is, a Refract that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
-
-In other words, an expanded element is one that does not contain any _Identifier_ (defined below) referencing any other elements than those defined in MSON namespaces.
-
-The expanded Refract MUST, however, keep the track of what data structure was expanded and what from where.
+```json
+{
+  "element": "extend",
+  "meta": {
+    "id": "B"
+  },
+  "content": [
+    {
+      "element": "string",
+      "meta": {
+        "ref": "A"
+      },
+      "content": "base element content"
+    },
+    {
+      "element": "string",
+      "content": "derived content"
+    }
+  ]
+}
+```
 
 ## Base Element
 
