@@ -42,6 +42,56 @@ This document conforms to RFC 2119, which says:
 
 [MSON][] is used throughout this document.
 
+## Inheritance
+
+MSON namespace uses different set of rules to Basic Refract Specification to express inheritance.
+
+Extending the element "A" to form new element "B":
+
+```json
+{
+  "element": "extend",
+  "meta": {
+    "id": "B"
+  },
+  "content": [
+    {
+      "element": "string",
+      "meta": {
+        "id": "A"
+      },
+      "content": "base element content"
+    },
+    {
+      "element": "string",
+      "content": "derived content"
+    }
+  ]
+}
+```
+
+In MSON refract, the following is equivalent:
+
+```json
+{
+  "element": "string",
+  "meta": {
+    "id": "A"
+  },
+  "content": "base element content"
+}
+```
+
+```json
+{
+  "element": "A",
+  "meta": {
+    "id": "B"
+  },
+  "content": "derived content"
+}
+```
+
 ## Expanded Element
 
 MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
