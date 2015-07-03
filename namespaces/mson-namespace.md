@@ -80,7 +80,7 @@ Extending the element "A" to form new element "B":
 }
 ```
 
-Because of the implicit inheritance in MSON namespace, the example above can be
+Because of the implicit inheritance in the MSON namespace, the example above can be
 written as follows:
 
 ```json
