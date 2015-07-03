@@ -6,32 +6,32 @@ This document extends [Refract][] Specification with new element types necessary
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
 - [MSON Namespace](#mson-namespace)
-    - [Content](#content)
-    - [About this Document](#about-this-document)
-    - [Expanded Element](#expanded-element)
-    - [Base Element](#base-element)
-        - [Type comparison](#type-comparison)
+	- [Content](#content)
+	- [About this Document](#about-this-document)
+	- [Inheritance and Expanded Element](#inheritance-and-expanded-element)
+	- [Base Element](#base-element)
+		- [Type comparison](#type-comparison)
 - [MSON Refract Elements](#mson-refract-elements)
-    - [MSON Element (Element)](#mson-element-element)
-        - [Properties](#properties)
-    - [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
-    - [String Type (String Element)](#string-type-string-element)
-    - [Number Type (Number Element)](#number-type-number-element)
-    - [Array Type (Array Element)](#array-type-array-element)
-    - [Object Type (Object Element)](#object-type-object-element)
-    - [Enum Type (MSON Element)](#enum-type-mson-element)
-        - [Properties](#properties)
-        - [Examples](#examples)
-    - [Examples](#examples)
-        - [Anonymous Object Type](#anonymous-object-type)
-        - [Type Attributes](#type-attributes)
-        - [Default Value](#default-value)
-        - [One Of](#one-of)
-        - [Mixin](#mixin)
-        - [Named Type](#named-type)
-        - [Variable Value](#variable-value)
-        - [Variable Property Name](#variable-property-name)
-        - [Variable Type Name](#variable-type-name)
+	- [MSON Element (Element)](#mson-element-element)
+	- [Type Reference (Ref Element)](#type-reference-ref-element)
+	- [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
+	- [String Type (String Element)](#string-type-string-element)
+	- [Number Type (Number Element)](#number-type-number-element)
+	- [Array Type (Array Element)](#array-type-array-element)
+	- [Object Type (Object Element)](#object-type-object-element)
+	- [Enum Type (MSON Element)](#enum-type-mson-element)
+	- [Examples](#examples)
+		- [Anonymous Object Type](#anonymous-object-type)
+		- [Type Attributes](#type-attributes)
+		- [Default Value](#default-value)
+		- [One Of](#one-of)
+		- [Mixin](#mixin)
+		- [Named Type](#named-type)
+		- [Referencing & Expansion](#referencing-expansion)
+		- [Variable Value](#variable-value)
+		- [Variable Property Name](#variable-property-name)
+		- [Variable Type Name](#variable-type-name)
+
 <!-- /TOC -->
 
 ## About this Document
@@ -42,7 +42,7 @@ This document conforms to RFC 2119, which says:
 
 [MSON][] is used throughout this document.
 
-## Expanded Element
+## Inheritance and Expanded Element
 
 MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
 
@@ -52,7 +52,81 @@ Often, before an MSON Refract can be processed, referenced _Named Types_ have to
 
 In other words, an expanded element is one that does not contain any _Identifier_ (defined below) referencing any other elements than those defined in MSON namespaces.
 
-The expanded Refract MUST, however, keep the track of what data structure was expanded and what from where.
+The expanded Refract MUST, however, keep the track of what data structure was expanded and what from where and it MUST preserve the order of any member elements.
+
+### Example
+
+Extending the element "A" to form new element "B":
+
+```json
+{
+  "element": "extend",
+  "meta": {
+    "id": "B"
+  },
+  "content": [
+    {
+      "element": "string",
+      "meta": {
+        "id": "A"
+      },
+      "content": "base element content"
+    },
+    {
+      "element": "string",
+      "content": "derived content"
+    }
+  ]
+}
+```
+
+Because of the implicit inheritance in the MSON namespace, the example above can be
+written as follows:
+
+```json
+{
+  "element": "string",
+  "meta": {
+    "id": "A"
+  },
+  "content": "base element content"
+}
+```
+
+```json
+{
+  "element": "A",
+  "meta": {
+    "id": "B"
+  },
+  "content": "derived content"
+}
+```
+
+Resolving the MSON namespace implicit inheritance and expanding the references
+from the example above we get:
+
+```json
+{
+  "element": "extend",
+  "meta": {
+    "id": "B"
+  },
+  "content": [
+    {
+      "element": "string",
+      "meta": {
+        "ref": "A"
+      },
+      "content": "base element content"
+    },
+    {
+      "element": "string",
+      "content": "derived content"
+    }
+  ]
+}
+```
 
 ## Base Element
 
@@ -114,6 +188,15 @@ Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of t
 
     - `validation` - Not used, reserved for a future use
 
+## Type Reference (Ref Element)
+
+This elements extends refract `Ref Element` to include optional referenced element.
+
+### Properties
+
+- `element` ref (string, fixed)
+- `attributes`
+    -  `resolved` (Element, optional) - Resolved element being referenced.
 
 ## Boolean Type (Boolean Element)
 
@@ -357,9 +440,14 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 
 #### MSON
 
+```apib
+# User (object)
+- name: John
 ```
+
+```apib
 - id
-- Include User
+- Include (User)
 ```
 
 #### MSON Refract
@@ -390,29 +478,50 @@ Using the `ref` element to reference an the content of an element.
 }
 ```
 
-Using `extend` to merge objects together.
+Using "Type Reference" (`ref`) element with the `resolved` attribute:
 
 ```json
 {
-    "element": "extend",
+    "element": "object",
     "content": [
         {
-            "element": "object",
-            "content": [
-                {
-                    "element": "member",
-                    "content": {
-                        "key": {
-                            "element": "string",
-                            "content": "id"
-                        }
-                    }
+            "element": "member",
+            "content": {
+                "key": {
+                    "element": "string",
+                    "content": "id"
                 }
-            ]
+            }
         },
         {
             "element": "ref",
-            "content": "User"
+            "attributes": {
+                "resolved": {
+                    "element": "object",
+                    "meta": {
+                        "ref": "User"
+                    },
+                    "content": [
+                        {
+                            "element": "member",
+                            "content": {
+                                "key": {
+                                    "element": "string",
+                                    "content": "name"
+                                },
+                                "value": {
+                                    "element": "string",
+                                    "content": "John"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "content": {
+                "href": "User",
+                "path": "content"
+            }
         }
     ]
 }
@@ -448,7 +557,7 @@ Description is here! Properties to follow.
             "content": {
                 "key": {
                     "element": "string",
-                    "content": "stree"
+                    "content": "street"
                 }
             }
         }
