@@ -1,6 +1,6 @@
 # Refract
 
-Refract is a a recursive data structure for expressing complex structures, relationships, and metadata.
+Refract is a recursive data structure for expressing complex structures, relationships, and metadata.
 
 ## Documents
 
