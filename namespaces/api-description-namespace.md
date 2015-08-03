@@ -86,7 +86,7 @@ Arbitrary data asset.
 
 ### Resource (Element)
 
-The Resource representation with its available transitions and attributes.
+The Resource representation with its available transitions and its data.
 
 #### Properties
 
@@ -172,7 +172,7 @@ Note: At the moment only the HTTP protocol is supported.
         element `hrefVariables` SHOULD be used to resolve the transition input
         parameters.
 
-    - `attributes` (Data Structure) - Input attributes.
+    - `data` (Data Structure) - Input attributes.
 
         Definition of any input message-body attribute for this transition.
 
