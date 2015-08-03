@@ -1,6 +1,6 @@
 # Resource Namespace
 
-This document extends [Refract][] [MSON Namespace][] to define REST Resource data structure elements.
+This document extends [Refract][] [Data Structure Namespace][] to define REST Resource data structure elements.
 
 ## Content
 
@@ -12,7 +12,7 @@ This document extends [Refract][] [MSON Namespace][] to define REST Resource dat
         - [Href (string)](#href-string)
         - [Templated Href (string)](#templated-href-string)
         - [Href Variables (Object Type)](#href-variables-object-type)
-        - [Data Structure (MSON Element)](#data-structure-mson-element)
+        - [Data Structure (Data Structure Element)](#data-structure-data-structure-element)
         - [Asset (Element)](#asset-element)
     - [Resource Elements](#resource-elements)
         - [Resource (Element)](#resource-element)
@@ -49,15 +49,15 @@ The value of the `Templated Href` type SHOULD be resolved as a URI-Reference per
 
 ### Href Variables (Object Type)
 
-The definition is a MSON namespace `Object Type` where keys are respective URI Template variables.
+The definition is a Data Structure namespace `Object Type` where keys are respective URI Template variables.
 
 #### Properties
 
 - `element`: hrefVariables (string, fixed)
 
-### Data Structure (MSON Element)
+### Data Structure (Data Structure Element)
 
-Data structure definition using MSON namespace elements.
+Data structure definition using Data Structure namespace elements.
 
 #### Properties
 
@@ -333,7 +333,7 @@ HTTP response message.
 
 [MSON]: https://github.com/apiaryio/mson
 [Refract]: ../refract-spec.md
-[MSON Namespace]: mson-namespace.md
+[Data Structure Namespace]: data-structure-namespace.md
 
 [RFC 2119]: https://datatracker.ietf.org/doc/rfc2119/
 [RFC 3986]: https://datatracker.ietf.org/doc/rfc3986/
