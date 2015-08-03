@@ -158,5 +158,4 @@ Given an API description with following layout:
 
 [MSON]: https://github.com/apiaryio/mson
 [Refract]: ../refract-spec.md
-[MSON Namespace]: mson-namespace.md
 [Resource Namespace]: resource-namespace.md

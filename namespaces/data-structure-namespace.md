@@ -1,25 +1,25 @@
-# MSON Namespace
+# Data Structure Namespace
 
-This document extends [Refract][] Specification with new element types necessary to build [MSON][] Refract.
+This document extends [Refract][] Specification with new element types necessary to build Data Structure Refract.
 
 ## Content
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
-- [MSON Namespace](#mson-namespace)
+- [Data Structure Namespace](#data-structure-namespace)
 	- [Content](#content)
 	- [About this Document](#about-this-document)
 	- [Inheritance and Expanded Element](#inheritance-and-expanded-element)
 	- [Base Element](#base-element)
 		- [Type comparison](#type-comparison)
-- [MSON Refract Elements](#mson-refract-elements)
-	- [MSON Element (Element)](#mson-element-element)
+- [Data Structure Refract Elements](#data-structure-refract-elements)
+	- [Data Structure Element (Element)](#data-structure-element-element)
 	- [Type Reference (Ref Element)](#type-reference-ref-element)
 	- [Boolean Type (Boolean Element)](#boolean-type-boolean-element)
 	- [String Type (String Element)](#string-type-string-element)
 	- [Number Type (Number Element)](#number-type-number-element)
 	- [Array Type (Array Element)](#array-type-array-element)
 	- [Object Type (Object Element)](#object-type-object-element)
-	- [Enum Type (MSON Element)](#enum-type-mson-element)
+	- [Enum Type (Data Structure Element)](#enum-type-data-structure-element)
 	- [Examples](#examples)
 		- [Anonymous Object Type](#anonymous-object-type)
 		- [Type Attributes](#type-attributes)
@@ -40,17 +40,15 @@ This document conforms to RFC 2119, which says:
 
 > The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in RFC 2119.
 
-[MSON][] is used throughout this document.
-
 ## Inheritance and Expanded Element
 
-MSON is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In [MSON][], the reusable data structures are called _Named Types_.
+This namespace is built around the idea of defining recursive data structures. To provide abstraction, for convenience reasons and to not repeat ourselves, these structures can be named (using an _identifier_) and reused. In this namespace, the reusable data structures are called _Named Types_.
 
-By default, Refract does not enforce inheritance of data, though element definitions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the MSON namespace, however, when the data is defined, it inherits data from the element definition. MSON itself uses inheritance this way, and the MSON Refract namespace mimics the behavior to provide simplicity and consistency across MSON representations.
+By default, Refract does not enforce inheritance of data, though element definitions are inherited from the defined element types. To inherit data in Refract, the `extend` element is used to merge one or more elements into a final element. In the Data Structure namespace, however, when the data is defined, it inherits data from the element definition. Data Structure itself uses inheritance this way, and the Data Structure Refract namespace mimics the behavior to provide simplicity and consistency across Data Structure representations.
 
-Often, before an MSON Refract can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an MSON processor can resolve references to produce a complete MSON Refract. That is, a Refract that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
+Often, before an Data Structure Refract can be processed, referenced _Named Types_ have to be resolved. Resolving references to _Named Types_ is tedious and error prone. As such an Data Structure processor can resolve references to produce a complete Data Structure Refract. That is, a Refract that does not include unresolved references to other data structures. This is referred to as _reference expansion_ or simply _expansion_.
 
-In other words, an expanded element is one that does not contain any _Identifier_ (defined below) referencing any other elements than those defined in MSON namespaces.
+In other words, an expanded element is one that does not contain any _Identifier_ (defined below) referencing any other elements than those defined in Data Structure namespaces.
 
 The expanded Refract MUST, however, keep the track of what data structure was expanded and what from where and it MUST preserve the order of any member elements.
 
@@ -80,8 +78,8 @@ Extending the element "A" to form new element "B":
 }
 ```
 
-Because of the implicit inheritance in the MSON namespace, the example above can be
-written as follows:
+Because of the implicit inheritance in the Data Structure namespace, the
+example above can be written as follows:
 
 ```json
 {
@@ -103,8 +101,8 @@ written as follows:
 }
 ```
 
-Resolving the MSON namespace implicit inheritance and expanding the references
-from the example above we get:
+Resolving the Data Structure namespace implicit inheritance and expanding
+the references from the example above we get:
 
 ```json
 {
@@ -130,14 +128,14 @@ from the example above we get:
 
 ## Base Element
 
-In MSON, every data structure is a sub-type of another data structure, and, therefore, it is directly or indirectly derived from one of the MSON _Base Types_. This is expressed as an inheritance of elements in MSON Refract. Where the predecessor of an element is referred to as element's _Base Element_.
+In this namespace, every data structure is a sub-type of another data structure, and, therefore, it is directly or indirectly derived from one of the Data Structure _Base Types_. This is expressed as an inheritance of elements in Data Structure Refract. Where the predecessor of an element is referred to as element's _Base Element_.
 
-Note: Not every MSON _Base Type_ is presented in Refract primitive types and vice versa – see the table below.
+Note: Not every Data Structure _Base Type_ is presented in Refract primitive types and vice versa – see the table below.
 
 ### Type comparison
 
-| JSON primitive |      Refract     | MSON Base Type | MSON Namespace |
-|:--------------:|:----------------:|:--------------:|:--------------:|
+| JSON primitive |      Refract     | [MSON][] Base Type | Data Structure Namespace |
+|:--------------:|:----------------:|:------------------:|:------------------------:|
 |     boolean    |  Boolean Element |     boolean    |  Boolean Type  |
 |     string     |  String Element  |     string     |   String Type  |
 |     number     |  Number Element  |     number     |   Number Type  |
@@ -146,15 +144,15 @@ Note: Not every MSON _Base Type_ is presented in Refract primitive types and vic
 |     object     |  Object Element  |     object     |   Object Type  |
 |      null      |   Null Element   |        -       |        -       |
 
-# MSON Refract Elements
+# Data Structure Refract Elements
 
-## MSON Element (Element)
+## Data Structure Element (Element)
 
-Base element for every MSON element.
+Base element for every Data Structure element.
 
-The MSON Element adds attributes representing MSON _Type Definition_ and _Type Sections_.
+The Data Structure Element adds attributes representing Data Structure _Type Definition_ and _Type Sections_.
 
-Note: In MSON Refract _Nested Member Types_ _Type Section_ is the `content` of the element.
+Note: In Data Structure Refract _Nested Member Types_ _Type Section_ is the `content` of the element.
 
 ### Properties
 
@@ -200,32 +198,32 @@ This elements extends refract `Ref Element` to include optional referenced eleme
 
 ## Boolean Type (Boolean Element)
 
-- Include [MSON Element][]
+- Include [Data Structure Element][]
 
 ## String Type (String Element)
 
-- Include [MSON Element][]
+- Include [Data Structure Element][]
 
 ## Number Type (Number Element)
 
-- Include [MSON Element][]
+- Include [Data Structure Element][]
 
 ## Array Type (Array Element)
 
-- Include [MSON Element][]
+- Include [Data Structure Element][]
 
 ## Object Type (Object Element)
 
-- Include [MSON Element][]
+- Include [Data Structure Element][]
 
-## Enum Type (MSON Element)
+## Enum Type (Data Structure Element)
 
 Enumeration type. Exclusive list of possible elements. The elements in content's array MUST be interpreted as mutually exclusive.
 
 ### Properties
 
 - `element`: enum (string, fixed)
-- `content` (array[[MSON Element][]])
+- `content` (array[[Data Structure Element][]])
 
 ### Examples
 
@@ -237,7 +235,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     - green
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 {
@@ -279,7 +277,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 - id: 42
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 {
@@ -310,7 +308,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 - id: 42 (required, fixed)
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 {
@@ -348,7 +346,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     - default: 0
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 {
@@ -384,7 +382,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
     - province
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 {
@@ -450,7 +448,7 @@ Enumeration type. Exclusive list of possible elements. The elements in content's
 - Include (User)
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 Using the `ref` element to reference an the content of an element.
 
@@ -541,7 +539,7 @@ Description is here! Properties to follow.
 - street
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 {
@@ -577,7 +575,7 @@ Description is here! Properties to follow.
 - id
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 {
@@ -619,7 +617,7 @@ Description is here! Properties to follow.
 }
 ```
 
-#### Expanded MSON Refract
+#### Expanded Data Structure Refract
 
 ```json
 {
@@ -671,7 +669,7 @@ Description is here! Properties to follow.
 - p: *42*
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 ["object", {}, {}, [
@@ -690,7 +688,7 @@ Description is here! Properties to follow.
 - *rel (Relation)*
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 ["object", {}, {}, [
@@ -705,7 +703,7 @@ Description is here! Properties to follow.
 
 **Proposal – not yet implemented**
 
-Note this needs an introduction of a new MSON namespace element for any type - `generic`.
+Note this needs an introduction of a new Data Structure namespace element for any type - `generic`.
 
 #### MSON
 
@@ -713,7 +711,7 @@ Note this needs an introduction of a new MSON namespace element for any type - `
 - p (array[*T*])
 ```
 
-#### MSON Refract
+#### Data Structure Refract
 
 ```json
 ["object", {}, {}, [
@@ -731,4 +729,4 @@ Note this needs an introduction of a new MSON namespace element for any type - `
 [Refract]: https://github.com/refractproject/refract-spec/blob/master/refract-spec.md
 [MSON]: https://github.com/apiaryio/mson
 [MSON Specification]: https://github.com/apiaryio/mson/blob/master/MSON%20Specification.md
-[MSON Element]: #mson-element-element
+[Data Structure Element]: #data-structure-element-element
