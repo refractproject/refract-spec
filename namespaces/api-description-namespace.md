@@ -1,11 +1,11 @@
-# Resource Namespace
+# API Description Namespace
 
 This document extends [Refract][] [Data Structure Namespace][] to define REST Resource data structure elements.
 
 ## Content
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
-- [Resource Namespace](#resource-namespace)
+- [API Description Namespace](#api-description-namespace)
     - [Content](#content)
     - [About this Document](#about-this-document)
     - [Supporting Data Types](#supporting-data-types)
@@ -17,6 +17,8 @@ This document extends [Refract][] [Data Structure Namespace][] to define REST Re
     - [Resource Elements](#resource-elements)
         - [Resource (Element)](#resource-element)
         - [Transition (Element)](#transition-element)
+        - [Category (Element)](#category-element)
+        - [Copy (Element)](#copy-element)
     - [Protocol-specific Elements](#protocol-specific-elements)
         - [HTTP Transaction (Element)](#http-transaction-element)
         - [HTTP Headers (Array Type)](#http-headers-array-type)
@@ -80,7 +82,7 @@ Arbitrary data asset.
     - `href` (Href) - Link to the asset
 - `content` (string) - A textual representation of the asset
 
-## Resource Elements
+## API Description Elements
 
 ### Resource (Element)
 
@@ -192,6 +194,140 @@ Note: At the moment only the HTTP protocol is supported.
         "href": "https://polls.apiblueprint.org/questions/{question_id}"
     },
     "content": null
+}
+```
+
+### Category (Element)
+
+Grouping element – a set of elements forming a logical unit of an API such as
+group of related resources or data structures.
+
+A category element MAY include additional classification of the category.
+The classification MAY hint what is the content or semantics of the category.
+The classification MAY be extended and MAY contain more than one classes.
+
+For example a `category` element may be classified both as `resourceGroup` and
+`dataStructures` to denote it includes both resource and data structures.
+
+#### Properties
+
+- `element`: category (string, fixed)
+- `meta`
+    - `class` (array, fixed)
+        - (enum[string])
+            - api - Category is a API top-level group.
+            - resourceGroup - Category is a set of resource.
+            - dataStructures - Category is a set of data structures.
+            - scenario - Reserved. Category is set of steps.
+- `attributes`
+    - `meta` (array[Member Element]) - Arbitrary metadata
+
+        Note the "class" of the Member Element can be used to distinguish the
+        source of metadata as follows:
+
+        - Class `user` - User-specific metadata. Metadata written in the source.
+        - Class `adapter` - Serialization-specific metadata. Metadata provided by adapter.
+
+- `content` (array[Element])
+
+#### Example
+
+```json
+{
+    "element": "category",
+    "meta": {
+        "class": [
+            "api"
+        ],
+        "title": "Polls API"
+    },
+    "attributes": {
+        "meta": [
+            {
+              "element": "member",
+              "meta": {
+                  "class": ["user"]
+              },
+              "content": {
+                  "key": {
+                      "element": "string",
+                      "content": "HOST",
+                  },
+                  "value": {
+                      "element": "string",
+                      "content": "http://polls.apiblueprint.org/"
+                  }
+              }
+            }
+        ]
+    },
+    "content": [
+        {
+            "element": "category",
+            "meta": {
+                "class": [
+                    "resourceGroup"
+                ],
+                "title": "Question",
+                "description": "Resources related to questions in the API."
+            },
+            "content": []
+        }
+    ]
+}
+```
+
+### Copy (Element)
+
+Copy element represents a copy text. A textual information in API description.
+Its content is a string and it MAY include information about the media type
+of the copy's content.
+
+If an element contains a Copy element, the element's `description` metadata
+MAY include the Copy element's content.
+
+The Copy element MAY appear as a content of any element defined in the base
+namespaces.
+
+#### Properties
+
+- `element`: copy (string, fixed)
+- `attributes` (object)
+    - `contentType`: *text/plain* (string) - Optional media type of the content.
+- `content` (string)
+
+#### Example
+
+Given an API description with following layout:
+
+- Group
+    - Copy "Lorem Ipsum"
+    - Resource "A"
+    - Resource "B"
+    - Copy "Dolor Sit Amet"
+
+```json
+{
+    "element": "category",
+    "meta": {
+        "description": "Lorem Ipsum\nDolor Sit Amet"
+    },
+    "content": [
+        {
+            "element": "copy",
+            "content": "Lorem Ipsum"
+        },
+        {
+            "element": "resource"
+        },
+        {
+            "element": "resource"
+        },
+        {
+            "element": "copy",
+            "content": "Dolor Sit Amet"
+        }
+    ]
 }
 ```
 
