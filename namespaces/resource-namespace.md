@@ -162,11 +162,11 @@ Note: At the moment only the HTTP protocol is supported.
         If not set, the parent `resource` element `href` attribute SHOULD be
         used to resolve the target URI of the transition.
 
-    - `parameters` (Href Variables) - Input parameters.
+    - `hrefVariables` (Href Variables) - Input parameters.
 
         Definition of any input URI path segments or URI query parameters for this transition.
 
-        If `href` and `parameters` attributes aren't set, the parent `resource`
+        If `href` and `hrefVariables` attributes aren't set, the parent `resource`
         element `hrefVariables` SHOULD be used to resolve the transition input
         parameters.
 
