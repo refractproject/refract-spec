@@ -207,7 +207,9 @@ The classification MAY hint what is the content or semantics of the category.
 The classification MAY be extended and MAY contain more than one classes.
 
 For example a `category` element may be classified both as `resourceGroup` and
-`dataStructures` to denote it includes both resource and data structures.
+`dataStructures` to denote it includes both resource and data structures. It
+may also include the `transitions` classification to denote it includes
+transitions.
 
 #### Properties
 
@@ -219,6 +221,7 @@ For example a `category` element may be classified both as `resourceGroup` and
             - resourceGroup - Category is a set of resource.
             - dataStructures - Category is a set of data structures.
             - scenario - Reserved. Category is set of steps.
+            - transitions - Category is a group of transitions.
 - `attributes`
     - `meta` (array[Member Element]) - Arbitrary metadata
 
