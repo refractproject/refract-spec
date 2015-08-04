@@ -454,8 +454,8 @@ HTTP request message.
 
 - `element`: httpRequest (string, fixed)
 - `attributes`
-    - `method` (string) - HTTP request method.
-    - `href` (Href) - A concrete URI for the request.
+    - `method` (string) - HTTP request method. The method value SHOULD be inherited from a parent transition if it is unset.
+    - `href` (Href) - A concrete URI for the request. The href SHOULD be inherited from a parent transition by expanding the href and hrefVariables if unset.
 
 ### HTTP Response Message (HTTP Message Payload)
 
