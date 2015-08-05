@@ -78,7 +78,7 @@ Arbitrary data asset.
             - messageBody - Asset is an example of message-body
             - messageBodySchema - Asset is an schema for message-body
 - `attributes` (object)
-    - `contentType` (string) - Optional media type of the asset
+    - `contentType` (string) - Optional media type of the asset. When this is unset, the content type SHOULD be inherited from the `Content-Type` header of a parent HTTP Message Payload
     - `href` (Href) - Link to the asset
 - `content` (string) - A textual representation of the asset
 
