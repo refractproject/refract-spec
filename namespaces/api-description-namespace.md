@@ -176,6 +176,7 @@ Note: At the moment only the HTTP protocol is supported.
 
         Definition of any input message-body attribute for this transition.
 
+    - `contentTypes` (array[String]) - A collection of content types that MAY be used for the transition.
 - `content` (array[HTTP Transaction]) - Array of transaction examples.
 
     Transaction examples are protocol-specific examples of REST transaction
