@@ -14,7 +14,7 @@ This document extends [Refract][] [Data Structure Namespace][] to define REST Re
         - [Href Variables (Object Type)](#href-variables-object-type)
         - [Data Structure (Data Structure Element)](#data-structure-data-structure-element)
         - [Asset (Element)](#asset-element)
-    - [Resource Elements](#resource-elements)
+    - [API Description Elements](#api-description-elements)
         - [Resource (Element)](#resource-element)
         - [Transition (Element)](#transition-element)
         - [Category (Element)](#category-element)
