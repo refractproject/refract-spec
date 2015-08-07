@@ -272,10 +272,14 @@ transitions.
                 "class": [
                     "resourceGroup"
                 ],
-                "title": "Question",
-                "description": "Resources related to questions in the API."
+                "title": "Question"
             },
-            "content": []
+            "content": [
+                {
+                    "element": "copy",
+                    "content": "Resources related to questions in the API."
+                }
+            ]
         }
     ]
 }
