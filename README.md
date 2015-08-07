@@ -7,10 +7,11 @@ Refract is a recursive data structure for expressing complex structures, relatio
 - [Full Specification](refract-spec.md)
 - [Data Structure Namespace](namespaces/data-structure-namespace.md)
 - [API Description Namespace](namespaces/api-description-namespace.md)
+- [Parse Result Namespace](namespaces/parse-result.md)
 
 ## Version
 
-**Current Version**: 0.2.0
+**Current Version**: 0.3.0
 
 **Note**: This specification is currently in development and may change before getting to a more stable 1.0 version. Please be mindful of this if using this production environments.
 
@@ -170,3 +171,4 @@ Lastly, Refract is meant to provide a model for client libraries. As mentioned, 
 - [Stephen Mizell](https://github.com/smizell)
 - [Mark Foster](https://github.com/fosrias)
 - [Zdenek Nemec](https://github.com/zdne)
+- [Daniel G. Taylor](https://github.com/danielgtaylor)
