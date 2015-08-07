@@ -73,7 +73,7 @@ Arbitrary data asset.
 
 - `element`: asset (string, fixed)
 - `meta`
-    - `class` (array, fixed)
+    - `classes` (array, fixed)
         - (enum[string])
             - messageBody - Asset is an example of message-body
             - messageBodySchema - Asset is an schema for message-body
@@ -216,7 +216,7 @@ transitions.
 
 - `element`: category (string, fixed)
 - `meta`
-    - `class` (array, fixed)
+    - `classes` (array, fixed)
         - (enum[string])
             - api - Category is a API top-level group.
             - resourceGroup - Category is a set of resource.
@@ -226,7 +226,7 @@ transitions.
 - `attributes`
     - `meta` (array[Member Element]) - Arbitrary metadata
 
-        Note the "class" of the Member Element can be used to distinguish the
+        Note the "classes" of the Member Element can be used to distinguish the
         source of metadata as follows:
 
         - Class `user` - User-specific metadata. Metadata written in the source.
@@ -240,7 +240,7 @@ transitions.
 {
     "element": "category",
     "meta": {
-        "class": [
+        "classes": [
             "api"
         ],
         "title": "Polls API"
@@ -250,7 +250,7 @@ transitions.
             {
               "element": "member",
               "meta": {
-                  "class": ["user"]
+                  "classes": ["user"]
               },
               "content": {
                   "key": {
@@ -269,7 +269,7 @@ transitions.
         {
             "element": "category",
             "meta": {
-                "class": [
+                "classes": [
                     "resourceGroup"
                 ],
                 "title": "Question",
@@ -376,7 +376,7 @@ message pair. A transaction example MUST contain exactly one HTTP request and on
                 {
                     "element": "asset",
                     "meta": {
-                        "class": "messageBody"
+                        "classes": ["messageBody"]
                     },
                     "attributes": {
                       "contentType": "application/json"
