@@ -34,7 +34,7 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
       - (object)
           - `id` - Unique Identifier, MUST be unique throughout the document
           - `ref` (Link) - Link to referenced element or type
-          - `class` (array[string]) - Array of classifications for given element
+          - `classes` (array[string]) - Array of classifications for given element
           - `prefix` (string) - Prefix in which element MAY be found
           - `namespaces` (array[Link]) - Include elements from given namespaces or prefix elements from given namespace
           - `title` (string) - Human-readable title of element
