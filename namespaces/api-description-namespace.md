@@ -96,7 +96,7 @@ The Resource representation with its available transitions and its data.
     - `href` (Templated Href) - URI Template of this resource.
     - `hrefVariables` (Href Variables) - Definition of URI Template variables used in the `href` property.
 - `content` (array)
-    - (Copy) - Textual information of the resource.
+    - (Copy) - Resource description's copy text.
     - (Transition) - State transition available for this resource.
 
         The `content` MAY include multiple `Transition` elements.
@@ -180,10 +180,8 @@ Note: At the moment only the HTTP protocol is supported.
 
     - `contentTypes` (array[String]) - A collection of content types that MAY be used for the transition.
 - `content` (array)
-    - (Copy) - Textual information of the transition.
+    - (Copy) - Transition description's copy text.
     - (HTTP Transaction) - An instance of transaction example.
-
-        The `content` MAY include multiple `HTTP Transaction` elements.
 
         Transaction examples are protocol-specific examples of a REST transaction
         that was initialized by exercising a transition.
@@ -351,7 +349,7 @@ message pair. A transaction example MUST contain exactly one HTTP request and on
 
 - `element`: httpTransaction (string, fixed)
 - `content` (array) - Request and response message pair (tuple).
-    - (Copy) - Textual information of the HTTP Transaction.
+    - (Copy) - HTTP Transaction description's copy text.
     - (HTTP Request Message)
 
         The `content` MUST include exactly one `HTTP Request Message` element.
@@ -441,7 +439,7 @@ of Data structure or assets.
 - `attributes`
     - `headers` (HTTP Headers)
 - `content` (array)
-    - (Copy) - Textual information of the payload.
+    - (Copy) - Payload description's copy text.
     - (Data Structure) - Data structure describing the payload.
 
         The `content` MUST NOT contain more than one `Data Structure`.
