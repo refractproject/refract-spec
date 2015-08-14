@@ -12,7 +12,7 @@ This document extends [Refract][] [Data Structure Namespace][] to define REST Re
         - [Href (string)](#href-string)
         - [Templated Href (string)](#templated-href-string)
         - [Href Variables (Object Type)](#href-variables-object-type)
-        - [Data Structure (Data Structure Element)](#data-structure-data-structure-element)
+        - [Data Structure (Element)](#data-structure-element)
         - [Asset (Element)](#asset-element)
     - [API Description Elements](#api-description-elements)
         - [Resource (Element)](#resource-element)
@@ -57,13 +57,14 @@ The definition is a Data Structure namespace `Object Type` where keys are respec
 
 - `element`: hrefVariables (string, fixed)
 
-### Data Structure (Data Structure Element)
+### Data Structure (Element)
 
 Data structure definition using Data Structure namespace elements.
 
 #### Properties
 
 - `element`: dataStructure (string, fixed)
+- `content` (Data Structure Element)
 
 ### Asset (Element)
 
@@ -95,6 +96,7 @@ The Resource representation with its available transitions and its data.
     - `href` (Templated Href) - URI Template of this resource.
     - `hrefVariables` (Href Variables) - Definition of URI Template variables used in the `href` property.
 - `content` (array)
+    - (Copy) - Resource description's copy text.
     - (Transition) - State transition available for this resource.
 
         The `content` MAY include multiple `Transition` elements.
@@ -177,13 +179,15 @@ Note: At the moment only the HTTP protocol is supported.
         Definition of any input message-body attribute for this transition.
 
     - `contentTypes` (array[String]) - A collection of content types that MAY be used for the transition.
-- `content` (array[HTTP Transaction]) - Array of transaction examples.
+- `content` (array)
+    - (Copy) - Transition description's copy text.
+    - (HTTP Transaction) - An instance of transaction example.
 
-    Transaction examples are protocol-specific examples of REST transaction
-    that was initialized by exercising a transition.
+        Transaction examples are protocol-specific examples of a REST transaction
+        that was initialized by exercising a transition.
 
-    For the time being this namespace defines only HTTP-specific transaction
-    data structures.
+        For the time being this namespace defines only HTTP-specific transaction
+        data structures.
 
 #### Example
 
@@ -194,7 +198,7 @@ Note: At the moment only the HTTP protocol is supported.
         "relation": "update",
         "href": "https://polls.apiblueprint.org/questions/{question_id}"
     },
-    "content": null
+    "content": []
 }
 ```
 
@@ -221,7 +225,7 @@ transitions.
             - api - Category is a API top-level group.
             - resourceGroup - Category is a set of resource.
             - dataStructures - Category is a set of data structures.
-            - scenario - Reserved. Category is set of steps.
+            - scenario - Category is set of steps.
             - transitions - Category is a group of transitions.
 - `attributes`
     - `meta` (array[Member Element]) - Arbitrary metadata
@@ -272,10 +276,14 @@ transitions.
                 "classes": [
                     "resourceGroup"
                 ],
-                "title": "Question",
-                "description": "Resources related to questions in the API."
+                "title": "Question"
             },
-            "content": []
+            "content": [
+                {
+                    "element": "copy",
+                    "content": "Resources related to questions in the API."
+                }
+            ]
         }
     ]
 }
@@ -287,11 +295,9 @@ Copy element represents a copy text. A textual information in API description.
 Its content is a string and it MAY include information about the media type
 of the copy's content.
 
-If an element contains a Copy element, the element's `description` metadata
-MAY include the Copy element's content.
-
-The Copy element MAY appear as a content of any element defined in the base
-namespaces.
+Unless specified otherwise, a copy element's content represents the
+description of it's parent element and SHOULD be used instead of parent
+element's description metadata.
 
 #### Properties
 
@@ -313,9 +319,6 @@ Given an API description with following layout:
 ```json
 {
     "element": "category",
-    "meta": {
-        "description": "Lorem Ipsum\nDolor Sit Amet"
-    },
     "content": [
         {
             "element": "copy",
@@ -345,13 +348,15 @@ message pair. A transaction example MUST contain exactly one HTTP request and on
 #### Properties
 
 - `element`: httpTransaction (string, fixed)
-- `content` (array, fixed) - Request response message pair (tuple).
+- `content` (array) - Request and response message pair (tuple).
+    - (Copy) - HTTP Transaction description's copy text.
+    - (HTTP Request Message)
 
-    The array MUST contain exactly two elements.
+        The `content` MUST include exactly one `HTTP Request Message` element.
 
-    - Elements
-        - (HTTP Request Message)
-        - (HTTP Response Message)
+    - (HTTP Response Message)
+
+        The `content` MUST include exactly one `HTTP Response Message` element.
 
 #### Example
 
@@ -365,7 +370,7 @@ message pair. A transaction example MUST contain exactly one HTTP request and on
                 "method": "GET",
                 "href": "https://polls.apiblueprint.org/questions/1"
             },
-            "content": null
+            "content": []
         },
         {
             "element": "httpResponse",
@@ -399,10 +404,7 @@ interpreted as HTTP header field-name as defined in [RFC 7230][].
 #### Properties
 
 - `element`: `httpHeaders`
-- `content` (array)
-    - (Element)
-        - `meta`
-            - `name` (string) - HTTP header field-name.
+- `content` (array[Member Element])
 
 #### Example
 
@@ -437,6 +439,7 @@ of Data structure or assets.
 - `attributes`
     - `headers` (HTTP Headers)
 - `content` (array)
+    - (Copy) - Payload description's copy text.
     - (Data Structure) - Data structure describing the payload.
 
         The `content` MUST NOT contain more than one `Data Structure`.
