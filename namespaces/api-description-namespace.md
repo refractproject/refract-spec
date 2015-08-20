@@ -398,9 +398,6 @@ message pair. A transaction example MUST contain exactly one HTTP request and on
 
 Ordered array of HTTP header-fields.
 
-The `name` meta attribute value of every element in the `content` SHOULD be
-interpreted as HTTP header field-name as defined in [RFC 7230][].
-
 #### Properties
 
 - `element`: `httpHeaders`
