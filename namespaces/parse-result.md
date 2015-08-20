@@ -3,7 +3,7 @@
 This document defines elements needed for holding the result of parsing
 (or other processing) API description documents.
 
-This document uses [API Namespace][].
+This document uses [API Description Namespace](api-description-namespace.md).
 
 ## Content
 
