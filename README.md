@@ -7,7 +7,7 @@ Refract is a recursive data structure for expressing complex structures, relatio
 - [Full Specification](refract-spec.md)
 - [Data Structure Namespace](namespaces/data-structure-namespace.md)
 - [API Description Namespace](namespaces/api-description-namespace.md)
-- [Parse Result Namespace](namespaces/parse-result.md)
+- [Parse Result Namespace](namespaces/parse-result-namespace.md)
 
 ## Version
 
