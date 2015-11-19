@@ -2,6 +2,8 @@
 
 This document extends [Refract][] [Data Structure Namespace][] to define REST Resource data structure elements.
 
+**Proposed media type**: `application/vnd.refract.api-description`
+
 ## Content
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
