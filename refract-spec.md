@@ -14,7 +14,13 @@ This document conforms to RFC 2119, which says:
 
 ## Media Type for Specification Format
 
-The proposed media type for this spec is `application/vnd.refract`. All namespaces defined within this project SHOULD append the name of the namespace to the base media type.
+The proposed media type for this spec are as follows.
+
+* `application/vnd.refract` for Full Refract
+* `application/vnd.compact-refract` for Compact Refract
+* `application/vnd.embedded-refract` for Embedded Refract
+
+All namespaces defined within this project SHOULD append the name of the namespace to these base media types separated by a period (i.e. `application/vnd.refract.custom-namespace`).
 
 ## Base Element
 
