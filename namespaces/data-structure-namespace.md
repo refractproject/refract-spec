@@ -2,6 +2,8 @@
 
 This document extends [Refract][] Specification with new element types necessary to build Data Structure Refract.
 
+**Proposed media type**: `application/vnd.refract.data-structure`
+
 ## Content
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->

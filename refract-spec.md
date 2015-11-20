@@ -12,6 +12,16 @@ This document conforms to RFC 2119, which says:
 
 [MSON](https://github.com/apiaryio/mson) is used throughout this document to describe and define data structures.
 
+## Media Type for Specification Format
+
+The proposed media type for this spec are as follows.
+
+* `application/vnd.refract` for Full Refract
+* `application/vnd.compact-refract` for Compact Refract
+* `application/vnd.embedded-refract` for Embedded Refract
+
+All namespaces defined within this project SHOULD append the name of the namespace to these base media types separated by a period (i.e. `application/vnd.refract.custom-namespace`).
+
 ## Base Element
 
 Refract provides a single structure for data, which will be referred to throughout this document as an element. All elements found in a Refract document SHOULD conform to the element structure as defined here.

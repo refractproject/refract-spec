@@ -5,6 +5,8 @@ This document defines elements needed for holding the result of parsing
 
 This document uses [API Description Namespace](api-description-namespace.md).
 
+**Proposed media type**: `application/vnd.refract.parse-result`
+
 ## Content
 
 <!-- TOC depth:3 withLinks:1 updateOnSave:0 -->
