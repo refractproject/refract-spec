@@ -43,10 +43,8 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
   - Members
       - (object)
           - `id` - Unique Identifier, MUST be unique throughout the document
-          - `ref` (Link) - Link to referenced element or type
+          - `ref` (Element Link) - Element Link to referenced element or type
           - `classes` (array[string]) - Array of classifications for given element
-          - `prefix` (string) - Prefix in which element MAY be found
-          - `namespaces` (array[Link]) - Include elements from given namespaces or prefix elements from given namespace
           - `title` (string) - Human-readable title of element
           - `description` (string) - Human-readable description of element
       - (array[Member Element])
@@ -84,50 +82,6 @@ An element MAY look like this, where `foo` is the element name, `id` is a meta a
   },
   "content": "bar"
 }
-```
-
-### Compact Format
-
-In addition to expressing Refract Elements as objects with `element`, `meta`, `attributes`, and `content` properties, these elements MUST be expressed as a tuple.
-
-#### Compact Element (array)
-
-The Compact Element is a tuple where each item has a specific meaning. The first item is the element name, the second is the meta attribute section, the third is the attribute section, and the fourth is the content section.
-
-##### Members
-
-- (string, required) - Name of the element
-- (enum, required) - Meta attributes of the element instance. See meta attributes above for full Refract representation
-    - (object)
-    - (array[Compact Element])
-- (enum, required) - Attributes of the element instance
-    - (object)
-    - (array[Compact Element])
-- (enum, required) - Element content with any of the following types
-  - (null)
-  - (string)
-  - (number)
-  - (boolean)
-  - (array)
-  - (object)
-  - (Compact Element)
-  - (array[Compact Element])
-
-##### Example
-
-Below is a Refract element `foo` that is expressed in the normal Refract representation.
-
-```json
-{
-  "element": "foo",
-  "content": "bar"
-}
-```
-
-This is how it would represented in the compact version.
-
-```json
-["foo", {}, {}, "bar"]
 ```
 
 ## Primitive Elements
@@ -345,7 +299,7 @@ The `ref` element MAY be used to reference elements in remote documents or eleme
 #### Properties
 
 - `element` ref (string, fixed)
-- `content` (Link, required)
+- `content` (Element Link, required)
 
 #### Examples
 
@@ -366,20 +320,6 @@ Elements MAY be referenced in remote or local documents.
 {
   "element": "ref",
   "content": "foo"
-}
-```
-
-##### Referencing Elements in Prefixed Namespace
-
-This references the element with the ID of `foo` in the prefixed namespace of `ns`.
-
-```json
-{
-  "element": "ref",
-  "content": {
-    "prefix": "ns",
-    "href": "foo"
-  }
 }
 ```
 
@@ -449,7 +389,7 @@ The resulting dereferenced array is:
 }
 ```
 
-### Link (enum)
+### Element Link (enum)
 
 A link is an object for providing URLs to local elements, prefixed elements, and remote elements or documents. The following rules apply.
 
@@ -457,7 +397,6 @@ A link is an object for providing URLs to local elements, prefixed elements, and
 1. When referencing remote elements, an absolute URL or relative URL MAY be used
 1. When a URL fragment exists in the URL given, it references the element with the matching `id` in the given namespace. The URL fragment MAY need to be URL decoded before making a match.
 1. When a URL fragment does not exist, the URL references the root element
-1. When the `prefix` is used, it references an element in a defined prefixed namespace
 1. When `path` is used, it references the given property of the referenced element
 1. When `path` is used in an element that includes the data of the link (such as with `ref`), the referenced path MAY need to be converted to a refract structure in order to be valid
 
@@ -465,38 +404,11 @@ A link is an object for providing URLs to local elements, prefixed elements, and
 
 - (string) - A URL to a namespace or an ID of an element in the current namespace
 - (object)  - A prefixed link
-    - `prefix` (string) - Prefix of namespace
-    - `href` (string, required) - URL or ID of element in prefixed namespace
+    - `href` (string, required) - URL or ID of element
     - `path` (enum) - Path of referenced element to transclude instead of element itself
         - meta - The meta data of the referenced element
         - attributes - The attributes of the referenced element
         - content - The content of the referenced element
-
-## Namespacing
-
-Namespaces provide a way to include element definitions and constraints into another document. The following rules and constraints apply to namespaces.
-
-1. If there is a conflict, the namespaced element defined or referenced last MUST take precedence
-1. Types defined within the local namespace MUST take precedence over referenced namespaces
-1. Prefixed namespaces are only accessible through using a prefix
-1. Namespaces apply to the element in which they are introduced and all child elements
-1. Namespaces MUST not include the elements nor the data in the elements referenced, but rather include the constraints and conditions around the types defined within that namespace
-
-### Example Using Both String and Object Namespace Elements
-
-This example shows a namespace being included by way of a string, and a prefixed namespace.
-
-```json
-{
-  "element": "foo",
-  "meta": {
-    "namespaces": [
-      "http://example.com/namespace1",
-      { "prefix": "ns2", "href": "http://example.com/namespace2" }
-    ]
-  }
-}
-```
 
 ## Extend and Select Elements
 
