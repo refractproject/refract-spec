@@ -155,7 +155,27 @@ This reads, "The location starts at the 5th character of the source file. It
 includes the 12 consequent characters including the starting one. Then it
 continues at the 21st character for another 12 characters."
 
+## Link Relations
+
+In addition to conforming to [RFC 5988][] for link relations per the [base
+specification](../refract-spec.md), there are also additional link relations
+available for parse results.
+
+### Origin Link Relation
+
+The `origin` link relation defines the origin of a given element. This link can
+point to specific tooling that was used to parse or generate a given element.
+
+### Inferred Link Relation
+
+The `inferred` link relation gives a hint to whether or not an element was
+inferred or whether it was found in the originating document. The presence of
+the `inferred` link tells the user that the element was created based on some
+varying assumptions, and the URL to which the link points MAY provide an
+explanation on how and why it was inferred.
+
 [MSON]: https://github.com/apiaryio/mson
 [API Namespace]: api-namespace.md
 
 [RFC 2119]: https://datatracker.ietf.org/doc/rfc2119/
+[RFC 5988]: https://tools.ietf.org/html/rfc5988
