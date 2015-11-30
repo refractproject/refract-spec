@@ -43,12 +43,13 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
   - Members
       - (object)
           - `id` - Unique Identifier, MUST be unique throughout the document
-          - `ref` (Link) - Link to referenced element or type
+          - `ref` (Element Pointer) - Pointer to referenced element or type
           - `classes` (array[string]) - Array of classifications for given element
           - `prefix` (string) - Prefix in which element MAY be found
-          - `namespaces` (array[Link]) - Include elements from given namespaces or prefix elements from given namespace
+          - `namespaces` (array[Element Pointer]) - Include elements from given namespaces or prefix elements from given namespace
           - `title` (string) - Human-readable title of element
           - `description` (string) - Human-readable description of element
+          - `links` (array[Link Element]) - Meta links for a given element
       - (array[Member Element])
 
 - `attributes` (enum)
@@ -334,9 +335,9 @@ A Member Element is any element with a key-value pair as the content. See [Objec
     - `key` (Element, required) - Key for the member
     - `value` (Element, optional) - Value for the member
 
-## Referencing and Linking
+## Referencing and Element Pointers
 
-These elements and definitions are provided as part of the base specification for the purpose of identifying, referencing, and linking to elements.
+These elements and definitions are provided as part of the base specification for the purpose of identifying, referencing, and pointing to elements and their respective meta, attributes, or content.
 
 ### Ref Element (Element)
 
@@ -345,7 +346,7 @@ The `ref` element MAY be used to reference elements in remote documents or eleme
 #### Properties
 
 - `element` ref (string, fixed)
-- `content` (Link, required)
+- `content` (Element Pointer, required) - Points to an element or an element's properties
 
 #### Examples
 
@@ -449,9 +450,9 @@ The resulting dereferenced array is:
 }
 ```
 
-### Link (enum)
+### Element Pointer (enum)
 
-A link is an object for providing URLs to local elements, prefixed elements, and remote elements or documents. The following rules apply.
+A pointer is an object for providing URLs to local elements, prefixed elements, and remote elements or documents. The following rules apply.
 
 1. When referencing an element in the local namespace, the `id` of the element MAY be used
 1. When referencing remote elements, an absolute URL or relative URL MAY be used
@@ -459,18 +460,43 @@ A link is an object for providing URLs to local elements, prefixed elements, and
 1. When a URL fragment does not exist, the URL references the root element
 1. When the `prefix` is used, it references an element in a defined prefixed namespace
 1. When `path` is used, it references the given property of the referenced element
-1. When `path` is used in an element that includes the data of the link (such as with `ref`), the referenced path MAY need to be converted to a refract structure in order to be valid
+1. When `path` is used in an element that includes the data of the pointer (such as with `ref`), the referenced path MAY need to be converted to a refract structure in order to be valid
 
 #### Members
 
 - (string) - A URL to a namespace or an ID of an element in the current namespace
-- (object)  - A prefixed link
+- (object)  - A prefixed element or an elements path
     - `prefix` (string) - Prefix of namespace
     - `href` (string, required) - URL or ID of element in prefixed namespace
     - `path` (enum) - Path of referenced element to transclude instead of element itself
         - meta - The meta data of the referenced element
         - attributes - The attributes of the referenced element
         - content - The content of the referenced element
+
+## Link Element (Element)
+
+Allow for providing hyperlinking within a Refract document.
+
+### Properties
+
+- `element`: link (string, fixed)
+- `attributes`
+    - `relation` (string) - Link relation type as specified in [RFC 5988](https://tools.ietf.org/html/rfc5988).
+    - `href` (string) - The URI for the given link
+
+### Example
+
+The following shows a link with the relation of `foo` and the URL of `/bar`.
+
+```json
+{
+  "element": "link",
+  "attributes": {
+    "relation": "foo",
+    "href": "/bar"
+  }
+}
+```
 
 ## Namespacing
 
