@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to the Refract project will be documented in this file.
 
+## [0.6.0] - 2015-12-15
+
+### Breaking
+
+#### API Description Namespace
+- Changed `href` in HTTP Request Message from type `Href` to `Templated Href`
+- Added `hrefVariables` as an attribute to HTTP Request Message.
+
+#### Parse Result Namespace
+- Added Origin Link Relation
+- Added Inferred Link Relation
+
 ## [0.4.0] - 2015-08-15
 
 ### Breaking
@@ -45,6 +57,7 @@ All notable changes to the Refract project will be documented in this file.
 [0.4.0]: https://github.com/refractproject/refract-spec/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/refractproject/refract-spec/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/refractproject/refract-spec/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/refractproject/refract-spec/tree/v0.1.0
 
 [RFC 0004]: https://github.com/refractproject/rfcs/blob/master/text/0004-clarify-api-namespace.md
 [RFC 0003]: https://github.com/refractproject/rfcs/blob/master/text/0003-class-rename.md
