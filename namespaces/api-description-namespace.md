@@ -163,7 +163,7 @@ Note: At the moment only the HTTP protocol is supported.
     - `href` (Templated Href) - The URI template for this transition.
 
         If present, the value of the `href` attribute SHOULD be used to resolve
-        target URI of the transition.
+        the target URI of the transition.
 
         If not set, the parent `resource` element `href` attribute SHOULD be
         used to resolve the target URI of the transition.
@@ -370,7 +370,21 @@ message pair. A transaction example MUST contain exactly one HTTP request and on
             "element": "httpRequest",
             "attributes": {
                 "method": "GET",
-                "href": "https://polls.apiblueprint.org/questions/1"
+                "href": "/questions/{question_id}",
+                "hrefVariables": {
+                    "element": "hrefVariables",
+                    "content": [
+                        {
+                            "element": "member",
+                            "content": {
+                                "key": {
+                                    "element": "string",
+                                    "content": "question_id"
+                                }
+                            }
+                        }
+                    ]
+                }
             },
             "content": []
         },
@@ -458,7 +472,23 @@ HTTP request message.
 - `element`: httpRequest (string, fixed)
 - `attributes`
     - `method` (string) - HTTP request method. The method value SHOULD be inherited from a parent transition if it is unset.
-    - `href` (Href) - A concrete URI for the request. The href SHOULD be inherited from a parent transition by expanding the href and hrefVariables if unset.
+    - `href` (Templated Href) - URI Template for this HTTP request.
+
+        If present, the value of the `href` attribute SHOULD be used to resolve
+        the target URI of the http request.
+
+        If not set, the `href` attribute which was used to resolve the target
+        URI of the parent transition SHOULD be used to resolve the URI of
+        the http request.
+
+    - `hrefVariables` (Href Variables) - Input parameters
+
+        Definition of any input URI path segments or URI query parameters for this transition.
+
+        If `href` and `hrefVariables` attributes aren't set, the `hrefVariables` attribute
+        which was used to resolve the input parameters of the parent transition SHOULD
+        be used to resolve the http request input parameters.
+
 
 ### HTTP Response Message (HTTP Message Payload)
 
