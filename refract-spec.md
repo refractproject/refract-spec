@@ -438,13 +438,13 @@ The following shows a link with the relation of `foo` and the URL of `/bar`.
 
 ## Profiles
 
-The primary means by which users can provide semantic definitions and other meta information is through a profile. A profile MAY provide semantic information about an element and its data, it MAY provide specific instructions about elements such as how inheritance should work or how elements should be processed, and it MAY be used to modify understanding of existing elements in other profiles. The usage is a profile is not limited to these descriptions, and SHOULD be left up to the profile author to define its use.
+The primary means by which users can provide semantic definitions and other meta information is through a profile. A profile MAY provide semantic information about an element and its data, it MAY provide specific instructions about elements such as how inheritance should work or how elements should be processed, and it MAY be used to modify understanding of existing elements in other profiles. The usage of a profile is not limited to these uses here, and SHOULD be left up to the profile author to define its use.
 
-To point to a profile, you MAY use the [profile link relation](https://www.ietf.org/rfc/rfc6906.txt) as a meta link in your root element or in any other element. Profile links may also be found outside of the document itself in places like the [HTTP Link Header](http://www.w3.org/wiki/LinkHeader).
+To point to a profile, you MAY use the [profile link relation](https://www.ietf.org/rfc/rfc6906.txt) as a meta link in your root element or in any other element. Profile links may also be found outside of the document itself in places like the [HTTP Link Header](http://www.w3.org/wiki/LinkHeader). Additionally, a profile link is not required in order to use the functionality a profile provides, as a media type MAY define the same things a profile.
 
 Below is an example of how a profile link is used as a meta link in Refract.
 
-```js
+```json
 {
   "element": "foo",
   "meta": {
@@ -462,7 +462,7 @@ Below is an example of how a profile link is used as a meta link in Refract.
 }
 ```
 
-The example shows a `foo` element with a `profile` link. This profile link informs the parser this particular element conforms to a specific profile.
+The example shows a `foo` element with a `profile` link. This profile link informs the parser this particular element is defined as part of the linked profile.
 
 ## Extend and Select Elements
 
