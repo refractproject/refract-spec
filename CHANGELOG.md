@@ -2,7 +2,11 @@
 All notable changes to the Refract project will be documented in this file.
 
 ## Unreleased changes
+
+### Breaking
+
 - Moved Compact Refract out of base specification
+- Removes the concept of namespaces and uses profiles instead
 
 ## [0.6.0] - 2015-12-15
 
