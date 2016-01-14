@@ -11,9 +11,13 @@ Refract is a recursive data structure for expressing complex structures, relatio
 
 ## Version
 
-**Current Version**: 0.6.0
+**Current Version**: 0.7.0
 
 **Note**: This specification is currently in development and may change before getting to a more stable 1.0 version. Please be mindful of this if using this production environments.
+
+## Serialization Formats
+
+- [Compact Refract](formats/compact-refract.md)
 
 ## Libraries
 
