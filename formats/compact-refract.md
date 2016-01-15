@@ -18,6 +18,13 @@ The Compact Element is a tuple where each item has a specific meaning. The
 first item is the element name, the second is the meta attribute section, the
 third is the attribute section, and the fourth is the content section.
 
+The downside of this format is that there is no way to distinguish between a
+normal array and a Compact Element. Because of this, in situations where there
+is ambiguity, the array SHOULD be treated as a normal array and handled
+accordingly. Ambiguity arises when an array is found in areas such as
+`attributes` or `content` and requires out-of-band information how to handle
+the array.
+
 #### Members
 
 - (string, required) - Name of the element
