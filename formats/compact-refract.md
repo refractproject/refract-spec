@@ -9,8 +9,6 @@ structures in a tuple, which resembles other formats like XML or Lisp.
 
 - [Refract Base
 Specification](https://github.com/refractproject/refract-spec/blob/master/refract-spec.md)
-  - Only Include
-    - Element Pointer
 
 ## Data Structures
 
@@ -23,7 +21,13 @@ third is the attribute section, and the fourth is the content section.
 #### Members
 
 - (string, required) - Name of the element
-- (Meta Attributes, required) - Meta attributes of the element instance.
+- (object, required) - Meta attributes of the element instance.
+  - `id` - Unique Identifier, MUST be unique throughout the document
+  - `ref` (Element Pointer) - Pointer to referenced element or type
+  - `classes` (array[string]) - Array of classifications for given element
+  - `title` (string) - Human-readable title of element
+  - `description` (string) - Human-readable description of element
+  - `links` (array[Link Element]) - Meta links for a given element
 - (object, required) - Attributes of the element instance
 - (enum, required) - Element content with any of the following types
   - (null)
@@ -34,33 +38,6 @@ third is the attribute section, and the fourth is the content section.
   - (object)
   - (Compact Element)
   - (array[Compact Element])
-
-## Meta Attributes
-
-The Meta Attributes are similar to those defined by the base specification,
-though the only difference is that Link Elements are of a different structure.
-
-### Members
-
-- `id` - Unique Identifier, MUST be unique throughout the document
-- `ref` (Element Pointer) - Pointer to referenced element or type
-- `classes` (array[string]) - Array of classifications for given element
-- `title` (string) - Human-readable title of element
-- `description` (string) - Human-readable description of element
-- `links` (array[Link Element]) - Meta links for a given element
-
-## Link Element (array)
-
-Allow for hyperlinking within a Refract document. Note that this Link Element
-is different than the Link Element in the base specification.
-
-### Members
-
-- link (string, fixed)
-- (Meta Attributes)
-- (object)
-  - relation (string) - Link relation type as specified in RFC 5988.
-  - href (string) - The URI for the given link
 
 ## Example
 
