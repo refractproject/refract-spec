@@ -87,50 +87,6 @@ An element MAY look like this, where `foo` is the element name, `id` is a meta a
 }
 ```
 
-### Compact Format
-
-In addition to expressing Refract Elements as objects with `element`, `meta`, `attributes`, and `content` properties, these elements MUST be expressed as a tuple.
-
-#### Compact Element (array)
-
-The Compact Element is a tuple where each item has a specific meaning. The first item is the element name, the second is the meta attribute section, the third is the attribute section, and the fourth is the content section.
-
-##### Members
-
-- (string, required) - Name of the element
-- (enum, required) - Meta attributes of the element instance. See meta attributes above for full Refract representation
-    - (object)
-    - (array[Compact Element])
-- (enum, required) - Attributes of the element instance
-    - (object)
-    - (array[Compact Element])
-- (enum, required) - Element content with any of the following types
-  - (null)
-  - (string)
-  - (number)
-  - (boolean)
-  - (array)
-  - (object)
-  - (Compact Element)
-  - (array[Compact Element])
-
-##### Example
-
-Below is a Refract element `foo` that is expressed in the normal Refract representation.
-
-```json
-{
-  "element": "foo",
-  "content": "bar"
-}
-```
-
-This is how it would represented in the compact version.
-
-```json
-["foo", {}, {}, "bar"]
-```
-
 ## Primitive Elements
 
 Primitive Elements extend upon the base Element to define elements based on the Primitive Types of Refract.
