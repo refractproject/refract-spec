@@ -1,178 +1,20 @@
-# Refract
+# API Elements
+API Elements is a structure for describing APIs and the complex data structures used within them. It also provides structures for defining parsing results for parsing API definitions from formats like API Blueprint and Swagger/OpenAPI Format.
 
-Refract is a recursive data structure for expressing complex structures, relationships, and metadata.
+## Specification
+[API Elements Specification](./API Elements Specification.md)
 
-## Documents
+The specification is built upon the [Refract][] format and is written using [MSON][].
 
-- [Full Specification](refract-spec.md)
-- [Data Structure Namespace](namespaces/data-structure-namespace.md)
-- [API Description Namespace](namespaces/api-description-namespace.md)
-- [Parse Result Namespace](namespaces/parse-result-namespace.md)
+## Contributing
+Feel free report problems or propose new ideas using the API Blueprint GitHub
+[issues][].
 
-## Version
+## License
+MIT License. See the [LICENSE](.LICENSE) file.
 
-**Current Version**: 0.6.0
+---
 
-**Note**: This specification is currently in development and may change before getting to a more stable 1.0 version. Please be mindful of this if using this production environments.
-
-## Serialization Formats
-
-- [Compact Refract](formats/compact-refract.md)
-
-## Libraries
-
-- [Minim (JavaScript)](https://github.com/smizell/minim)
-
-## About
-
-Refract is a structure for handling all sorts and kinds of data across all sorts and kinds of formats. That's a very general-purpose description for a general-purpose structure. To get an idea of what Refract does, we'll walk through some of its uses with some examples along the way.
-
-### As a way to annotate JSON
-
-Refract provides the ability to take a normal JSON structure and add a layer on top of it for the puprose of annotating and adding semantic data. Refract is not the first structure to try and tackle this task, though it does take a different approach. Instead of creating an entirely different structure to describe the data, Refract's approach is to expand the existing structure (we call it "refracting" a structure). Here is an example to show our point.
-
-Take the following simple JSON object.
-
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com"
-}
-```
-
-Using Refract, we can expand this out and add some human-readable titles and descriptions.
-
-```json
-{
-  "element": "object",
-  "content": [
-    {
-      "element": "member",
-      "meta": {
-        "title": "Name",
-        "description": "Name of a person"
-      },
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "name"
-        },
-        "value": {
-          "element": "string",
-          "content": "John Doe"
-        }
-      }
-    },
-    {
-      "element": "member",
-      "meta": {
-        "title": "Email",
-        "description": "Email address for the person"
-      },
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "email"
-        },
-        "value": {
-          "element": "string",
-          "content": "john@example.com"
-        }
-      }
-    }
-  ]
-}
-```
-
-We added some semantic data to the existing data, but we did so while retaining the semantic structure of the data with the `object` and `string` elements. **This means there is no semantic difference in the Refract structure and the original JSON structure**. It also means we can add extra semantics on top of these structural ones.
-
-Just some notes on Refract, the `meta` section shown here is reserved for Refract-specific properties for each element. These properties provide ways to address and link to data, add human-readable data as such, and even include namespaces of defined elements.
-
-### As a unifying structure
-
-If you have a keen eye, you may have noticed the similarities between the JSON example above and XML. XML has elements, attributes, and content. If you caught this and wanted to ask if we simply turned JSON into XML, you'd be asking a fair question.
-
-Refract is actually meant to provide these cross-format similarities. It means that a JSON structure may be refracted and converted to XML. It also means an XML document may be converted into Refract. This also goes for YAML, HTML, CSV, and many other formats. Refract is a way to unify these structures.
-
-Since we said we'd include examples, let's look at moving XML over into Refract.
-
-```xml
-<person name="John Doe" email="john@example.com">
-```
-
-This example in refracted form would look like this. Notice that we're using `attributes` instead of `meta` because `attributes` are free to be used.
-
-```json
-{
-  "element": "person",
-  "attributes": {
-    "name": "John Doe",
-    "email": "john@example.com"
-  }
-}
-```
-
-Because we can go back and forth between JSON, XML, and other formats, we are now free to use toolsets across formats. That means we could use XSLT to transform JSON documents.
-
-### As an infinitely recursive structure
-
-Refract can actually go a step further with our previous example and annotate attributes for a given element. Since the `attributes` object is just an object, we can refract it as such.
-
-```json
-{
-  "element": "person",
-  "attributes": [
-    {
-      "element": "member",
-      "meta": {
-        "title": "Name",
-        "description": "Name of a person"
-      },
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "name"
-        },
-        "value": {
-          "element": "string",
-          "content": "John Doe"
-        }
-      }
-    },
-    {
-      "element": "member",
-      "meta": {
-        "title": "Email",
-        "description": "Email address for the person"
-      },
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "email"
-        },
-        "value": {
-          "element": "string",
-          "content": "john@example.com"
-        }
-      }
-    }
-  ]
-}
-```
-
-This is a step XML cannot take inline—it does not allow attributes to have elements as their values. Refract is recursive, so this is no problem.
-
-### As a queryable structure
-
-Refract is meant to free you from the structure of your documents, similar to how XML does with things like XPATH or the DOM. It means we can now query JSON documents as if there was an underlying DOM, which **decouples our clients from our structure and our structure from our data**.
-
-### As a model for client libraries
-
-Lastly, Refract is meant to provide a model for client libraries. As mentioned, it decouples our clients from structure and data. It also means we only have to deal with one thing and that is an element. Elements can be of different types with different definitions, but only having one kind of thing to work great simplifies our client library's needs.
-
-## Authors
-
-- [Stephen Mizell](https://github.com/smizell)
-- [Mark Foster](https://github.com/fosrias)
-- [Zdenek Nemec](https://github.com/zdne)
-- [Daniel G. Taylor](https://github.com/danielgtaylor)
+[issues]: https://github.com/apiaryio/api-elements/issues
+[Refract]: https://github.com/refractproject/refract-spec
+[MSON]: https://github.com/apiaryio/mson
