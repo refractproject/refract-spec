@@ -20,7 +20,7 @@ The proposed media type for this spec are as follows.
 * `application/vnd.compact-refract` for Compact Refract
 * `application/vnd.embedded-refract` for Embedded Refract
 
-All namespaces defined within this project SHOULD append the name of the namespace to these base media types separated by a period (i.e. `application/vnd.refract.custom-namespace`).
+Any custom media type in this project SHOULD append the name of the profile to these base media types separated by a period (i.e. `application/vnd.refract.my-custom-type`).
 
 ## Base Element
 
@@ -45,8 +45,6 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
           - `id` - Unique Identifier, MUST be unique throughout the document
           - `ref` (Element Pointer) - Pointer to referenced element or type
           - `classes` (array[string]) - Array of classifications for given element
-          - `prefix` (string) - Prefix in which element MAY be found
-          - `namespaces` (array[Element Pointer]) - Include elements from given namespaces or prefix elements from given namespace
           - `title` (string) - Human-readable title of element
           - `description` (string) - Human-readable description of element
           - `links` (array[Link Element]) - Meta links for a given element
@@ -91,7 +89,7 @@ An element MAY look like this, where `foo` is the element name, `id` is a meta a
 
 Primitive Elements extend upon the base Element to define elements based on the Primitive Types of Refract.
 
-A Refract document MUST support each of these primitive elements. These elements MAY be extended or replaced based on namespaces provided in any root or parent element.
+A Refract document MUST support each of these primitive elements. These elements MAY be extended or replaced based on profiles provided, either by way of a profile link relation or other means such as HTTP Link Headers.
 
 ### Null Element (Element)
 
@@ -326,20 +324,6 @@ Elements MAY be referenced in remote or local documents.
 }
 ```
 
-##### Referencing Elements in Prefixed Namespace
-
-This references the element with the ID of `foo` in the prefixed namespace of `ns`.
-
-```json
-{
-  "element": "ref",
-  "content": {
-    "prefix": "ns",
-    "href": "foo"
-  }
-}
-```
-
 ##### Reference Parts of Elements
 
 Given an element instance of:
@@ -408,22 +392,20 @@ The resulting dereferenced array is:
 
 ### Element Pointer (enum)
 
-A pointer is an object for providing URLs to local elements, prefixed elements, and remote elements or documents. The following rules apply.
+A pointer is an object for providing URLs to local elements and remote elements or documents. The following rules apply.
 
-1. When referencing an element in the local namespace, the `id` of the element MAY be used
+1. When referencing an element in the local document, the `id` of the element MAY be used
 1. When referencing remote elements, an absolute URL or relative URL MAY be used
-1. When a URL fragment exists in the URL given, it references the element with the matching `id` in the given namespace. The URL fragment MAY need to be URL decoded before making a match.
+1. When a URL fragment exists in the URL given, it references the element with the matching `id` in the given document. The URL fragment MAY need to be URL decoded before making a match.
 1. When a URL fragment does not exist, the URL references the root element
-1. When the `prefix` is used, it references an element in a defined prefixed namespace
 1. When `path` is used, it references the given property of the referenced element
 1. When `path` is used in an element that includes the data of the pointer (such as with `ref`), the referenced path MAY need to be converted to a refract structure in order to be valid
 
 #### Members
 
-- (string) - A URL to a namespace or an ID of an element in the current namespace
-- (object)  - A prefixed element or an elements path
-    - `prefix` (string) - Prefix of namespace
-    - `href` (string, required) - URL or ID of element in prefixed namespace
+- (string) - A URL to an ID of an element in the current document
+- (object)  - The URL and path of the referenced element
+    - `href` (string, required) - URL or ID of element
     - `path` (enum) - Path of referenced element to transclude instead of element itself
         - meta - The meta data of the referenced element
         - attributes - The attributes of the referenced element
@@ -431,7 +413,7 @@ A pointer is an object for providing URLs to local elements, prefixed elements, 
 
 ## Link Element (Element)
 
-Allow for providing hyperlinking within a Refract document.
+Hyperlinking MAY be used to link to other resources, provide links to instructions on how to process a given element (by way of a profile or other means), and may be used to provide meta data about the element in which it's found. The meaning and purpose of the hyperlink is defined by the link relation according to [RFC 5988](https://tools.ietf.org/html/rfc5988).
 
 ### Properties
 
@@ -454,31 +436,33 @@ The following shows a link with the relation of `foo` and the URL of `/bar`.
 }
 ```
 
-## Namespacing
+## Profiles
 
-Namespaces provide a way to include element definitions and constraints into another document. The following rules and constraints apply to namespaces.
+The primary means by which users can provide semantic definitions and other meta information is through a profile. A profile MAY provide semantic information about an element and its data, it MAY provide specific instructions about elements such as how inheritance should work or how elements should be processed, and it MAY be used to modify understanding of existing elements in other profiles. The usage of a profile is not limited to these uses here, and SHOULD be left up to the profile author to define its use.
 
-1. If there is a conflict, the namespaced element defined or referenced last MUST take precedence
-1. Types defined within the local namespace MUST take precedence over referenced namespaces
-1. Prefixed namespaces are only accessible through using a prefix
-1. Namespaces apply to the element in which they are introduced and all child elements
-1. Namespaces MUST not include the elements nor the data in the elements referenced, but rather include the constraints and conditions around the types defined within that namespace
+To point to a profile, you MAY use the [profile link relation](https://www.ietf.org/rfc/rfc6906.txt) as a meta link in your root element or in any other element. Profile links may also be found outside of the document itself in places like the [HTTP Link Header](http://www.w3.org/wiki/LinkHeader). Additionally, a profile link is not required in order to use the functionality a profile provides, as a media type MAY define the same things a profile.
 
-### Example Using Both String and Object Namespace Elements
-
-This example shows a namespace being included by way of a string, and a prefixed namespace.
+Below is an example of how a profile link is used as a meta link in Refract.
 
 ```json
 {
   "element": "foo",
   "meta": {
-    "namespaces": [
-      "http://example.com/namespace1",
-      { "prefix": "ns2", "href": "http://example.com/namespace2" }
+    "links": [
+      {
+        "element": "link",
+        "attributes": {
+          "relation": "profile",
+          "href": "http://example.com/profiles/foo"
+        }
+      }
     ]
-  }
+  },
+  "content": "bar"
 }
 ```
+
+The example shows a `foo` element with a `profile` link. This profile link informs the parser this particular element is defined as part of the linked profile.
 
 ## Extend and Select Elements
 
@@ -490,7 +474,7 @@ Additionally, the `select` element is provided to give multiple possibilities fo
 
 The `extend` element provides a way to a way to multiply inherit one or more elements to form a new element. The `extend` element MUST NOT affect the original elements being extended, and MUST define a new instance of an element.
 
-The `extend` element MUST do a deep merge of the elements found in the `content`, but MUST NOT include the `id`, `namespaces` and `prefix` meta attributes from the content elements in the final element. Each element found in the `content` MUST derive from the same primitive element. The elements are merged from first to last.
+The `extend` element MUST do a deep merge of the elements found in the `content`, but MUST NOT include the `id` meta attribute from the content elements in the final element. Each element found in the `content` MUST derive from the same primitive element. The elements are merged from first to last.
 
 #### Properties
 
