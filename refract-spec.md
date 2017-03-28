@@ -390,7 +390,7 @@ The resulting dereferenced array is:
 }
 ```
 
-### Element Pointer (enum)
+### Element Pointer (Element)
 
 A pointer is an object for providing URLs to local elements and remote elements or documents. The following rules apply.
 
@@ -401,15 +401,16 @@ A pointer is an object for providing URLs to local elements and remote elements 
 1. When `path` is used, it references the given property of the referenced element
 1. When `path` is used in an element that includes the data of the pointer (such as with `ref`), the referenced path MAY need to be converted to a refract structure in order to be valid
 
-#### Members
+#### Properties
 
-- (string) - A URL to an ID of an element in the current document
-- (object)  - The URL and path of the referenced element
-    - `href` (string, required) - URL or ID of element
-    - `path` (enum) - Path of referenced element to transclude instead of element itself
+- element: elementPointer (string, fixed)
+- attributes
+    - `path` (enum[string]) - Path of referenced element to transclude instead of element itself
+        - element (default) - The complete referenced element
         - meta - The meta data of the referenced element
         - attributes - The attributes of the referenced element
         - content - The content of the referenced element
+- content (required, string) - A URL to an ID of an element in the current document
 
 ## Link Element (Element)
 
