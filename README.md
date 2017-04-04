@@ -106,61 +106,19 @@ This example in refracted form would look like this. Notice that we're using `at
 {
   "element": "person",
   "attributes": {
-    "name": "John Doe",
-    "email": "john@example.com"
+    "name": {
+      "element": "string",
+      "content": "John Doe"
+    },
+    "email": {
+      "element": "string",
+      "content": "john@example.com"
+    }
   }
 }
 ```
 
 Because we can go back and forth between JSON, XML, and other formats, we are now free to use toolsets across formats. That means we could use XSLT to transform JSON documents.
-
-### As an infinitely recursive structure
-
-Refract can actually go a step further with our previous example and annotate attributes for a given element. Since the `attributes` object is just an object, we can refract it as such.
-
-```json
-{
-  "element": "person",
-  "attributes": [
-    {
-      "element": "member",
-      "meta": {
-        "title": "Name",
-        "description": "Name of a person"
-      },
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "name"
-        },
-        "value": {
-          "element": "string",
-          "content": "John Doe"
-        }
-      }
-    },
-    {
-      "element": "member",
-      "meta": {
-        "title": "Email",
-        "description": "Email address for the person"
-      },
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "email"
-        },
-        "value": {
-          "element": "string",
-          "content": "john@example.com"
-        }
-      }
-    }
-  ]
-}
-```
-
-This is a step XML cannot take inline—it does not allow attributes to have elements as their values. Refract is recursive, so this is no problem.
 
 ### As a queryable structure
 
