@@ -17,7 +17,8 @@ Refract is a recursive data structure for expressing complex structures, relatio
 
 ## Serialization Formats
 
-- [Compact Refract](formats/compact-refract.md)
+- [JSON Refract](formats/json-refract.md)
+- [JSON Compact Refract](formats/json-compact-refract.md)
 
 ## Libraries
 
