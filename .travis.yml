@@ -1,0 +1,3 @@
+language: python
+install: pip install jsonschema-test
+script: jsonschema-test formats/json-refract-schema.json formats/json-refract-schema-tests.json

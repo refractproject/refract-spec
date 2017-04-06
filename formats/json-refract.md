@@ -117,7 +117,7 @@ An element is not required to have content.
 ```json
 {
   "element": "member",
-  "content: {
+  "content": {
     "key": {
       "element": "string",
       "content": "Name"
