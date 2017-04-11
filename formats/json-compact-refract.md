@@ -1,9 +1,10 @@
-# Compact Refract
+# JSON Compact Refract
 
-Compact Refract is a serialization format Refract for the purpose of removing a
-lot of the object keys that are repeated throughout the full serialization of
-Refract, as seen in the Refract specification. It also allows for expressing
-structures in a tuple, which resembles other formats like XML or Lisp.
+JSON Compact Refract is a serialization format Refract for the purpose of
+removing a lot of the object keys that are repeated throughout the full
+serialization of Refract, as seen in the Refract specification. It also allows
+for expressing structures in a tuple, which resembles other formats like XML or
+Lisp.
 
 ## Dependencies
 

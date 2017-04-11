@@ -1,0 +1,180 @@
+{
+  "oneOf": [
+    { "$ref": "#/definitions/element" }
+  ],
+  "definitions": {
+    "element": {
+      "title": "Element",
+      "type": "object",
+      "properties": {
+        "element": {
+          "type": "string"
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "id": { "$ref": "#/definitions/element" },
+            "title": { "$ref": "#/definitions/string-element" },
+            "description": { "$ref": "#/definitions/string-element" },
+            "ref": { "$ref": "#/definitions/element-pointer" },
+            "classes": { "$ref": "#/definitions/array-string-element" },
+            "links": { "$ref": "#/definitions/array-link-element" }
+          },
+          "additionalProperties": false
+        },
+        "attributes": {
+          "type": "object",
+          "patternProperties": {
+            "": {
+              "$ref": "#/definitions/element"
+            }
+          }
+        },
+        "content": {
+          "oneOf": [
+            {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null",
+                "array"
+              ],
+              "items": {
+                "$ref": "#/definitions/element"
+              }
+            },
+            {
+              "$ref": "#/definitions/element"
+            },
+            {
+              "$ref": "#/definitions/key-value-pair"
+            }
+          ]
+        }
+      },
+      "required": [
+        "element"
+      ],
+      "additionalProperties": false
+    },
+    "key-value-pair": {
+      "title": "Key Value Pair",
+      "type": "object",
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/element"
+        },
+        "value": {
+          "$ref": "#/definitions/element"
+        }
+      },
+      "required": ["key"],
+      "additionalProperties": false
+    },
+    "string-element": {
+      "title": "String Element",
+      "allOf": [
+        { "$ref": "#/definitions/element" },
+        {
+          "properties": {
+            "element": {
+              "enum": ["string"]
+            },
+            "content": {
+              "type": ["string"]
+            }
+          }
+        }
+      ]
+    },
+    "array-element": {
+      "title": "Array Element",
+      "allOf": [
+        { "$ref": "#/definitions/element" },
+        {
+          "properties": {
+            "element": {
+              "enum": ["array"]
+            },
+            "content": {
+              "type": ["array"]
+            }
+          }
+        }
+      ]
+    },
+    "array-string-element": {
+      "title": "Array Element of String Element",
+      "allOf": [
+        { "$ref": "#/definitions/array-element" },
+        {
+          "properties": {
+            "content": {
+              "items": { "$ref": "#/definitions/string-element" }
+            }
+          }
+        }
+      ]
+    },
+    "link-element": {
+      "title": "Link Element",
+      "allOf": [
+        { "$ref": "#/definitions/element" },
+        {
+          "properties": {
+            "element": {
+              "enum": ["link"]
+            }
+          }
+        }
+      ]
+    },
+    "array-link-element": {
+      "title": "Array Element of Link Element",
+      "allOf": [
+        { "$ref": "#/definitions/array-element" },
+        {
+          "properties": {
+            "content": {
+              "items": { "$ref": "#/definitions/link-element" }
+            }
+          }
+        }
+      ]
+    },
+    "element-pointer": {
+      "title": "Element Pointer",
+      "allOf": [
+        { "$ref": "#/definitions/element" },
+        {
+          "properties": {
+            "element": {
+              "enum": ["elementPointer"]
+            },
+            "content": {
+              "type": ["string"]
+            },
+            "attributes": {
+              "properties": {
+                "path": {
+                  "allOf": [
+                    { "$ref": "#/definitions/string-element" },
+                    {
+                      "properties": {
+                        "content": {
+                          "enum": ["element", "meta", "attributes", "content"]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "required": ["content"]
+        }
+      ]
+    }
+  }
+}

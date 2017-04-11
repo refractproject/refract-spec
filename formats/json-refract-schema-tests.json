@@ -1,0 +1,598 @@
+[
+  {
+    "description": "an element name",
+    "tests": [
+      {
+        "description": "with valid element name",
+        "data": {
+          "element": "string"
+        },
+        "valid": true
+      },
+      {
+        "description": "without an element name",
+        "data": {},
+        "valid": false
+      },
+      {
+        "description": "with an element name that is not a string",
+        "data": {
+          "element": null
+        },
+        "valid": false
+      }
+    ]
+  },
+  {
+    "description": "an element content",
+    "tests": [
+      {
+        "description": "without content",
+        "data": {
+          "element": "string"
+        },
+        "valid": true
+      },
+      {
+        "description": "with string content",
+        "data": {
+          "element": "string",
+          "content": "Hello World"
+        },
+        "valid": true
+      },
+      {
+        "description": "with number content",
+        "data": {
+          "element": "number",
+          "content": 1
+        },
+        "valid": true
+      },
+      {
+        "description": "with boolean content",
+        "data": {
+          "element": "boolean",
+          "content": true
+        },
+        "valid": true
+      },
+      {
+        "description": "with null content",
+        "data": {
+          "element": "null",
+          "content": null
+        },
+        "valid": true
+      },
+      {
+        "description": "with element content",
+        "data": {
+          "element": "custom",
+          "content": {
+            "element": "string"
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with array of element content",
+        "data": {
+          "element": "custom",
+          "content": [
+            {
+              "element": "string"
+            }
+          ]
+        },
+        "valid": true
+      },
+      {
+        "description": "with key value pair element content",
+        "data": {
+          "element": "custom",
+          "content": {
+            "key": {
+              "element": "string"
+            },
+            "value": {
+              "element": "string"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with array of non-element content",
+        "data": {
+          "element": "custom",
+          "content": [
+            "hello"
+          ]
+        },
+        "valid": false
+      },
+      {
+        "description": "with object as content",
+        "data": {
+          "element": "custom",
+          "content": {
+            "something": "value"
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with key value pair with additional properties element content",
+        "data": {
+          "element": "custom",
+          "content": {
+            "key": {
+              "element": "string"
+            },
+            "value": {
+              "element": "string"
+            },
+            "additional": "property"
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with key value pair without value element content",
+        "data": {
+          "element": "custom",
+          "content": {
+            "key": {
+              "element": "string"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with key value pair without key element content",
+        "data": {
+          "element": "custom",
+          "content": {
+            "value": {
+              "element": "string"
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with key value pair with key that is not an element content",
+        "data": {
+          "element": "custom",
+          "content": {
+            "key": {
+              "a": "bc"
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with key value pair with value that is not an element content",
+        "data": {
+          "element": "custom",
+          "content": {
+            "key": {
+              "element": "string"
+            },
+            "value": "test"
+          }
+        },
+        "valid": false
+      }
+    ]
+  },
+  {
+    "description": "an element meta",
+    "tests": [
+      {
+        "description": "with non-object meta",
+        "data": {
+          "element": "string",
+          "meta": null
+        },
+        "valid": false
+      },
+      {
+        "description": "with id metadata",
+        "data": {
+          "element": "string",
+          "meta": {
+            "id": {
+              "element": "string",
+              "content": "Name"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with non-element id metadata",
+        "data": {
+          "element": "string",
+          "meta": {
+            "id": "Name"
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with title metadata",
+        "data": {
+          "element": "string",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Doe"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with title metadata as non string element",
+        "data": {
+          "element": "string",
+          "meta": {
+            "title": {
+              "element": "number",
+              "content": 1
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with non-element title metadata",
+        "data": {
+          "element": "string",
+          "meta": {
+            "title": "Doe"
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with description metadata",
+        "data": {
+          "element": "string",
+          "meta": {
+            "description": {
+              "element": "string",
+              "content": "Doe"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with description metadata as non string element",
+        "data": {
+          "element": "string",
+          "meta": {
+            "description": {
+              "element": "number",
+              "content": 1
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with non-element description metadata",
+        "data": {
+          "element": "string",
+          "meta": {
+            "description": "Doe"
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with unknown meta key",
+        "data": {
+          "element": "string",
+          "meta": {
+            "something": {
+              "element": "string",
+              "content": "Name"
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with array element as classes",
+        "data": {
+          "element": "string",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "error"
+                }
+              ]
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with array element of non string element as classes",
+        "data": {
+          "element": "string",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "number"
+                }
+              ]
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with non array element as classes",
+        "data": {
+          "element": "string",
+          "meta": {
+            "classes": {
+              "element": "string"
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with an array as classes",
+        "data": {
+          "element": "string",
+          "meta": {
+            "classes": [
+              "api"
+            ]
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with array element as links",
+        "data": {
+          "element": "string",
+          "meta": {
+            "links": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "link"
+                }
+              ]
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with array element of non link element as links",
+        "data": {
+          "element": "string",
+          "meta": {
+            "links": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "number"
+                }
+              ]
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with non array element as links",
+        "data": {
+          "element": "string",
+          "meta": {
+            "links": {
+              "element": "string"
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with element pointer as ref",
+        "data": {
+          "element": "string",
+          "meta": {
+            "ref": {
+              "element": "elementPointer",
+              "content": "Thing"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with element pointer with element path as ref",
+        "data": {
+          "element": "string",
+          "meta": {
+            "ref": {
+              "element": "elementPointer",
+              "attributes": {
+                "path": {
+                  "element": "string",
+                  "content": "element"
+                }
+              },
+              "content": "Thing"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with element pointer with meta path as ref",
+        "data": {
+          "element": "string",
+          "meta": {
+            "ref": {
+              "element": "elementPointer",
+              "attributes": {
+                "path": {
+                  "element": "string",
+                  "content": "meta"
+                }
+              },
+              "content": "Thing"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with element pointer with attributes path as ref",
+        "data": {
+          "element": "string",
+          "meta": {
+            "ref": {
+              "element": "elementPointer",
+              "attributes": {
+                "path": {
+                  "element": "string",
+                  "content": "attributes"
+                }
+              },
+              "content": "Thing"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with element pointer with content path as ref",
+        "data": {
+          "element": "string",
+          "meta": {
+            "ref": {
+              "element": "elementPointer",
+              "attributes": {
+                "path": {
+                  "element": "string",
+                  "content": "content"
+                }
+              },
+              "content": "Thing"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with element pointer with invalid path as ref",
+        "data": {
+          "element": "string",
+          "meta": {
+            "ref": {
+              "element": "elementPointer",
+              "attributes": {
+                "path": {
+                  "element": "string",
+                  "content": "unknown"
+                }
+              },
+              "content": "Thing"
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with element pointer without content as ref",
+        "data": {
+          "element": "string",
+          "meta": {
+            "ref": {
+              "element": "elementPointer"
+            }
+          }
+        },
+        "valid": false
+      },
+      {
+        "description": "with non element pointer as ref",
+        "data": {
+          "element": "string",
+          "meta": {
+            "ref": {
+              "element": "string"
+            }
+          }
+        },
+        "valid": false
+      }
+    ]
+  },
+  {
+    "description": "an element attributes",
+    "tests": [
+      {
+        "description": "with non-object attributes",
+        "data": {
+          "element": "string",
+          "attributes": null
+        },
+        "valid": false
+      },
+      {
+        "description": "with attributes with element value",
+        "data": {
+          "element": "string",
+          "attributes": {
+            "name": {
+              "element": "string"
+            }
+          }
+        },
+        "valid": true
+      },
+      {
+        "description": "with attributes with non element value",
+        "data": {
+          "element": "string",
+          "attributes": {
+            "name": "string"
+          }
+        },
+        "valid": false
+      }
+    ]
+  },
+  {
+    "description": "an element",
+    "tests": [
+      {
+        "description": "with additional properties",
+        "data": {
+          "element": "string",
+          "additional": "properties"
+        },
+        "valid": false
+      }
+    ]
+  }
+]
