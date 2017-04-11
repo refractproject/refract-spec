@@ -356,6 +356,18 @@
         "valid": false
       },
       {
+        "description": "with an array as classes",
+        "data": {
+          "element": "string",
+          "meta": {
+            "classes": [
+              "api"
+            ]
+          }
+        },
+        "valid": false
+      },
+      {
         "description": "with array element as links",
         "data": {
           "element": "string",
