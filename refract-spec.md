@@ -36,27 +36,21 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
 
     The `element` property defines the name of element. It MUST be a string that references an element, which SHOULD be defined.
 
-- `meta` (enum)
+- `meta` (object)
 
     The `meta` property is a reserved object for Refract-specific values. When `meta` is an object, it MAY contain elements itself. The element definition SHOULD be used when interacting with `meta` and its properties and values.
 
-  - Members
-      - (object)
-          - `id` - Unique Identifier, MUST be unique throughout the document
-          - `ref` (Element Pointer) - Pointer to referenced element or type
-          - `classes` (array[string]) - Array of classifications for given element
-          - `title` (string) - Human-readable title of element
-          - `description` (string) - Human-readable description of element
-          - `links` (array[Link Element]) - Meta links for a given element
-      - (array[Member Element])
+  - Properties
+      - `id` - Unique Identifier, MUST be unique throughout the document
+      - `ref` (Element Pointer) - Pointer to referenced element or type
+      - `classes` (Array Element[String Element]) - Array of classifications for given element
+      - `title` (String Element) - Human-readable title of element
+      - `description` (String Element) - Human-readable description of element
+      - `links` (Array Element[Link Element]) - Meta links for a given element
 
-- `attributes` (enum)
+- `attributes` (object)
 
-    The `attributes` property defines attributes about the given instance of the element, as specified by the `element` property. When `attributes` is an object, it MAY contain elements itself. The element definition SHOULD be used when interacting with `attributes` and its properites and values.
-
-    - Members
-        - (object)
-        - (array[Member Element])
+    The `attributes` property defines attributes about the given instance of the element, as specified by the `element` property. `attributes` values MUST be elements themselves.
 
 - `content` (enum)
 
@@ -67,9 +61,9 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
         - (string)
         - (number)
         - (boolean)
-        - (array)
-        - (object)
+        - (array[Element])
         - (Element)
+        - (Key Value Pair)
 
 #### Example
 
@@ -79,7 +73,10 @@ An element MAY look like this, where `foo` is the element name, `id` is a meta a
 {
   "element": "foo",
   "meta": {
-    "id": "baz"
+    "id": {
+      "element": "string",
+      "content": "baz"
+    }
   },
   "content": "bar"
 }
@@ -239,7 +236,6 @@ A Object Element provides an element for Refract Object Types. When the content 
 
 - `element`: object (string, fixed)
 - `content` (enum)
-    - (object)
     - (array[Member Element])
     - (Extend Element)
     - (Select Element)
@@ -285,7 +281,7 @@ A Member Element is any element with a key-value pair as the content. See [Objec
 #### Properites
 
 - `element` member (string, fixed)
-- `content` (object)
+- `content` (Key Value Pair)
     - `key` (Element, required) - Key for the member
     - `value` (Element, optional) - Value for the member
 
@@ -405,7 +401,7 @@ A pointer is an object for providing URLs to local elements and remote elements 
 
 - element: elementPointer (string, fixed)
 - attributes
-    - `path` (enum[string]) - Path of referenced element to transclude instead of element itself
+    - `path` (enum[String Element]) - Path of referenced element to transclude instead of element itself
         - element (default) - The complete referenced element
         - meta - The meta data of the referenced element
         - attributes - The attributes of the referenced element
@@ -491,7 +487,10 @@ The `extend` element MUST do a deep merge of the elements found in the `content`
     {
       "element": "foo",
       "attributes": {
-        "baz": "bar"
+        "baz": {
+          "element": "string",
+          "content": "bar"
+        }
       },
       "content": "first"
     },
@@ -509,7 +508,10 @@ The value for this new element would be the following.
 {
   "element": "foo",
   "attributes": {
-    "baz": "bar"
+    "baz": {
+      "element": "string",
+      "content": "bar"
+    }
   },
   "content": "second"
 }
@@ -521,7 +523,10 @@ Elements MAY also be referenced when using extend. Here is an element defined an
 {
   "element": "foo",
   "meta": {
-    "id": "bar"
+    "id": {
+      "element": "string",
+      "content": "bar"
+    }
   },
   "content": "second"
 }
@@ -654,9 +659,17 @@ The element below is a string element with an ID of "foo."
 ```json
 {
   "element": "string",
-  "meta": { "id": "foo" },
+  "meta": {
+    "id": {
+      "element": "string",
+      "content": "foo"
+    }
+  },
   "attributes": {
-    "bar": "baz"
+    "bar": {
+      "element": "string",
+      "content": "baz"
+    }
   },
   "content": "Hello World"
 }
