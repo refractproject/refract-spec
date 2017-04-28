@@ -7,7 +7,8 @@ All notable changes to the Refract project will be documented in this file.
 
 - Moved Compact Refract out of base specification
 - Removes the concept of namespaces and uses profiles instead
-- `Element Pointer` has become an element itself instead of an enum.
+- `Ref Element` content is no longer an enum, instead the path is situated
+  under ref elements attributes.
 - An elements meta and attributes will SHOULD ALWAYS contain an object when
   there is a value. All objects values MUST be an element type. See
   [RFC14](https://github.com/refractproject/rfcs/blob/master/text/0014-meta-attributes-type.md)
