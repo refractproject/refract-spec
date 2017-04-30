@@ -17,12 +17,12 @@ array.
 
 - (string, required) - Name of the element
 - (object, nullable, required) - Meta attributes of the element instance
-    - `id` - Unique Identifier, MUST be unique throughout the document
+    - `id` (Element) - Unique Identifier, MUST be unique throughout the document
     - `ref` (Ref Element) - Pointer to referenced element or type
-    - `classes` (array[String Element]) - Array of classifications for given element
-    - `title` (string) - Human-readable title of element
-    - `description` (string) - Human-readable description of element
-    - `links` (array[Link Element]) - Meta links for a given element
+    - `classes` (Array Element[String Element]) - Array of classifications for given element
+    - `title` (String Element) - Human-readable title of element
+    - `description` (String Element) - Human-readable description of element
+    - `links` (Array Element[Link Element]) - Meta links for a given element
 - (object, nullable, required) - Attributes of the element instance
 - (enum, required) - Element content with any of the following types
     - Element
