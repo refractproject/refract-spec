@@ -419,7 +419,7 @@
           "element": "string",
           "meta": {
             "ref": {
-              "element": "elementPointer",
+              "element": "ref",
               "content": "Thing"
             }
           }
@@ -432,7 +432,7 @@
           "element": "string",
           "meta": {
             "ref": {
-              "element": "elementPointer",
+              "element": "ref",
               "attributes": {
                 "path": {
                   "element": "string",
@@ -451,7 +451,7 @@
           "element": "string",
           "meta": {
             "ref": {
-              "element": "elementPointer",
+              "element": "ref",
               "attributes": {
                 "path": {
                   "element": "string",
@@ -470,7 +470,7 @@
           "element": "string",
           "meta": {
             "ref": {
-              "element": "elementPointer",
+              "element": "ref",
               "attributes": {
                 "path": {
                   "element": "string",
@@ -489,7 +489,7 @@
           "element": "string",
           "meta": {
             "ref": {
-              "element": "elementPointer",
+              "element": "ref",
               "attributes": {
                 "path": {
                   "element": "string",
@@ -508,7 +508,7 @@
           "element": "string",
           "meta": {
             "ref": {
-              "element": "elementPointer",
+              "element": "ref",
               "attributes": {
                 "path": {
                   "element": "string",
@@ -527,7 +527,7 @@
           "element": "string",
           "meta": {
             "ref": {
-              "element": "elementPointer"
+              "element": "ref"
             }
           }
         },

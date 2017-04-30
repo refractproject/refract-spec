@@ -42,7 +42,7 @@ The Refract Element contains four properties: `element`, `meta`, `attributes`, a
 
   - Properties
       - `id` - Unique Identifier, MUST be unique throughout the document
-      - `ref` (Element Pointer) - Pointer to referenced element or type
+      - `ref` (Ref Element) - Pointer to referenced element or type
       - `classes` (Array Element[String Element]) - Array of classifications for given element
       - `title` (String Element) - Human-readable title of element
       - `description` (String Element) - Human-readable description of element
@@ -293,10 +293,25 @@ These elements and definitions are provided as part of the base specification fo
 
 The `ref` element MAY be used to reference elements in remote documents or elements in the local document. The `ref` element transcludes the contents of the element into the document in which it is referenced.
 
+A ref is an object for providing URLs to local elements and remote elements or documents. The following rules apply.
+
+1. When referencing an element in the local document, the `id` of the element MAY be used
+1. When referencing remote elements, an absolute URL or relative URL MAY be used
+1. When a URL fragment exists in the URL given, it references the element with the matching `id` in the given document. The URL fragment MAY need to be URL decoded before making a match.
+1. When a URL fragment does not exist, the URL references the root element
+1. When `path` is used, it references the given property of the referenced element
+1. When `path` is used in an element that includes the data of the pointer (such as with `ref`), the referenced path MAY need to be converted to a refract structure in order to be valid
+
 #### Properties
 
 - `element` ref (string, fixed)
-- `content` (Element Pointer, required) - Points to an element or an element's properties
+- attributes
+    - `path` (enum[String Element]) - Path of referenced element to transclude instead of element itself
+        - element (default) - The complete referenced element
+        - meta - The meta data of the referenced element
+        - attributes - The attributes of the referenced element
+        - content - The content of the referenced element
+- content (required, string) - A URL to an ID of an element in the current document
 
 #### Examples
 
@@ -355,10 +370,13 @@ And given an array where a reference is used as:
     },
     {
       "element": "ref",
-      "content": {
-        "href": "colors",
-        "path": "content"
-      }
+      "attributes": {
+        "path": {
+          "element": "string",
+          "content": "content"
+        }
+      },
+      "content": "colors"
     }
   ]
 }
@@ -385,28 +403,6 @@ The resulting dereferenced array is:
   ]
 }
 ```
-
-### Element Pointer (Element)
-
-A pointer is an object for providing URLs to local elements and remote elements or documents. The following rules apply.
-
-1. When referencing an element in the local document, the `id` of the element MAY be used
-1. When referencing remote elements, an absolute URL or relative URL MAY be used
-1. When a URL fragment exists in the URL given, it references the element with the matching `id` in the given document. The URL fragment MAY need to be URL decoded before making a match.
-1. When a URL fragment does not exist, the URL references the root element
-1. When `path` is used, it references the given property of the referenced element
-1. When `path` is used in an element that includes the data of the pointer (such as with `ref`), the referenced path MAY need to be converted to a refract structure in order to be valid
-
-#### Properties
-
-- element: elementPointer (string, fixed)
-- attributes
-    - `path` (enum[String Element]) - Path of referenced element to transclude instead of element itself
-        - element (default) - The complete referenced element
-        - meta - The meta data of the referenced element
-        - attributes - The attributes of the referenced element
-        - content - The content of the referenced element
-- content (required, string) - A URL to an ID of an element in the current document
 
 ## Link Element (Element)
 
