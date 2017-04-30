@@ -1,0 +1,10 @@
+{
+  "element": "string",
+  "attributes": {
+    "method": {
+      "element": "string",
+      "content": "GET"
+    }
+  },
+  "content": "/"
+}
