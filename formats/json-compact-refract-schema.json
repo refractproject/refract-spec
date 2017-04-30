@@ -18,7 +18,7 @@
             "id": { "$ref": "#/definitions/element" },
             "title": { "$ref": "#/definitions/string-element" },
             "description": { "$ref": "#/definitions/string-element" },
-            "ref": { "$ref": "#/definitions/element-pointer" },
+            "ref": { "$ref": "#/definitions/ref-element" },
             "classes": { "$ref": "#/definitions/array-string-element" },
             "links": { "$ref": "#/definitions/array-link-element" }
           },
@@ -126,13 +126,13 @@
         }
       ]
     },
-    "element-pointer": {
-      "title": "Element Pointer",
+    "ref-element": {
+      "title": "Ref Element",
       "allOf": [
         { "$ref": "#/definitions/element" },
         {
           "items": [
-            { "enum": ["elementPointer"] },
+            { "enum": ["ref"] },
             {},
             {
               "properties": {
