@@ -2,9 +2,16 @@ language: python
 install: pip install jsonschema-test
 script:
   - jsonschema-test formats/json-refract-schema.json formats/json-refract-schema-tests.json
+  - jsonschema-test formats/json-compact-refract-schema.json formats/json-compact-refract-schema-tests.json
   - jsonschema formats/json-refract-schema.json -i formats/examples/element.json
   - jsonschema formats/json-refract-schema.json -i formats/examples/element-element.json
   - jsonschema formats/json-refract-schema.json -i formats/examples/element-array.json
   - jsonschema formats/json-refract-schema.json -i formats/examples/element-kv.json
   - jsonschema formats/json-refract-schema.json -i formats/examples/element-meta-title.json
   - jsonschema formats/json-refract-schema.json -i formats/examples/element-attributes.json
+  - jsonschema formats/json-compact-refract-schema.json -i formats/examples/element.compact.json
+  - jsonschema formats/json-compact-refract-schema.json -i formats/examples/element-element.compact.json
+  - jsonschema formats/json-compact-refract-schema.json -i formats/examples/element-array.compact.json
+  - jsonschema formats/json-compact-refract-schema.json -i formats/examples/element-kv.compact.json
+  - jsonschema formats/json-compact-refract-schema.json -i formats/examples/element-meta-title.compact.json
+  - jsonschema formats/json-compact-refract-schema.json -i formats/examples/element-attributes.compact.json
