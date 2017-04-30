@@ -23,6 +23,7 @@ Refract is a recursive data structure for expressing complex structures, relatio
 ## Libraries
 
 - [Minim (JavaScript)](https://github.com/smizell/minim)
+- [Refract (Python)](https://github.com/kylef/refract.py)
 
 ## About
 
