@@ -6,67 +6,69 @@ serialization of Refract, as seen in the Refract specification. It also allows
 for expressing structures in a tuple, which resembles other formats like XML or
 Lisp.
 
-## Dependencies
+## Element (array)
 
-- [Refract Base
-Specification](https://github.com/refractproject/refract-spec/blob/master/refract-spec.md)
-
-## Data Structures
-
-### Compact Element (array)
-
-The Compact Element is a tuple where each item has a specific meaning. The
+The Element is a tuple where each item has a specific meaning. The
 first item is the element name, the second is the meta attribute section, the
 third is the attribute section, and the fourth is the content section.
 
-The downside of this format is that there is no way to distinguish between a
-normal array and a Compact Element. Because of this, in situations where there
-is ambiguity, the array SHOULD be treated as a normal array and handled
-accordingly. Ambiguity arises when an array is found in areas such as
-`attributes` or `content` and requires out-of-band information how to handle
-the array.
-
-#### Members
+A Refract element MUST be serialised as the following data structure as a JSON
+array.
 
 - (string, required) - Name of the element
-- (object, required) - Meta attributes of the element instance.
-  - `id` - Unique Identifier, MUST be unique throughout the document
-  - `ref` (Element Pointer) - Pointer to referenced element or type
-  - `classes` (array[string]) - Array of classifications for given element
-  - `title` (string) - Human-readable title of element
-  - `description` (string) - Human-readable description of element
-  - `links` (array[Link Element]) - Meta links for a given element
-- (object, required) - Attributes of the element instance
+- (object, nullable, required) - Meta attributes of the element instance
+    - `id` - Unique Identifier, MUST be unique throughout the document
+    - `ref` (Ref Element) - Pointer to referenced element or type
+    - `classes` (array[String Element]) - Array of classifications for given element
+    - `title` (string) - Human-readable title of element
+    - `description` (string) - Human-readable description of element
+    - `links` (array[Link Element]) - Meta links for a given element
+- (object, nullable, required) - Attributes of the element instance
 - (enum, required) - Element content with any of the following types
-  - (null)
-  - (string)
-  - (number)
-  - (boolean)
-  - (array)
-  - (object)
-  - (Compact Element)
-  - (array[Compact Element])
+    - Element
+    - array[Element]
+    - string
+    - boolean
+    - number
+    - null
+    - Key Value Pair
+
+## Key Value Pair (array)
+
+A Key Value Pair MUST be serialised a JSON array with the following values:
+
+- (string, fixed): pair
+- (Element, required) - Key
+- (Element, optional) - Value
 
 ## Example
 
-In the base specification, serialization looks something like this for JSON:
+If I have a String Element with the value `Hello` it would be serialised in
+JSON Compact Refract as:
 
 ```json
-{
-  "element": "foo",
-  "content": "bar"
-}
-```
-
-In Compact Refract, this same example looks like this:
-
-```json
-["foo", {}, {}, "bar"]
+["string", null, null, "Hello"]
 ```
 
 In this example, meta attributes and attributes are both required, even if the
 objects are empty. This is because this format relies on the structure of the
 array in order to determine values.
+
+If I attach a title meta attribute, the example would then be serialised as
+follows:
+
+```json
+[
+  "string",
+  {
+    "title": ["string", null, null, "My Title"]
+  },
+  null,
+  "Hello"
+]
+```
+
+See the [examples directory](examples/) for further examples.
 
 ## Pros and Cons
 
@@ -74,8 +76,5 @@ The benefits as mentioned are that this is a more concise format. In some
 cases, it may even be easier to write, or convert from other formats such as
 XML or Lisp.
 
-One downside of this format is that there is no simple way to distinguish a
-normal array from a Compact Refract array. This makes it hard to embed Refract
-within normal data structures, requiring that either the entire structure be
-converted to Compact Refract, or that the user relies on domain-specific
-information.
+One downside of this format is that it is less self-explanatory and harder to
+understand as a human.
