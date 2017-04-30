@@ -1,0 +1,7 @@
+{
+  "element": "item",
+  "content": {
+    "element": "string",
+    "content": "value"
+  }
+}

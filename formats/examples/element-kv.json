@@ -1,0 +1,13 @@
+{
+  "element": "member",
+  "content": {
+    "key": {
+      "element": "string",
+      "content": "Name"
+    },
+    "value": {
+      "element": "string",
+      "content": "Doe"
+    }
+  }
+}

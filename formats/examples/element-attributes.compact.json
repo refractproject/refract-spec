@@ -1,0 +1,8 @@
+[
+  "string",
+  null,
+  {
+    "method": ["string", null, null, "GET"]
+  },
+  "/"
+]
