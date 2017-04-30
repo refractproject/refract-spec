@@ -215,66 +215,66 @@
         "valid": false
       },
       {
-        "description": "with element pointer as ref",
+        "description": "with ref",
         "data": ["string", {
-          "ref": ["elementPointer", null, null, "thing"]
+          "ref": ["ref", null, null, "thing"]
         }, null, null],
         "valid": true
       },
       {
-        "description": "with element pointer with element path as ref",
+        "description": "with ref with element path as ref",
         "data": ["string", {
-          "ref": ["elementPointer", null, {
+          "ref": ["ref", null, {
             "path": ["string", null, null, "element"]
           }, "thing"]
         }, null, null],
         "valid": true
       },
       {
-        "description": "with element pointer with meta path as ref",
+        "description": "with ref with meta path as ref",
         "data": ["string", {
-          "ref": ["elementPointer", null, {
+          "ref": ["ref", null, {
             "path": ["string", null, null, "meta"]
           }, "thing"]
         }, null, null],
         "valid": true
       },
       {
-        "description": "with element pointer with attributes path as ref",
+        "description": "with ref with attributes path as ref",
         "data": ["string", {
-          "ref": ["elementPointer", null, {
+          "ref": ["ref", null, {
             "path": ["string", null, null, "attributes"]
           }, "thing"]
         }, null, null],
         "valid": true
       },
       {
-        "description": "with element pointer with content path as ref",
+        "description": "with ref with content path as ref",
         "data": ["string", {
-          "ref": ["elementPointer", null, {
+          "ref": ["ref", null, {
             "path": ["string", null, null, "content"]
           }, "thing"]
         }, null, null],
         "valid": true
       },
       {
-        "description": "with element pointer with invalid path as ref",
+        "description": "with ref with invalid path as ref",
         "data": ["string", {
-          "ref": ["elementPointer", null, {
+          "ref": ["ref", null, {
             "path": ["string", null, null, "unknown"]
           }, "thing"]
         }, null, null],
         "valid": false
       },
       {
-        "description": "with element pointer without content as ref",
+        "description": "with ref without content as ref",
         "data": ["string", {
-          "ref": ["elementPointer", null, null, null]
+          "ref": ["ref", null, null, null]
         }, null, null],
         "valid": false
       },
       {
-        "description": "with non element pointer as ref",
+        "description": "with non ref as ref",
         "data": ["string", {
           "ref": ["string", null, null, "hello"]
         }, null, null],
