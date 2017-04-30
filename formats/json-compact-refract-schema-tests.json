@@ -1,0 +1,317 @@
+[
+  {
+    "description": "an element name",
+    "tests": [
+      {
+        "description": "with valid element name",
+        "data": ["string", null, null, null],
+        "valid": true
+      },
+      {
+        "description": "without an element name",
+        "data": [],
+        "valid": false
+      },
+      {
+        "description": "with an element name that is not a string",
+        "data": [null, null, null, null],
+        "valid": false
+      }
+    ]
+  },
+  {
+    "description": "an element content",
+    "tests": [
+      {
+        "description": "without content",
+        "data": ["string", null, null],
+        "valid": false
+      },
+      {
+        "description": "with string content",
+        "data": ["string", null, null, "Hello World"],
+        "valid": true
+      },
+      {
+        "description": "with number content",
+        "data": ["number", null, null, 1],
+        "valid": true
+      },
+      {
+        "description": "with boolean content",
+        "data": ["boolean", null, null, true],
+        "valid": true
+      },
+      {
+        "description": "with null content",
+        "data": ["null", null, null, null],
+        "valid": true
+      },
+      {
+        "description": "with element content",
+        "data": ["custom", null, null, ["string", null, null, "Hello"]],
+        "valid": true
+      },
+      {
+        "description": "with array of element content",
+        "data": ["custom", null, null, [["string", null, null, "Hello"]]],
+        "valid": true
+      },
+      {
+        "description": "with key value pair element content",
+        "data": ["custom", null, null, [
+          "pair",
+          ["string", null, null, "key"],
+          ["string", null, null, "value"]
+        ]],
+        "valid": true
+      },
+      {
+        "description": "with array of non-element content",
+        "data": ["custom", null, null, ["hello"]],
+        "valid": false
+      },
+      {
+        "description": "with object as content",
+        "data": ["custom", null, null, {"something": "value"}],
+        "valid": false
+      },
+      {
+        "description": "with key value pair with additional properties element content",
+        "data": ["custom", null, null, ["pair",
+          ["string", null, null, ""],
+          ["string", null, null, ""],
+          ["additional", null, null, ""]
+        ]],
+        "valid": false
+      },
+      {
+        "description": "with key value pair without key element",
+        "data": ["custom", null, null, ["pair"]],
+        "valid": false
+      },
+      {
+        "description": "with key value pair with key that is not an element content",
+        "data": ["custom", null, null, ["pair",
+          "key",
+          ["string", null, null, ""]
+        ]],
+        "valid": false
+      },
+      {
+        "description": "with key value pair with value that is not an element content",
+        "data": ["custom", null, null, ["pair",
+          ["string", null, null, ""],
+          "value"
+        ]],
+        "valid": false
+      }
+    ]
+  },
+  {
+    "description": "an element meta",
+    "tests": [
+      {
+        "description": "with non-object meta",
+        "data": ["string", [], null, null],
+        "valid": false
+      },
+      {
+        "description": "with id metadata",
+        "data": ["string", {"id": ["string", null, null, "Name"]}, null, null],
+        "valid": true
+      },
+      {
+        "description": "with non-element id metadata",
+        "data": ["string", {"id": "Name"}, null, null],
+        "valid": false
+      },
+      {
+        "description": "with title metadata",
+        "data": ["string", {"title": ["string", null, null, "Doe"]}, null, null],
+        "valid": true
+      },
+      {
+        "description": "with title metadata as non string element",
+        "data": ["string", {"title": ["number", null, null, 1]}, null, null],
+        "valid": false
+      },
+      {
+        "description": "with non-element title metadata",
+        "data": ["string", {"title": "Doe"}, null, null],
+        "valid": false
+      },
+      {
+        "description": "with description metadata",
+        "data": ["string", {"description": ["string", null, null, "Doe"]}, null, null],
+        "valid": true
+      },
+      {
+        "description": "with description metadata as non string element",
+        "data": ["string", {"description": ["number", null, null, 1]}, null, null],
+        "valid": false
+      },
+      {
+        "description": "with non-element description metadata",
+        "data": ["string", {"description": "test"}, null, null],
+        "valid": false
+      },
+      {
+        "description": "with unknown meta key",
+        "data": ["string", {"something": ["string", null, null, "test"]}, null, null],
+        "valid": false
+      },
+      {
+        "description": "with array element as classes",
+        "data": ["string", {
+          "classes": ["array", null, null, [
+            ["string", null, null, "test"]
+          ]]
+        }, null, null],
+        "valid": true
+      },
+      {
+        "description": "with array element of non string element as classes",
+        "data": ["string", {
+          "classes": ["array", null, null, [
+            ["number", null, null, 1]
+          ]]
+        }, null, null],
+        "valid": false
+      },
+      {
+        "description": "with non array element as classes",
+        "data": ["string", {"classes": ["string", null, null, "Doe"]}, null, null],
+        "valid": false
+      },
+      {
+        "description": "with an array as classes",
+        "data": ["string", {"classes": ["api"]}, null, null],
+        "valid": false
+      },
+      {
+        "description": "with array element as links",
+        "data": ["string", {
+          "links": ["array", null, null, [
+            ["link", null, null, null]
+          ]]
+        }, null, null],
+        "valid": true
+      },
+      {
+        "description": "with array element of non link element as links",
+        "data": ["string", {
+          "links": ["array", null, null, [
+            ["number", null, null, 2]
+          ]]
+        }, null, null],
+        "valid": false
+      },
+      {
+        "description": "with non array element as links",
+        "data": ["string", {
+          "links": ["string", null, null, "hi"]
+        }, null, null],
+        "valid": false
+      },
+      {
+        "description": "with element pointer as ref",
+        "data": ["string", {
+          "ref": ["elementPointer", null, null, "thing"]
+        }, null, null],
+        "valid": true
+      },
+      {
+        "description": "with element pointer with element path as ref",
+        "data": ["string", {
+          "ref": ["elementPointer", null, {
+            "path": ["string", null, null, "element"]
+          }, "thing"]
+        }, null, null],
+        "valid": true
+      },
+      {
+        "description": "with element pointer with meta path as ref",
+        "data": ["string", {
+          "ref": ["elementPointer", null, {
+            "path": ["string", null, null, "meta"]
+          }, "thing"]
+        }, null, null],
+        "valid": true
+      },
+      {
+        "description": "with element pointer with attributes path as ref",
+        "data": ["string", {
+          "ref": ["elementPointer", null, {
+            "path": ["string", null, null, "attributes"]
+          }, "thing"]
+        }, null, null],
+        "valid": true
+      },
+      {
+        "description": "with element pointer with content path as ref",
+        "data": ["string", {
+          "ref": ["elementPointer", null, {
+            "path": ["string", null, null, "content"]
+          }, "thing"]
+        }, null, null],
+        "valid": true
+      },
+      {
+        "description": "with element pointer with invalid path as ref",
+        "data": ["string", {
+          "ref": ["elementPointer", null, {
+            "path": ["string", null, null, "unknown"]
+          }, "thing"]
+        }, null, null],
+        "valid": false
+      },
+      {
+        "description": "with element pointer without content as ref",
+        "data": ["string", {
+          "ref": ["elementPointer", null, null, null]
+        }, null, null],
+        "valid": false
+      },
+      {
+        "description": "with non element pointer as ref",
+        "data": ["string", {
+          "ref": ["string", null, null, "hello"]
+        }, null, null],
+        "valid": false
+      }
+    ]
+  },
+  {
+    "description": "an element attributes",
+    "tests": [
+      {
+        "description": "with non-object attributes",
+        "data": ["string", null, "attrs", ""],
+        "valid": false
+      },
+      {
+        "description": "with attributes with element value",
+        "data": ["string", null, {
+          "name": ["string", null, null, "Doe"]
+        }, ""],
+        "valid": true
+      },
+      {
+        "description": "with attributes with non element value",
+        "data": ["string", null, {"name": "string"}, ""],
+        "valid": false
+      }
+    ]
+  },
+  {
+    "description": "an element",
+    "tests": [
+      {
+        "description": "with additional items",
+        "data": ["string", null, null, "hello", null],
+        "valid": false
+      }
+    ]
+  }
+]

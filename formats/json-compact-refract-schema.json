@@ -1,0 +1,160 @@
+{
+  "oneOf": [
+    { "$ref": "#/definitions/element" }
+  ],
+  "definitions": {
+    "element": {
+      "title": "Element",
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": [
+        {
+          "type": "string"
+        },
+        {
+          "type": ["null", "object"],
+          "properties": {
+            "id": { "$ref": "#/definitions/element" },
+            "title": { "$ref": "#/definitions/string-element" },
+            "description": { "$ref": "#/definitions/string-element" },
+            "ref": { "$ref": "#/definitions/element-pointer" },
+            "classes": { "$ref": "#/definitions/array-string-element" },
+            "links": { "$ref": "#/definitions/array-link-element" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": ["null", "object"],
+          "patternProperties": {
+            "": { "$ref": "#/definitions/element" }
+          }
+        },
+        {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "number" },
+            { "type": "boolean" },
+            { "type": "null" },
+            { "$ref": "#/definitions/element" },
+            {
+              "type": "array",
+              "items": { "$ref": "#/definitions/element" }
+            },
+            { "$ref": "#/definitions/key-value-pair" }
+          ]
+        }
+      ]
+    },
+    "key-value-pair": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3,
+      "items": [
+        { "enum": ["pair"] },
+        { "$ref": "#/definitions/element" },
+        { "$ref": "#/definitions/element" }
+      ]
+    },
+    "string-element": {
+      "title": "String Element",
+      "allOf": [
+        { "$ref": "#/definitions/element" },
+        {
+          "items": [
+            { "enum": ["string"] },
+            {},
+            {},
+            { "type": "string" }
+          ]
+        }
+      ]
+    },
+    "array-element": {
+      "title": "Array Element",
+      "allOf": [
+        { "$ref": "#/definitions/element" },
+        {
+          "items": [
+            { "enum": ["array"] },
+            {},
+            {},
+            { "type": "array" }
+          ]
+        }
+      ]
+    },
+    "array-string-element": {
+      "title": "Array Element of String Element",
+      "allOf": [
+        { "$ref": "#/definitions/array-element" },
+        {
+          "items": [
+            {},
+            {},
+            {},
+            { "items": { "$ref": "#/definitions/string-element" } }
+          ]
+        }
+      ]
+    },
+    "link-element": {
+      "title": "Link Element",
+      "allOf": [
+        { "$ref": "#/definitions/element" },
+        {
+          "items": [
+            { "enum": ["link"] },
+            {},
+            {},
+            {}
+          ]
+        }
+      ]
+    },
+    "array-link-element": {
+      "title": "Array Element of Link Element",
+      "allOf": [
+        { "$ref": "#/definitions/array-element" },
+        {
+          "items": [
+            {},
+            {},
+            {},
+            { "items": { "$ref": "#/definitions/link-element" } }
+          ]
+        }
+      ]
+    },
+    "element-pointer": {
+      "title": "Element Pointer",
+      "allOf": [
+        { "$ref": "#/definitions/element" },
+        {
+          "items": [
+            { "enum": ["elementPointer"] },
+            {},
+            {
+              "properties": {
+                "path": {
+                  "allOf": [
+                    { "$ref": "#/definitions/string-element" },
+                    {
+                      "items": [
+                        {},
+                        {},
+                        {},
+                        { "enum": ["element", "meta", "attributes", "content"] }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            { "type": "string" }
+          ]
+        }
+      ]
+    }
+  }
+}
