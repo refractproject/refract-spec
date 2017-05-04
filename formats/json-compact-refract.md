@@ -33,13 +33,12 @@ array.
     - null
     - Key Value Pair
 
-## Key Value Pair (array)
+## Key Value Pair (object)
 
-A Key Value Pair MUST be serialised a JSON array with the following values:
+A Key Value Pair MUST be serialised as a JSON object with the following properties:
 
-- (string, fixed): pair
-- (Element, required) - Key
-- (Element, optional) - Value
+- key: (Element, required) - Key
+- value: (Element, optional) - Value
 
 ## Example
 
