@@ -2,9 +2,8 @@
   "member",
   null,
   null,
-  [
-    "pair",
-    ["string", null, null, "Name"],
-    ["string", null, null, "Doe"]
-  ]
+  {
+    "key": ["string", null, null, "Name"],
+    "value": ["string", null, null, "Doe"]
+  }
 ]

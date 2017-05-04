@@ -47,14 +47,18 @@
       ]
     },
     "key-value-pair": {
-      "type": "array",
-      "minItems": 2,
-      "maxItems": 3,
-      "items": [
-        { "enum": ["pair"] },
-        { "$ref": "#/definitions/element" },
-        { "$ref": "#/definitions/element" }
-      ]
+      "title": "Key Value Pair",
+      "type": "object",
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/element"
+        },
+        "value": {
+          "$ref": "#/definitions/element"
+        }
+      },
+      "required": ["key"],
+      "additionalProperties": false
     },
     "string-element": {
       "title": "String Element",

@@ -59,11 +59,10 @@
       },
       {
         "description": "with key value pair element content",
-        "data": ["custom", null, null, [
-          "pair",
-          ["string", null, null, "key"],
-          ["string", null, null, "value"]
-        ]],
+        "data": ["custom", null, null, {
+          "key": ["string", null, null, "key"],
+          "value": ["string", null, null, "value"]
+        }],
         "valid": true
       },
       {
@@ -78,32 +77,32 @@
       },
       {
         "description": "with key value pair with additional properties element content",
-        "data": ["custom", null, null, ["pair",
-          ["string", null, null, ""],
-          ["string", null, null, ""],
-          ["additional", null, null, ""]
-        ]],
+        "data": ["custom", null, null, {
+          "key": ["string", null, null, ""],
+          "value": ["string", null, null, ""],
+          "add": ["additional", null, null, ""]
+        }],
         "valid": false
       },
       {
         "description": "with key value pair without key element",
-        "data": ["custom", null, null, ["pair"]],
+        "data": ["custom", null, null, {}],
         "valid": false
       },
       {
         "description": "with key value pair with key that is not an element content",
-        "data": ["custom", null, null, ["pair",
-          "key",
-          ["string", null, null, ""]
-        ]],
+        "data": ["custom", null, null, {
+          "key": "key",
+          "value": ["string", null, null, ""]
+        }],
         "valid": false
       },
       {
         "description": "with key value pair with value that is not an element content",
-        "data": ["custom", null, null, ["pair",
-          ["string", null, null, ""],
-          "value"
-        ]],
+        "data": ["custom", null, null, {
+          "key": ["string", null, null, ""],
+          "value": "value"
+        }],
         "valid": false
       }
     ]
