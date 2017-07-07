@@ -144,3 +144,4 @@ Lastly, Refract is meant to provide a model for client libraries. As mentioned, 
 - [Mark Foster](https://github.com/fosrias)
 - [Zdenek Nemec](https://github.com/zdne)
 - [Daniel G. Taylor](https://github.com/danielgtaylor)
+- [Kyle Fuller](https://fuller.li)
