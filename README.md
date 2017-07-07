@@ -29,20 +29,16 @@ Refract is a recursive data structure for expressing complex structures, relatio
 
 Refract is a structure for handling all sorts and kinds of data across all sorts and kinds of formats. That's a very general-purpose description for a general-purpose structure. To get an idea of what Refract does, we'll walk through some of its uses with some examples along the way.
 
-### As a way to annotate JSON
+### As a way to annotate data
 
-Refract provides the ability to take a normal JSON structure and add a layer on top of it for the puprose of annotating and adding semantic data. Refract is not the first structure to try and tackle this task, though it does take a different approach. Instead of creating an entirely different structure to describe the data, Refract's approach is to expand the existing structure (we call it "refracting" a structure). Here is an example to show our point.
+Refract provides the ability to take data structures and add a layer on top of it for the purpose of annotating and adding semantic data. Refract is not the first structure to try and tackle this task, though it does take a different approach. Instead of creating an entirely different structure to describe the data, Refract's approach is to expand the existing structure (we call it "refracting" a structure). Here is an example to show our point.
 
-Take the following simple JSON object.
+Take the following simple object which contains a name and email.
 
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com"
-}
-```
+- name: John Doe
+- email: john@example.com
 
-Using Refract, we can expand this out and add some human-readable titles and descriptions.
+Using Refract, we can expand this out and add some human-readable titles and descriptions. As JSON that may look as follows:
 
 ```json
 {
@@ -51,8 +47,14 @@ Using Refract, we can expand this out and add some human-readable titles and des
     {
       "element": "member",
       "meta": {
-        "title": "Name",
-        "description": "Name of a person"
+        "title": {
+          "element": "string",
+          "content": "Name"
+        },
+        "description": {
+          "element": "string",
+          "content": "Name of a person"
+        }
       },
       "content": {
         "key": {
@@ -68,8 +70,14 @@ Using Refract, we can expand this out and add some human-readable titles and des
     {
       "element": "member",
       "meta": {
-        "title": "Email",
-        "description": "Email address for the person"
+        "title": {
+          "element": "string",
+          "content": "Email",
+        },
+        "description": {
+          "element": "string",
+          "content": "Email address for the person"
+        }
       },
       "content": {
         "key": {
@@ -88,7 +96,7 @@ Using Refract, we can expand this out and add some human-readable titles and des
 
 We added some semantic data to the existing data, but we did so while retaining the semantic structure of the data with the `object` and `string` elements. **This means there is no semantic difference in the Refract structure and the original JSON structure**. It also means we can add extra semantics on top of these structural ones.
 
-Just some notes on Refract, the `meta` section shown here is reserved for Refract-specific properties for each element. These properties provide ways to address and link to data, add human-readable data as such, and even include namespaces of defined elements.
+Just some notes on Refract, the `meta` section shown here is reserved for Refract-specific properties for each element. These properties provide ways to address and link to data, add human-readable data as such, and even include profile of defined elements.
 
 ### As a unifying structure
 
