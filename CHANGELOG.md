@@ -17,6 +17,7 @@ All notable changes to the Refract project will be documented in this file.
   directly. See
   [RFC15](https://github.com/refractproject/rfcs/blob/master/text/0015-full-serialisation.md)
   for more information.
+- Compact JSON Serialisation was removed.
 
 ## [0.6.0] - 2015-12-15
 
