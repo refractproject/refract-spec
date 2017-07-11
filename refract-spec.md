@@ -17,7 +17,6 @@ This document conforms to RFC 2119, which says:
 The proposed media type for this spec are as follows.
 
 * `application/vnd.refract` for Full Refract
-* `application/vnd.compact-refract` for Compact Refract
 * `application/vnd.embedded-refract` for Embedded Refract
 
 Any custom media type in this project SHOULD append the name of the profile to these base media types separated by a period (i.e. `application/vnd.refract.my-custom-type`).

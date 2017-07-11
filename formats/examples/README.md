@@ -7,7 +7,6 @@ This directory contains examples of serialise Refract elements.
 Examples are supplied for the following formats:
 
 - JSON Serialisation (`.json`)
-- Compact JSON Serialisation (`.compact.json`)
 
 ## Files
 
