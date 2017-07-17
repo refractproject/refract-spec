@@ -1,11 +1,10 @@
 # Changelog
 All notable changes to the Refract project will be documented in this file.
 
-## Unreleased changes
+## 1.0.0 - 2017-06-17
 
 ### Breaking
 
-- Moved Compact Refract out of base specification
 - Removes the concept of namespaces and uses profiles instead
 - `Ref Element` content is no longer an enum, instead the path is situated
   under ref elements attributes.
